@@ -1,0 +1,14 @@
+Hight quality 
+- 19 Floor tiles Size 48x48 px
+- 15 Wall tiles Size 48x48 px
+- 313 Coffee shop decorations 128x128 px
+  + transparent background.
+
+"On the sea-themed cafe."
+"Modern-themed cafe."
+"Animal-themed cafe."
+"Natural-themed cafe."
+
+!New update!
+- Adding decorative plants and trees to enhance the natural theme of the café.
+"Natural-themed cafe."
