@@ -45,15 +45,15 @@ public class Board : MonoBehaviour
 
     void InitBoard()
     {
-        float x = 1.3f;
-        float y = 1.8f;
+        float x = 1.28f;
+        float y = 1.75f;
 
         int rowCount = 5;
         int columnCount = 4;
 
         int cardIdx = 0;
 
-        for (int row = 0; row < rowCount; row++)
+        for (float row = -0.2f; row < rowCount-0.2f; row++)
         {
             for (int col = 0; col < columnCount; col++)
             {
