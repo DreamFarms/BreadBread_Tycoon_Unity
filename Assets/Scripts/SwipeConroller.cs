@@ -1,26 +1,83 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SwipeController : MonoBehaviour
+public class Controller : MonoBehaviour
 {
-
     private Vector2 touchBeganPos; // 터치 시작
     private Vector2 touchEndPos; // 터치 끝
-    private Vector2 touchDir; // 스와이프 방향
+    private bool isSwiping; // 스와이프 여부 확인
+    [SerializeField] private float minSwipeDis; // 최소 스와이프 거리
 
-    public void Swipe()
+    private void Update()
     {
-        // 화면을 터치하면
-        if(Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
+#if UNITY_EDITOR
+        HandleMouseInput();
+#else
+        Debug.Log("Iphone");
+#endif
+    }
 
-            if(touch.phase == TouchPhase.Began)
+    // mouse input
+    private void HandleMouseInput()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            touchBeganPos = Input.mousePosition;
+            isSwiping = true;
+        }
+        
+        if(Input.GetMouseButtonUp(0))
+        {
+            if(isSwiping)
             {
-                
+                touchEndPos = Input.mousePosition;
+                DetectSwipe();
+                isSwiping = false;
             }
         }
     }
-}
+
+    // 스와이프 감지
+    private void DetectSwipe()
+    {
+        Vector2 swipeDrection = touchEndPos - touchBeganPos; // 방향 = 끝 - 시작
+
+        if(swipeDrection.magnitude > minSwipeDis)
+        {
+            swipeDrection.Normalize(); // 정규화
+
+            // 좌우로 스와이프
+            if(Mathf.Abs(swipeDrection.x) > Mathf.Abs(swipeDrection.y))
+            {
+               if(swipeDrection.x > 0) // 오른쪽
+                {
+                    Debug.Log("swipe right");
+                    BerryPickerManager.Instance.MoveBerry();
+                }
+
+                else // 왼쪽
+                {
+                    Debug.Log("swipe left");
+                    BerryPickerManager.Instance.MoveBerry();
+                }
+            }
+            // 상하로 스와이프
+            else
+            {
+                if(swipeDrection.y > 0)
+                {
+                    Debug.Log("swipe up");
+                }
+                else
+                {
+                    Debug.Log("swipe down");
+                }
+            }
+        }
+
+
+    }
+ }
