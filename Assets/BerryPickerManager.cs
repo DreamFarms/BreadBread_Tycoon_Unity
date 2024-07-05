@@ -9,6 +9,11 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum SwipeDir
+{
+    RIGHT,
+    LEFT,
+}
 public class BerryInfo
 {
     private string name;
@@ -72,10 +77,10 @@ public class BerryPickerManager : MonoBehaviour
 
     private void Update()
     {
-        if(isSwipe)
-        {
-            MoveBerry();
-        }  
+        //if(isSwipe)
+        //{
+        //    MoveBerry();
+        //}  
     }
 
     // sprite 리스트 초기화
@@ -109,43 +114,40 @@ public class BerryPickerManager : MonoBehaviour
         }
     }
 
-    private bool isMove; // 
-    private bool isRight; // 좌우 구분
-    public void MoveBerry()
+    public void MoveBerry(SwipeDir dir)
     {
-        StartCoroutine(nameof(CoMoveBeryy));
-
-
-        // 스와이프 하면 좌우 판단에 따라서 tranform을 이동
-
-
-        // pivot이 배열을 초과하면
-        //if(pivot >= berries.Length)
-        //{
-        //    pivot = 0; // pivot 위치 초기화
-        //}
-
-
-
-
-        //pivot++; // 마지막에 pivot 위치 업데이트
-
-
+        StartCoroutine(nameof(CoMoveBeryy), dir);
     }
 
-    IEnumerator CoMoveBeryy()
+    IEnumerator CoMoveBeryy(SwipeDir dir) // RIGHT / LEFT
     {
-        float speed = 3f;
+        float speed = 5f;
         var target = berries[pivot];
 
-        while (target.GameObject.transform.localPosition.x > 0.15)
+        switch(dir)
         {
-            berries[pivot].GameObject.transform.Translate(Vector2.left * speed * Time.deltaTime);
-            yield return null;
+            case SwipeDir.RIGHT:
+                while (target.GameObject.transform.localPosition.x < 7.6)
+                {
+                    berries[pivot].GameObject.transform.Translate(Vector2.right * speed * Time.deltaTime);
+                    yield return null;
+                }
+                break;
+
+            case SwipeDir.LEFT:
+                while (target.GameObject.transform.localPosition.x > 0.15)
+                {
+                    berries[pivot].GameObject.transform.Translate(Vector2.left * speed * Time.deltaTime);
+                    yield return null;
+                }
+                break;
         }
+
 
         pivot++;
         isSwipe = false;
         
     }
+
+
 }

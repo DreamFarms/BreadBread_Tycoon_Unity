@@ -55,13 +55,13 @@ public class Controller : MonoBehaviour
                if(swipeDrection.x > 0) // 오른쪽
                 {
                     Debug.Log("swipe right");
-                    BerryPickerManager.Instance.MoveBerry();
+                    BerryPickerManager.Instance.MoveBerry(SwipeDir.RIGHT);
                 }
 
                 else // 왼쪽
                 {
                     Debug.Log("swipe left");
-                    BerryPickerManager.Instance.MoveBerry();
+                    BerryPickerManager.Instance.MoveBerry(SwipeDir.LEFT);
                 }
             }
             // 상하로 스와이프
