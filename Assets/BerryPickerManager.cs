@@ -65,15 +65,36 @@ public class BerryPickerManager : MonoBehaviour
     private int pivot = 0; // 제일 앞에 와있는 과일의 인덱스 저장하는 변수
 
     private Dictionary<string, Sprite> berryDictionary; // 딸기, 상한 딸기
+
+    // UI
+    [SerializeField] private GameObject rewordBgImg;
+
+    [SerializeField] private Image[] rewordItems;
+
+    private Dictionary<int, Sprite> rewordItemDic = new Dictionary<int, Sprite>();
+
     private void Start()
     {
+        rewordBgImg.SetActive(false);
+
         berries = new BerryInfo[transformArr.Length]; // 6 ( 0 ~ 5 )
+
+        SetRewordItemDic();
 
         InitBerrySprites();
         InitBerryArray();
         //ChangeSprite();
     }
 
+    private void SetRewordItemDic()
+    {
+        Sprite[] ingredientSprites = Resources.LoadAll<Sprite>("Ingredients");
+
+        for (int i = 0; i < ingredientSprites.Length; i++)
+        {
+            rewordItemDic.Add(i, ingredientSprites[i]);
+        }
+    }
 
     private void Update()
     {
@@ -181,6 +202,30 @@ public class BerryPickerManager : MonoBehaviour
             Debug.Log("틀렸습니다.");
         }
 
+    }
+
+    // 게임 끝
+    public void GameOver()
+    {
+        // 리워드 UI 나타내기
+        rewordBgImg.SetActive(true);
+
+        // 리워드 계산하기
+        EvaluateRewordItem();
+    }
+
+
+    // 리워드 할 아이템 판정 메서드
+    private void EvaluateRewordItem()
+    {
+        // 임시로 3번 반복 할 것
+        for(int i = 0; i < 3; i++)
+        {
+            int target = UnityEngine.Random.Range(0, rewordItemDic.Count);
+            rewordItems[i].transform.parent.gameObject.SetActive(true);
+            rewordItems[i].gameObject.SetActive(true);
+            rewordItems[i].GetComponent<Image>().sprite = rewordItemDic[target];
+        }
     }
 
 }
