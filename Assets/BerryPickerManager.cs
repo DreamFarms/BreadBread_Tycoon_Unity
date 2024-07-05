@@ -7,6 +7,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum SwipeDir
@@ -226,6 +227,11 @@ public class BerryPickerManager : MonoBehaviour
             rewordItems[i].gameObject.SetActive(true);
             rewordItems[i].GetComponent<Image>().sprite = rewordItemDic[target];
         }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("Game_BerryPicker");
     }
 
 }
