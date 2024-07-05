@@ -125,16 +125,17 @@ public class BerryPickerManager : MonoBehaviour
 
         // 과일 이동이 끝나면 제일 뒤로 이동해서, 새로운 과일을 지정 받음
         PickRandomBerry();
-
-
     }
 
+    private SwipeDir inpuedDir; // 어디로 이동했는지?
     IEnumerator CoMoveBeryy(SwipeDir dir) // RIGHT / LEFT
     {
         float speed = 5f;
         var target = berries[pivot];
 
         var originPosition = target.GameObject.transform.localPosition;
+
+        Evaluate(berries[pivot].GameObject.GetComponent<SpriteRenderer>().sprite.name, dir);
 
         switch (dir)
         {
@@ -164,5 +165,22 @@ public class BerryPickerManager : MonoBehaviour
         isSwipe = false;
     }
 
+    // 판정
+    private void Evaluate(string spriteName, SwipeDir dir)
+    {
+        if(spriteName == "SpoiledStrawberry" && dir == SwipeDir.RIGHT)
+        {
+            Debug.Log("상한 딸기가 오른쪽으로 감");
+        }
+        else if(spriteName == "Strawberry" && dir == SwipeDir.LEFT)
+        {
+            Debug.Log("싱싱한 딸기가 왼쪽으로 감");
+        }
+        else
+        {
+            Debug.Log("틀렸습니다.");
+        }
+
+    }
 
 }
