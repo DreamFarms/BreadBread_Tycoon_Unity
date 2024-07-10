@@ -2708,7 +2708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeoutSlider: {fileID: 694190190}
-  timeLimit: 2
+  timeLimit: 60
   timeoutText: {fileID: 1827060458}
 --- !u!1 &1769072452
 GameObject:

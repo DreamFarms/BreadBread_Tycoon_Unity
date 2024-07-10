@@ -56,12 +56,12 @@ public class BerryPickerManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private int min, max; // 랜덤 최소, 최대 범위. sprite 개수만큼 설정
+    private int min, max; // 랜덤 최소, 최대 범위. sprite 개수만큼 설정
     [SerializeField] private Transform[] transformArr; // 과일이 배치 될 위치 배열
 
-    private Sprite[] berrySprites;
+    private Sprite[] fruitsSprites;
 
-    private BerryInfo[] berries; // 과일 배열
+    private BerryInfo[] fruits; // 과일 배열
     private bool isSwipe; // true가 되면 과일 이동하기
     private int pivot = 0; // 제일 앞에 와있는 과일의 인덱스 저장하는 변수
 
@@ -74,17 +74,43 @@ public class BerryPickerManager : MonoBehaviour
 
     private Dictionary<int, Sprite> rewordItemDic = new Dictionary<int, Sprite>();
 
+    private (string, int)[] scores;
+
     private void Start()
     {
         rewordBgImg.SetActive(false);
 
-        berries = new BerryInfo[transformArr.Length]; // 6 ( 0 ~ 5 )
+        fruits = new BerryInfo[transformArr.Length]; // 6 ( 0 ~ 5 )
 
         SetRewordItemDic();
 
         InitBerrySprites();
+        min = 0;
+        max = fruitsSprites.Length;
+        scores = new (string, int)[(int)(fruitsSprites.Length/2)]; // [ (딸기, n개), (바나나, n개) ]
+        InitScores();
+
         InitBerryArray();
         //ChangeSprite();
+    }
+
+    private void InitScores()
+    {
+        int index = 0;
+        for (int i = 0; i < fruitsSprites.Length; i++)
+        {
+            
+            if(fruitsSprites[i].name.StartsWith("Spoiled"))
+            {
+                continue;
+            }
+            else
+            {
+                scores[index].Item1 = fruitsSprites[i].name;
+                scores[index].Item2 = 0;
+                index++;
+            }
+        }
     }
 
     private void SetRewordItemDic()
@@ -108,7 +134,7 @@ public class BerryPickerManager : MonoBehaviour
     // sprite 리스트 초기화
     private void InitBerrySprites()
     {
-         berrySprites = Resources.LoadAll<Sprite>("Fruites");
+         fruitsSprites = Resources.LoadAll<Sprite>("Fruits");
     }
 
     // 초기 베리 설정 단계
@@ -118,8 +144,8 @@ public class BerryPickerManager : MonoBehaviour
         {
             int randomValue = UnityEngine.Random.Range(min, max); // 0 또는 1을 뽑아서
             GameObject gameObject = transformArr[i].gameObject; 
-            gameObject.GetComponent<SpriteRenderer>().sprite = berrySprites[randomValue]; // 0번째 또는 1번째 스프라이트를 담는다.
-            berries[i] = new BerryInfo(name, gameObject); // sprite이름과 초기 위치로 과일 배열을 생성
+            gameObject.GetComponent<SpriteRenderer>().sprite = fruitsSprites[randomValue];
+            fruits[i] = new BerryInfo(name, gameObject); // sprite이름과 초기 위치로 과일 배열을 생성
         }
     }
 
@@ -127,9 +153,9 @@ public class BerryPickerManager : MonoBehaviour
     {
         int randomValue = UnityEngine.Random.Range(min, max); // 0 또는 1을 뽑아서
         GameObject gameObject = transformArr[transformArr.Length-1].gameObject; // 제일 마지막 위치
-        gameObject.GetComponent<SpriteRenderer>().sprite = berrySprites[randomValue];
+        gameObject.GetComponent<SpriteRenderer>().sprite = fruitsSprites[randomValue];
 
-        berries[transformArr.Length - 1] = new BerryInfo(name, gameObject); // sprite 이름과 초기 위치로 과일 배열을 생성
+        fruits[transformArr.Length - 1] = new BerryInfo(name, gameObject); // sprite 이름과 초기 위치로 과일 배열을 생성
     }
 
     // 베리 sprite 변경해서 한칸 앞으로 이동
@@ -137,7 +163,7 @@ public class BerryPickerManager : MonoBehaviour
     {
         for(int i = 0; i < transformArr.Length-1; i++)
         {
-            berries[i].GameObject.GetComponent<SpriteRenderer>().sprite = berries[i+1].GameObject.GetComponent<SpriteRenderer>().sprite;
+            fruits[i].GameObject.GetComponent<SpriteRenderer>().sprite = fruits[i+1].GameObject.GetComponent<SpriteRenderer>().sprite;
         }
     }
 
@@ -152,19 +178,19 @@ public class BerryPickerManager : MonoBehaviour
     private SwipeDir inpuedDir; // 어디로 이동했는지?
     IEnumerator CoMoveBeryy(SwipeDir dir) // RIGHT / LEFT
     {
-        float speed = 5f;
-        var target = berries[pivot];
+        float speed = 10f;
+        var target = fruits[pivot];
 
         var originPosition = target.GameObject.transform.localPosition;
 
-        Evaluate(berries[pivot].GameObject.GetComponent<SpriteRenderer>().sprite.name, dir);
+        Evaluate(fruits[pivot].GameObject.GetComponent<SpriteRenderer>().sprite.name, dir);
 
         switch (dir)
         {
             case SwipeDir.RIGHT:
                 while (target.GameObject.transform.localPosition.x < 7.6)
                 {
-                    berries[pivot].GameObject.transform.Translate(Vector2.right * speed * Time.deltaTime);
+                    fruits[pivot].GameObject.transform.Translate(Vector2.right * speed * Time.deltaTime);
                     yield return null;
                 }
                 break;
@@ -172,14 +198,14 @@ public class BerryPickerManager : MonoBehaviour
             case SwipeDir.LEFT:
                 while (target.GameObject.transform.localPosition.x > 0.15)
                 {
-                    berries[pivot].GameObject.transform.Translate(Vector2.left * speed * Time.deltaTime);
+                    fruits[pivot].GameObject.transform.Translate(Vector2.left * speed * Time.deltaTime);
                     yield return null;
                 }
                 break;
         }
 
         // dir방향으로 가있던 tranform 원위치
-        berries[pivot].GameObject.transform.localPosition = originPosition;
+        fruits[pivot].GameObject.transform.localPosition = originPosition;
 
         // sprite를 재정렬해서 모든 과일들이 트레일러 한 칸 앞으로 이동
         SortBerries();
