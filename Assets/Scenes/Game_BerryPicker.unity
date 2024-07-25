@@ -2663,8 +2663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 481b1a37399d202428a80a52a0695303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: 0
-  max: 2
   transformArr:
   - {fileID: 1206726442}
   - {fileID: 1895573996}
@@ -2708,7 +2706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeoutSlider: {fileID: 694190190}
-  timeLimit: 60
+  timeLimit: 5
   timeoutText: {fileID: 1827060458}
 --- !u!1 &1769072452
 GameObject:

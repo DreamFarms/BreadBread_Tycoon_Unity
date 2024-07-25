@@ -87,7 +87,7 @@ public class BerryPickerManager : MonoBehaviour
         InitBerrySprites();
         min = 0;
         max = fruitsSprites.Length;
-        scores = new (string, int)[(int)(fruitsSprites.Length/2)]; // [ (딸기, n개), (바나나, n개) ]
+        scores = new (string, int)[((int)(fruitsSprites.Length/2))+1]; // [ (딸기, n개), (바나나, n개) ] // 임시... 홀수라면? 어떡하지?
         InitScores();
 
         InitBerryArray();
