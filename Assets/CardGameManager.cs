@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CardGameManager : MonoBehaviour
 {
-    public static CardGameManager instance;
+    private static CardGameManager _instance;
+
+    public static CardGameManager Instance { get { return _instance; } }
 
     private List<Card> allCards = new List<Card>();
 
@@ -36,11 +39,16 @@ public class CardGameManager : MonoBehaviour
     private int totalMatched = 10; // 10쌍의 카드 찾아야..
     private int matchedsFound = 0; // 지금까지 몇쌍의 카드를 찾았는지?
 
+    public List<Sprite> cardSprites = new List<Sprite>(); // 보상 스프라이트
+    private Dictionary<Sprite, int> dicRewards = new Dictionary<Sprite, int>();
+    [SerializeField] private List<Image> rewordImages = new List<Image>(); // 보상 스프라이트를 담는 이미지
+    [SerializeField] private List<TMP_Text> rewordCountText = new List<TMP_Text>(); // 보상 스프라이트 개수
+
     private void Awake()
     {
-        if(instance == null)
+        if(_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
     }
 
@@ -86,7 +94,7 @@ public class CardGameManager : MonoBehaviour
             yield return null;
         }
         // 타임아웃 났으니 게임 오버임,,
-        GameOver(false);
+        GameOver(true);
     }
 
     private void GameOver(bool success)
@@ -98,6 +106,7 @@ public class CardGameManager : MonoBehaviour
 
             if (success)
             {
+                Invoke("ShowGameOverPanel", 1.0f);
 
             }
             else
@@ -105,15 +114,13 @@ public class CardGameManager : MonoBehaviour
 
             }
 
-            Invoke("ShowGameOverPanel", 2.0f);
         }
-
-
     }
 
     void ShowGameOverPanel()
     {
-        gameoverPanel.SetActive(true);
+        SettingRewardsAtUI(); // UI셋팅하고
+        gameoverPanel.SetActive(true); // UI 활성화
     }
 
     void FlipAllCards()
@@ -158,16 +165,18 @@ public class CardGameManager : MonoBehaviour
             card2.SetMatched();
 
             matchedsFound++;
-            
-            if(matchedsFound == totalMatched)
+
+            // 리워드 판정
+            GenerateReward();
+
+
+            if (matchedsFound == totalMatched)
             {
                 GameOver(true); // 성공적으로 게임이 끝났음을 노출
             }
         }
         else
         {
-            Debug.Log("different card");
-
             yield return new WaitForSeconds(1f);
             card1.FlipCard();
             card2.FlipCard();
@@ -176,14 +185,48 @@ public class CardGameManager : MonoBehaviour
 
         isFlipping = false;
 
-        // 카드 비교가 끝났으니
-        // 뒤집힌 카드 초기화
+        // 카드 비교가 끝났으니 뒤집힌 카드 초기화
         flippedCard = null;
     }
 
     public void Restart()
     {
         SceneManager.LoadScene("Game_Card");
+    }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene("Map");
+    }
+
+    // 리워드 하나를 랜덤으로 추가
+    private void GenerateReward()
+    {
+        int index = UnityEngine.Random.Range(0, cardSprites.Count);
+        if (dicRewards.ContainsKey(cardSprites[index])) // 리워드가 존재하면
+        {
+            int value = dicRewards[cardSprites[index]];
+            value++;
+            dicRewards[cardSprites[index]] = value;
+        }
+        else // 리워드가 존재하지 않으면
+        {
+            dicRewards.Add(cardSprites[index], 1);
+        }
+    }
+
+    // 게임이 끝나면 리워드 노출
+    private void SettingRewardsAtUI()
+    {
+        int index = 0;
+        foreach(var sprite in dicRewards.Keys)
+        {
+            rewordImages[index].sprite = sprite;
+            string s = dicRewards[sprite].ToString() + "개";
+            rewordCountText[index].text = s;
+            rewordImages[index].transform.parent.gameObject.SetActive(true);
+            index++;
+        }
     }
 
 }

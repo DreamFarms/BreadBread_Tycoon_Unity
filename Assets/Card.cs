@@ -68,7 +68,7 @@ public class Card : MonoBehaviour
     {
         if (!isFilpping && !isMatched && !isFilpped) // 뒤집히는 중도 아니고 매치 판정 중도 아니며 뒤집힌 상태도 아닐때만 뒤집기 진행
         {
-            CardGameManager.instance.CardClicked(this); // 내가 클릭되면 나를 뒤집어 주는 것은 card game manager
+            CardGameManager.Instance.CardClicked(this); // 내가 클릭되면 나를 뒤집어 주는 것은 card game manager
         }
     }
 }
