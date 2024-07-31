@@ -501,16 +501,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 2384985179793726968, guid: 5edaa36ee7a556c4bacd0f85311d94b9, type: 3}
   cardSprites:
-  - {fileID: -39401078, guid: 8bee22b2b14df3a4ebef57ee848c5c8b, type: 3}
-  - {fileID: 1459516092, guid: 8bee22b2b14df3a4ebef57ee848c5c8b, type: 3}
-  - {fileID: -851470698, guid: 8bee22b2b14df3a4ebef57ee848c5c8b, type: 3}
-  - {fileID: 790342414, guid: 8bee22b2b14df3a4ebef57ee848c5c8b, type: 3}
-  - {fileID: 2100789311, guid: 8bee22b2b14df3a4ebef57ee848c5c8b, type: 3}
-  - {fileID: -1831289047, guid: 8bee22b2b14df3a4ebef57ee848c5c8b, type: 3}
-  - {fileID: 944933553, guid: 99f46ed82e93d654481a90acfd2bd50a, type: 3}
-  - {fileID: 994044075, guid: 99f46ed82e93d654481a90acfd2bd50a, type: 3}
-  - {fileID: -609313350, guid: 99f46ed82e93d654481a90acfd2bd50a, type: 3}
-  - {fileID: 426011024, guid: 99f46ed82e93d654481a90acfd2bd50a, type: 3}
+  - {fileID: 21300000, guid: ded9d0f3c5519b646ba812415c85bab6, type: 3}
+  - {fileID: 21300000, guid: 016c4209b99c90045aae707eb18443ff, type: 3}
+  - {fileID: 21300000, guid: 33b66388b3587974a9bf017124c77cc5, type: 3}
+  - {fileID: 21300000, guid: 6565f21cd5d1b53489ac959c3cf69253, type: 3}
+  - {fileID: 21300000, guid: db6bc943364a90e47a26e2d6392dbed0, type: 3}
+  - {fileID: 21300000, guid: 820a55b2c30233d4cbae75f6223fdd01, type: 3}
+  - {fileID: 21300000, guid: bf4a62b786faef94597cd69ccd4e61cd, type: 3}
+  - {fileID: 21300000, guid: eeb6cfa315944f64a8d9e827fb77b488, type: 3}
+  - {fileID: 21300000, guid: 6fb6233d9d20fd045a2f0ee7eda7e07d, type: 3}
+  - {fileID: 21300000, guid: 10f0135a335e6bd46a29130690d9c62a, type: 3}
 --- !u!4 &425936401
 Transform:
   m_ObjectHideFlags: 0
@@ -2123,8 +2123,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1969007857}
+  - {fileID: 902076247}
+  - {fileID: 590783980}
   - {fileID: 425936401}
   - {fileID: 802183391}
   - {fileID: 1795129195}
-  - {fileID: 902076247}
-  - {fileID: 590783980}
