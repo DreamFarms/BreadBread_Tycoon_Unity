@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 885272727, guid: 4ba28106bfa9f0e4db387851fddbdda0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2718eec960372544dbff2346290c144a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardRenderer: {fileID: 8885005470614679850}
   animalSprite: {fileID: -1831289047, guid: 8bee22b2b14df3a4ebef57ee848c5c8b, type: 3}
-  backSprite: {fileID: 885272727, guid: 4ba28106bfa9f0e4db387851fddbdda0, type: 3}
+  backSprite: {fileID: 21300000, guid: 2718eec960372544dbff2346290c144a, type: 3}
+  cardId: 0
 --- !u!61 &8921693909586963878
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.125, y: 1.55}
+    oldSize: {x: 1.08, y: 1.49}
     newSize: {x: 4.5, y: 6.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
