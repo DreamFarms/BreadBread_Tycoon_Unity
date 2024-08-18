@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 // 버튼을 관리하고
 // 버튼 관련된 상호작용을 관리하는 클래스
-public class ButtonManager : MonoBehaviour
+public class Button_BJH : MonoBehaviour
 {
-    private static ButtonManager _instance;
-    public static ButtonManager Instance
+    private static Button_BJH _instance;
+    public static Button_BJH Instance
     { get { return _instance; } }
 
     private void Awake()

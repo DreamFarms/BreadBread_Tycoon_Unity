@@ -22,12 +22,12 @@ public class ButtonEvent : MonoBehaviour
         btn.onClick.AddListener(ChangeColor);
         btn.onClick.AddListener(OnClickOpenDescription);
 
-        ButtonManager.Instance.AddMenuBtn(gameObject);
+        Button_BJH.Instance.AddMenuBtn(gameObject);
     }
 
     private void ChangeColor()
     {
-        ButtonManager.Instance.ChangeButtonColor(gameObject);
+        Button_BJH.Instance.ChangeButtonColor(gameObject);
     }
 
     // 해당 메뉴를 클릭하면 설명이 노출됨
