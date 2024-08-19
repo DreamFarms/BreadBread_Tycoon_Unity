@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -37,19 +38,32 @@ public class UIManager : MonoBehaviour
     private List<GameObject> _needSideBtnUILIst = new List<GameObject>();
 
 
+    [Header("bake bread")]
+    public GameObject darkBGImage;
+
+
     private void Start()
     {
-        // 사이드 화살표가 필요한 UI들은 리스트에 추가
-        _needSideBtnUILIst.Add(selectedMenuImg);
+        if(SceneManager.GetActiveScene().name.Equals("Game_BakeBread"))
+        {
+            // bake bread
+            darkBGImage.SetActive(true);
+        }
+        else // 임시
+        {
+            // 사이드 화살표가 필요한 UI들은 리스트에 추가
+            _needSideBtnUILIst.Add(selectedMenuImg);
 
-        bg.enabled = false;
-        selectPlateMenuImg.SetActive(false);
-        breadInfoImgGroup.SetActive(false);
-        selectMenuCountingImg.SetActive(false);
-        sideDirectionArrowBtn.SetActive(false);
+            bg.enabled = false;
+            selectPlateMenuImg.SetActive(false);
+            breadInfoImgGroup.SetActive(false);
+            selectMenuCountingImg.SetActive(false);
+            sideDirectionArrowBtn.SetActive(false);
 
-        // 메뉴 설명 기본 문구 초기화
-        SetBasicMenuInfoText();
+            // 메뉴 설명 기본 문구 초기화
+            SetBasicMenuInfoText();
+        }
+
     }
 
     private void SetBasicMenuInfoText()

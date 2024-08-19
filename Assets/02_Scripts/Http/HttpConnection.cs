@@ -64,6 +64,8 @@ public class RewardSaveConnection
     private void OnGetComplete(DownloadHandler handler)
     {
         Debug.Log("¼º°ø");
+
+
     }
 
     private void OnGetFailed(DownloadHandler handler)

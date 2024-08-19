@@ -45,4 +45,9 @@ public class GameManager : MonoBehaviour
 
         return menuInfoList;
     }
+
+    public void SelectedBakeBread()
+    {
+
+    }
 }
