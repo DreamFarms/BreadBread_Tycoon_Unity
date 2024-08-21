@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -37,9 +38,13 @@ public class UIManager : MonoBehaviour
     // 사이드 화살표 버튼이 활성화되는 UI리스트
     private List<GameObject> _needSideBtnUILIst = new List<GameObject>();
 
-
     [Header("bake bread")]
-    public GameObject darkBGImage;
+    public GameObject blackBGImage;
+    public GameObject errorImage;
+    public string selectedBreadName;
+    public Slider thermometer;
+
+
 
 
     private void Start()
@@ -47,7 +52,16 @@ public class UIManager : MonoBehaviour
         if(SceneManager.GetActiveScene().name.Equals("Game_BakeBread"))
         {
             // bake bread
-            darkBGImage.SetActive(true);
+            blackBGImage.SetActive(true);
+
+            BlackBGImage blackBGImageComponent = blackBGImage.GetComponent<BlackBGImage>();
+            blackBGImageComponent.CloseButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map")); // 게임 나가야 함
+            blackBGImageComponent.nextButton.onClick.AddListener(() => GameObject.Find("BakeBreadConnection").GetComponent<BakeBreadConnection>().StartBakeBreadConnection()); // 통신 해야 함
+
+            errorImage.GetComponent<ErrorImage>().errorImageButton.onClick.AddListener(() => CloseUI(errorImage));
+            errorImage.SetActive(false);
+
+
         }
         else // 임시
         {
@@ -64,6 +78,23 @@ public class UIManager : MonoBehaviour
             SetBasicMenuInfoText();
         }
 
+    }
+
+    public void SetErrorImage(string text)
+    {
+        ErrorImage errorImageComponent = errorImage.GetComponent<ErrorImage>();
+        errorImageComponent.errorText.text = text;
+    }
+
+    public void SetErrorImage(string text, string buttonText)
+    {
+        ErrorImage errorImageComponent = errorImage.GetComponent<ErrorImage>();
+        errorImageComponent.errorText.text = text;
+        errorImageComponent.errorButtonText.text = buttonText;
+    }
+    private void CloseUI(GameObject target)
+    {
+        target.SetActive(false);
     }
 
     private void SetBasicMenuInfoText()
@@ -122,6 +153,11 @@ public class UIManager : MonoBehaviour
             targetUI.SetActive(false);
             _activeUIList.Remove(targetUI);
         }
+    }
+
+    public void OnSelectedBreadNameUpdate(Image image)
+    {
+        BakeBreadManager.Instance.selectedBreadName = image.sprite.name;
     }
 
 

@@ -6,7 +6,7 @@ Sprite:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Roll_Strawberry
+  m_Name: RollCake_Chocolate
   m_Rect:
     serializedVersion: 2
     x: 0
@@ -22,12 +22,12 @@ Sprite:
   m_AtlasName: 
   m_PackingTag: 
   m_RenderDataKey:
-    b6135766015766142b2c31e41abe157f: 21300000
+    b987a8b91abd948478857bc59a094a6b: 21300000
   m_AtlasTags: []
   m_SpriteAtlas: {fileID: 0}
   m_RD:
     serializedVersion: 3
-    texture: {fileID: 2800000, guid: b6135766015766142b2c31e41abe157f, type: 3}
+    texture: {fileID: 2800000, guid: b987a8b91abd948478857bc59a094a6b, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -118,7 +118,7 @@ Sprite:
     downscaleMultiplier: 1
   m_AtlasRD:
     serializedVersion: 3
-    texture: {fileID: 2800000, guid: b6135766015766142b2c31e41abe157f, type: 3}
+    texture: {fileID: 2800000, guid: b987a8b91abd948478857bc59a094a6b, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
