@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviour
     // 사이드 화살표 버튼이 활성화되는 UI리스트
     private List<GameObject> _needSideBtnUILIst = new List<GameObject>();
 
+    public Button mapButton;
+
     [Header("bake bread")]
     public GameObject blackBGImage;
     public GameObject errorImage;
@@ -73,6 +75,8 @@ public class UIManager : MonoBehaviour
             breadInfoImgGroup.SetActive(false);
             selectMenuCountingImg.SetActive(false);
             sideDirectionArrowBtn.SetActive(false);
+
+            mapButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map"));
 
             // 메뉴 설명 기본 문구 초기화
             SetBasicMenuInfoText();

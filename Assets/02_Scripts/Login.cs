@@ -39,7 +39,7 @@ public class Login : MonoBehaviour
         AudioManager.Instance.PlayBGM(BGM.Login);
         loginButton.onClick.AddListener(LoginRequest);
         alertImageGo.SetActive(false);
-        alertButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map"));
+        alertButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Main"));
     }
 
     private void LoginRequest()
