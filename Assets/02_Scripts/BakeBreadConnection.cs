@@ -91,7 +91,7 @@ public class BakeBreadConnection : MonoBehaviour
     public void StartBakeBreadConnection()
     {
         FoodCheckRequest request = new FoodCheckRequest();
-        request.nickname = "kny";
+        request.nickname = InfoManager.Instance.nickName;
         request.foodName = BakeBreadManager.Instance.selectedBreadName;
 
         string jsonData = JsonUtility.ToJson(request, true);
@@ -133,8 +133,9 @@ public class BakeBreadConnection : MonoBehaviour
                 BakeBreadManager.Instance.targetIngredientDic.Add(ingredientName, ingredientCount); // 빵 1개를 만들 때 필요한 재료 : 개수
             }
 
+            //BakeBreadManager.Instance.userIngredientDic.Clear();
             // 실제 유저가 가진 재료
-            foreach(var userIngredient in response.message.userRewards)
+            foreach (var userIngredient in response.message.userRewards)
             {
                 string rewardName = userIngredient.rewardName;
                 int rewardCount = userIngredient.rewardCount;

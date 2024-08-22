@@ -11,6 +11,7 @@ using static System.Net.WebRequestMethods;
 [System.Serializable]
 public class RewardSaveRequest
 {
+    public string nickname;
     public List<RewardInfo> rewards;
 }
 
@@ -44,6 +45,8 @@ public class RewardConnection : MonoBehaviour
         string url = "http://ec2-13-124-19-125.ap-northeast-2.compute.amazonaws.com:8081/api/v1/user/reward/save";
 
         RewardSaveRequest request = new RewardSaveRequest();
+        request.nickname = InfoManager.Instance.nickName;
+        Debug.Log(request.nickname);
         request.rewards = new List<RewardInfo>();
 
         // 리스트 초기화

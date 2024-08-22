@@ -230,6 +230,8 @@ public class CardGameManager : MonoBehaviour
             cardRewardDic.Add(sprite.name, dicRewards[sprite]); 
             index++;
         }
+
+        RewardConnection.Instance.RewardSaveRequest(cardRewardDic);
     }
 
 }

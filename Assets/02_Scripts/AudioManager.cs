@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum BGM
 {
+    Login,
     Main,
     Card,
     BerryPicker,
