@@ -6,7 +6,6 @@ using System.Threading;
 using TMPro;
 using Unity.Mathematics;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -81,6 +80,8 @@ public class BerryPickerManager : MonoBehaviour
     private (string, int)[] scores;
 
     private int totalCount;
+
+    public float moveSpeed;
 
     private void Start()
     {
@@ -189,7 +190,7 @@ public class BerryPickerManager : MonoBehaviour
     private SwipeDir inpuedDir; // 어디로 이동했는지?
     IEnumerator CoMoveBeryy(SwipeDir dir) // RIGHT / LEFT
     {
-        float speed = 10f;
+        float speed = moveSpeed;
         var target = fruits[pivot];
 
         var originPosition = target.GameObject.transform.localPosition;

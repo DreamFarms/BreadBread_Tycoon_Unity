@@ -39,6 +39,10 @@ public class InfoManager : MonoBehaviour
         if (!SceneManager.GetActiveScene().name.Equals("Main"))
         {
             timer -= Time.deltaTime;
+            if(timer <= 0)
+            {
+                timer = 0;
+            }
         }
     }
 }

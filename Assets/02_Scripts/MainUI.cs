@@ -12,9 +12,15 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TMP_Text cashText;
     [SerializeField] private TMP_Text timerText;
     private float initTimer;
+    private bool isClose;
+
+    [SerializeField] private GameObject endingUI;
+    [SerializeField] private UnityEngine.UI.Button endingButton;
 
     private void Start()
     {
+        endingButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Login"));
+        endingUI.SetActive(false);
         topUIGroup.SetActive(true);
         nicknameText.text = InfoManager.Instance.nickName;
         InfoManager.Instance.coin = 100;
@@ -25,6 +31,14 @@ public class MainUI : MonoBehaviour
         timerText.text = initTimer.ToString();
 
         StartCoroutine(CountDown());
+    }
+
+    private void Update()
+    {
+        if(isClose)
+        {
+            endingUI.SetActive(true);
+        }
     }
 
     private IEnumerator CountDown()
@@ -39,6 +53,7 @@ public class MainUI : MonoBehaviour
             yield return null;
         }
         timerText.text = "time over";
+        isClose = true;
     }
 
 }
