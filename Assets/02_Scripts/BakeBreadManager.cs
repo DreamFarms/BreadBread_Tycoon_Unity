@@ -49,6 +49,7 @@ public class BakeBreadManager : MonoBehaviour
     [SerializeField] private SpriteRenderer[] doughImage;
     [SerializeField] private Sprite[] doughSprite;
     [SerializeField] private int[] indexArray;
+    [SerializeField] private int bakedBreadCount;
 
 
 public bool isPlay;
@@ -87,14 +88,32 @@ public bool isPlay;
                     Debug.Log($"{hit.collider.gameObject.name} 을 클릭했습니다.");
                     if(hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name == "Dough03")
                     {
-                        Debug.Log("익은 도우를 클릭했습니다!");
-
                         int lastNum = int.Parse((hit.collider.gameObject.name[hit.collider.gameObject.name.Length - 1]).ToString());
                         indexArray[lastNum - 1] = 0;
                         doughImage[lastNum - 1].sprite = doughSprite[indexArray[lastNum - 1]];
+
                         int temp = indexArray[lastNum - 1];
                         temp++;
                         indexArray[lastNum - 1] = temp;
+
+                        // 빵 재료 차감해서 값 저장
+                        foreach(var target in targetIngredientDic)
+                        {
+                            string targetName = target.Key;
+                            int targetCount = target.Value;
+
+                            int remain = userIngredientDic[targetName] - targetCount;
+
+                            // 재료가 하나라도 부족하면 빵을 더이상 만들 수 없다.
+                            if(remain <= 0)
+                            {
+                                Debug.Log("소진 될 재료가 부족합니다.");
+                                isPlay = false; // 게임을 끝낸다.
+                                break;
+                            }
+
+                        }
+                        bakedBreadCount++;
                     }
                 }
             }
@@ -199,5 +218,14 @@ public bool isPlay;
 
         isPlay = false;
         Debug.Log("게임 끝");
+        Debug.Log($"총 구워진 빵의 개수를 {bakedBreadCount}입니다.");
+
+        // 통신
+        BakeBreadConnection connection = GameObject.Find("BakeBreadConnection").GetComponent<BakeBreadConnection>();
+        connection.EndBakeBread(selectedBreadName, userIngredientDic, bakedBreadCount);
+
+        // UI 호출
+
+
     }
 }

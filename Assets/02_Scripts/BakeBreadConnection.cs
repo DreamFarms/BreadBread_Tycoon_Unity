@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +44,36 @@ public class UserRewards
 }
 #endregion
 
+[Serializable]
+public class FoodUpdateRequest
+{
+    public string nickname;
+    public string foodName;
+    public List<FoodUpdateRemainingIngredients> remainingIngredients;
+    public int breadCount;
+}
+
+[Serializable]
+public class FoodUpdateRemainingIngredients
+{
+    public string ingredientName;
+    public int remainingQuantity;
+}
+
+[Serializable]
+public class FoodUpdateResponse
+{
+    public string resultCode;
+    public FoodUpdateResponseMessage message;
+}
+
+[Serializable]
+public class FoodUpdateResponseMessage
+{
+    public DateTime saveTime;
+    public bool saved;
+}
+
 public class BakeBreadConnection : MonoBehaviour
 {
     private void Update()
@@ -54,6 +85,7 @@ public class BakeBreadConnection : MonoBehaviour
 
     }
 
+    #region 빵 만들기 전 통신
     // 임시로 유저 저장 통신 후
     // 빵 임의로 만들기 통신 시작
     public void StartBakeBreadConnection()
@@ -123,5 +155,49 @@ public class BakeBreadConnection : MonoBehaviour
     public void OnFailed(DownloadHandler result)
     {
         Debug.Log("실패했습니다.");
+    }
+    #endregion
+
+    public void EndBakeBread(string selectedBreadName, Dictionary<string, int> remainIngredientDic, int bakedBreadCount)
+    {
+        FoodUpdateRequest request = new FoodUpdateRequest();
+
+        // 임시
+        request.nickname = "kny";
+        request.foodName = selectedBreadName;
+
+        request.remainingIngredients = new List<FoodUpdateRemainingIngredients>(); // 초기화
+        foreach (var item in remainIngredientDic)
+        {
+            FoodUpdateRemainingIngredients remain = new FoodUpdateRemainingIngredients();
+            remain.ingredientName = item.Key;
+            remain.remainingQuantity = item.Value;
+            Debug.Log(remain.ingredientName + "  " + remain.remainingQuantity);
+            request.remainingIngredients.Add(remain);
+        }
+
+        request.breadCount = bakedBreadCount;
+
+        string json = JsonUtility.ToJson(request);
+
+        string url = "http://ec2-13-124-19-125.ap-northeast-2.compute.amazonaws.com:8081/api/v1/food/update";
+        HttpRequester requester = new HttpRequester(RequestType.POST, url, json);
+        requester.onComplete = OnCompleteFoodUpdate;
+        requester.onFailed = OnFailedFoodUpdate;
+
+        HttpManager.Instance.SendRequest(requester);
+
+    }
+
+    public void OnCompleteFoodUpdate(DownloadHandler result)
+    {
+        Debug.Log("음식 업데이트 통신을 완료했습니다.");
+        FoodUpdateResponse response = JsonUtility.FromJson<FoodUpdateResponse>(result.text);
+        Debug.Log($"result code : {response.resultCode}, save time : {response.message.saveTime}, is save : {response.message.saved}");
+    }
+
+    public void OnFailedFoodUpdate(DownloadHandler result)
+    {
+        Debug.Log("음식 업데이트 통신 실패");
     }
 }
