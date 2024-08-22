@@ -59,15 +59,14 @@ public class BakeBreadManager : MonoBehaviour
     [SerializeField] private TMP_Text rewordCountText;
     [SerializeField] private CustomButton rewordCheckButton;
 
-
-
-
-
-
     public bool isPlay;
+
+
 
     private void Start()
     {
+        AudioManager.Instance.PlayBGM(BGM.BakeBread);
+
         fan02.SetActive(false);
         rewordGO.SetActive(false);
         rewordCountText.text = "0";
@@ -122,7 +121,7 @@ public class BakeBreadManager : MonoBehaviour
                             int remain = userIngredientDic[targetName] - targetCount;
 
                             // 재료가 하나라도 부족하면 빵을 더이상 만들 수 없다.
-                            if(remain <= 0)
+                            if(remain < 0)
                             {
                                 Debug.Log("소진 될 재료가 부족합니다.");
                                 isPlay = false; // 게임을 끝낸다.

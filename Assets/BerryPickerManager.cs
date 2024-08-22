@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEditorInternal;
@@ -68,17 +69,24 @@ public class BerryPickerManager : MonoBehaviour
     private Dictionary<string, Sprite> berryDictionary; // 딸기, 상한 딸기
 
     // UI
-    [SerializeField] private GameObject rewordBgImg;
+    [SerializeField] private GameObject rewardBGImageGO;
 
-    [SerializeField] private Image[] rewordItems;
+    [SerializeField] private Image[] rewardItemImageGo;
+    [SerializeField] private TMP_Text[]  rewardItemsTexts;
+    public Dictionary<string, Sprite> rewardItemSpriteDic = new Dictionary<string, Sprite>(); // 0번은 무슨 sprite? 1번은 무슨 sprite? .. 추후 random을 어쩌고 하기 위해서
+    private Dictionary<string, int> rewardItemDic = new Dictionary<string, int>(); // 어떤 메뉴가 몇 개?
 
-    private Dictionary<int, Sprite> rewordItemDic = new Dictionary<int, Sprite>();
+
 
     private (string, int)[] scores;
 
+    private int totalCount;
+
     private void Start()
     {
-        rewordBgImg.SetActive(false);
+        AudioManager.Instance.PlayBGM(BGM.BerryPicker);
+
+        rewardBGImageGO.SetActive(false);
 
         fruits = new BerryInfo[transformArr.Length]; // 6 ( 0 ~ 5 )
 
@@ -115,11 +123,12 @@ public class BerryPickerManager : MonoBehaviour
 
     private void SetRewordItemDic()
     {
-        Sprite[] ingredientSprites = Resources.LoadAll<Sprite>("Ingredients");
+        Sprite[] ingredientSprites = Resources.LoadAll<Sprite>("RewardFruits");
 
         for (int i = 0; i < ingredientSprites.Length; i++)
         {
-            rewordItemDic.Add(i, ingredientSprites[i]);
+            string name = ingredientSprites[i].name;
+            rewardItemSpriteDic.Add(name, ingredientSprites[i]);
         }
     }
 
@@ -216,17 +225,18 @@ public class BerryPickerManager : MonoBehaviour
     // 판정
     private void Evaluate(string spriteName, SwipeDir dir)
     {
-        if(spriteName == "SpoiledStrawberry" && dir == SwipeDir.RIGHT)
+        if (spriteName.Contains("Spoiled") && dir == SwipeDir.RIGHT)
         {
-            Debug.Log("상한 딸기가 오른쪽으로 감");
+            Debug.Log("상한 과일을 오른쪽으로 보냄");
         }
-        else if(spriteName == "Strawberry" && dir == SwipeDir.LEFT)
+        else if(spriteName.Contains("Fresh") && dir == SwipeDir.LEFT)
         {
-            Debug.Log("싱싱한 딸기가 왼쪽으로 감");
+            Debug.Log("싱싱한 과일을 왼쪽으로 보냄");
+            totalCount++;
         }
         else
         {
-            Debug.Log("틀렸습니다.");
+            Debug.Log("틀림;;");
         }
 
     }
@@ -235,7 +245,7 @@ public class BerryPickerManager : MonoBehaviour
     public void GameOver()
     {
         // 리워드 UI 나타내기
-        rewordBgImg.SetActive(true);
+        rewardBGImageGO.SetActive(true);
 
         // 리워드 계산하기
         EvaluateRewordItem();
@@ -245,14 +255,50 @@ public class BerryPickerManager : MonoBehaviour
     // 리워드 할 아이템 판정 메서드
     private void EvaluateRewordItem()
     {
-        // 임시로 3번 반복 할 것
-        for(int i = 0; i < 3; i++)
+        // 랜덤으로 타깃을 찾아서 리워드 결정하기
+        // 중복된다면 int를 올려주기
+        // dictionary로 관리중
+        for (int i = 0; i < totalCount; i++)
         {
-            int target = UnityEngine.Random.Range(0, rewordItemDic.Count);
-            rewordItems[i].transform.parent.gameObject.SetActive(true);
-            rewordItems[i].gameObject.SetActive(true);
-            rewordItems[i].GetComponent<Image>().sprite = rewordItemDic[target];
+            // 랜덤으로 target을 찾기
+            int target = UnityEngine.Random.Range(0, rewardItemSpriteDic.Count);
+            string name = fruitsSprites[target].name;
+
+            if (rewardItemDic.ContainsKey(name))
+            {
+                int temp = rewardItemDic[name];
+                temp++;
+                rewardItemDic[name] = temp;
+            }
+            else
+            {
+                rewardItemDic.Add(name, 1);
+            }
         }
+
+        // 리워드 UI 활성화 및 sprite, text 적용
+        int index = -1;
+        foreach(var item in rewardItemDic)
+        {
+            index++;
+            Sprite targetSprite = rewardItemSpriteDic[item.Key];
+            rewardItemImageGo[index].GetComponent<Image>().sprite = targetSprite;
+
+            int targetCount = item.Value;
+            rewardItemsTexts[index].text = targetCount.ToString();
+
+            rewardItemImageGo[index].transform.parent.gameObject.SetActive(true);
+            rewardItemImageGo[index].gameObject.SetActive(true);
+
+        }
+        //for (int i = 0; i < totalCount; i++)
+        //{
+        //    // 랜덤으로 target을 찾기
+        //    int target = UnityEngine.Random.Range(0, rewardItemSpriteDic.Count);
+        //    rewardItemImageGo[i].transform.parent.gameObject.SetActive(true);
+        //    rewardItemImageGo[i].gameObject.SetActive(true);
+        //    //rewardItemImageGo[i].GetComponent<Image>().sprite = rewardItemSpriteDic[target];
+        //}
     }
 
     public void Restart()

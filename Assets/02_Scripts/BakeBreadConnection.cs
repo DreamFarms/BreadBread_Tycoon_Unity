@@ -139,6 +139,7 @@ public class BakeBreadConnection : MonoBehaviour
                 string rewardName = userIngredient.rewardName;
                 int rewardCount = userIngredient.rewardCount;
                 BakeBreadManager.Instance.userIngredientDic.Add(rewardName, rewardCount); // 실제 유저가 가진 재료 : 개수
+                Debug.Log($"{rewardName}를 {rewardCount}개 가지고 있다.");
             }
             UIManager.Instance.blackBGImage.SetActive(false);
             BakeBreadManager.Instance.StartBakeBreadGame();
