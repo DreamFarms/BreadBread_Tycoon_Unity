@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -109,6 +110,7 @@ public class BakeBreadConnection : MonoBehaviour
             }
             UIManager.Instance.blackBGImage.SetActive(false);
             BakeBreadManager.Instance.StartBakeBreadGame();
+            BakeBreadManager.Instance.isPlay = true;
         }
         else // 빵 제작 불가능시
         {
