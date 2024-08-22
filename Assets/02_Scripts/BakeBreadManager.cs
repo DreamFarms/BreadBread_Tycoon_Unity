@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -51,12 +52,26 @@ public class BakeBreadManager : MonoBehaviour
     [SerializeField] private int[] indexArray;
     [SerializeField] private int bakedBreadCount;
 
+    [Header("리워드")]
+    [SerializeField] private GameObject rewordGO;
+    [SerializeField] private GameObject rewordBGImageGO;
+    [SerializeField] private UnityEngine.UI.Image rewordItemImage;
+    [SerializeField] private TMP_Text rewordCountText;
+    [SerializeField] private CustomButton rewordCheckButton;
 
-public bool isPlay;
+
+
+
+
+
+    public bool isPlay;
 
     private void Start()
     {
         fan02.SetActive(false);
+        rewordGO.SetActive(false);
+        rewordCountText.text = "0";
+        rewordCheckButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map"));
 
         indexArray = new int[doughImage.Length];
         for (int i = 0; i < indexArray.Length; i++)
@@ -229,6 +244,10 @@ public bool isPlay;
         connection.EndBakeBread(selectedBreadName, userIngredientDic, bakedBreadCount);
 
         // UI 호출
+        rewordGO.SetActive(true);
+        rewordBGImageGO.SetActive(true);
+        rewordItemImage.sprite = Resources.Load<Sprite>(selectedBreadName);
+        rewordCountText.text = bakedBreadCount.ToString();
 
 
     }
