@@ -88,10 +88,12 @@ public bool isPlay;
                     Debug.Log($"{hit.collider.gameObject.name} 을 클릭했습니다.");
                     if(hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name == "Dough03")
                     {
+                        // 뒷 번호 확인 ex) dough01의 1을 추출
                         int lastNum = int.Parse((hit.collider.gameObject.name[hit.collider.gameObject.name.Length - 1]).ToString());
                         indexArray[lastNum - 1] = 0;
                         doughImage[lastNum - 1].sprite = doughSprite[indexArray[lastNum - 1]];
 
+                        // 해당 index의 dough를 0으로 초기화
                         int temp = indexArray[lastNum - 1];
                         temp++;
                         indexArray[lastNum - 1] = temp;
@@ -111,6 +113,8 @@ public bool isPlay;
                                 isPlay = false; // 게임을 끝낸다.
                                 break;
                             }
+
+                            userIngredientDic[targetName] = remain;
 
                         }
                         bakedBreadCount++;
