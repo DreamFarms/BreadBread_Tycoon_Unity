@@ -35,10 +35,8 @@ public class RewardConnection : MonoBehaviour
         if(_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
             return;
         }
-        Destroy(gameObject);
     }
 
     public void RewardSaveRequest(Dictionary<string, int> rewardDic)

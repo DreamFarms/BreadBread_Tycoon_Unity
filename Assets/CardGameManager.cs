@@ -41,6 +41,7 @@ public class CardGameManager : MonoBehaviour
 
     public List<Sprite> cardSprites = new List<Sprite>(); // 보상 스프라이트
     private Dictionary<Sprite, int> dicRewards = new Dictionary<Sprite, int>();
+    [SerializeField] private Dictionary<string, int> cardRewardDic = new Dictionary<string, int>();
     [SerializeField] private List<Image> rewordImages = new List<Image>(); // 보상 스프라이트를 담는 이미지
     [SerializeField] private List<TMP_Text> rewordCountText = new List<TMP_Text>(); // 보상 스프라이트 개수
 
@@ -54,6 +55,7 @@ public class CardGameManager : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.PlayBGM(BGM.Card);
         Board board = FindObjectOfType<Board>();
         allCards = board.GetCard();
 
@@ -225,6 +227,7 @@ public class CardGameManager : MonoBehaviour
             string s = dicRewards[sprite].ToString() + "개";
             rewordCountText[index].text = s;
             rewordImages[index].transform.parent.gameObject.SetActive(true);
+            cardRewardDic.Add(sprite.name, dicRewards[sprite]); 
             index++;
         }
     }

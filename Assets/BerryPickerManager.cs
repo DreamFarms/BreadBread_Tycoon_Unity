@@ -76,7 +76,7 @@ public class BerryPickerManager : MonoBehaviour
     public Dictionary<string, Sprite> rewardItemSpriteDic = new Dictionary<string, Sprite>(); // 0번은 무슨 sprite? 1번은 무슨 sprite? .. 추후 random을 어쩌고 하기 위해서
     private Dictionary<string, int> rewardItemDic = new Dictionary<string, int>(); // 어떤 메뉴가 몇 개?
 
-
+    [SerializeField] private CustomButton checkButton;
 
     private (string, int)[] scores;
 
@@ -89,6 +89,8 @@ public class BerryPickerManager : MonoBehaviour
         rewardBGImageGO.SetActive(false);
 
         fruits = new BerryInfo[transformArr.Length]; // 6 ( 0 ~ 5 )
+
+        checkButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map"));
 
         SetRewordItemDic();
 
@@ -291,14 +293,9 @@ public class BerryPickerManager : MonoBehaviour
             rewardItemImageGo[index].gameObject.SetActive(true);
 
         }
-        //for (int i = 0; i < totalCount; i++)
-        //{
-        //    // 랜덤으로 target을 찾기
-        //    int target = UnityEngine.Random.Range(0, rewardItemSpriteDic.Count);
-        //    rewardItemImageGo[i].transform.parent.gameObject.SetActive(true);
-        //    rewardItemImageGo[i].gameObject.SetActive(true);
-        //    //rewardItemImageGo[i].GetComponent<Image>().sprite = rewardItemSpriteDic[target];
-        //}
+
+        // 게임 끝 통신
+        RewardConnection.Instance.RewardSaveRequest(rewardItemDic);
     }
 
     public void Restart()
