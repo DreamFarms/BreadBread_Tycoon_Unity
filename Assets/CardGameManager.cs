@@ -108,7 +108,7 @@ public class CardGameManager : MonoBehaviour
 
             if (success)
             {
-                Invoke("ShowGameOverPanel", 1.0f);
+                Invoke("ShowGameOverPanel", 0.5f);
 
             }
             else
@@ -204,7 +204,7 @@ public class CardGameManager : MonoBehaviour
     // 리워드 하나를 랜덤으로 추가
     private void GenerateReward()
     {
-        int index = UnityEngine.Random.Range(0, cardSprites.Count);
+        int index = UnityEngine.Random.Range(0, rewordImages.Count);
         if (dicRewards.ContainsKey(cardSprites[index])) // 리워드가 존재하면
         {
             int value = dicRewards[cardSprites[index]];

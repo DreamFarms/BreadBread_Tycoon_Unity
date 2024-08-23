@@ -33,6 +33,8 @@ public class Login : MonoBehaviour
     [SerializeField] private GameObject alertImageGo;
     [SerializeField] private TMP_Text alertText;
     [SerializeField] private Button alertButton;
+    [SerializeField] private Button alerBackButton;
+
 
     private void Start()
     {
@@ -40,6 +42,13 @@ public class Login : MonoBehaviour
         loginButton.onClick.AddListener(LoginRequest);
         alertImageGo.SetActive(false);
         alertButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Main"));
+        alerBackButton.onClick.AddListener(() => onClickAlerBackButton());
+    }
+
+    private void onClickAlerBackButton()
+    {
+        alertImageGo.SetActive(false);
+        nickNameinput.text = "";
     }
 
     private void LoginRequest()
@@ -70,12 +79,14 @@ public class Login : MonoBehaviour
         // 로그인이라면?
         if(response.message.message.Contains("Login"))
         {
-            alertText.text = "존재하는 계정\n 로그인 합니다.";
+            alertText.text = "존재하는 계정\n 본인이 맞다면 로그인\n 아니라면 회원가입하세요.";
+            alerBackButton.gameObject.SetActive(true);
+
         }
         else
         {
             alertText.text = "존재하지 않는 계정\n 회원가입 합니다.";
-
+            alerBackButton.gameObject.SetActive(false);
         }
         
     }

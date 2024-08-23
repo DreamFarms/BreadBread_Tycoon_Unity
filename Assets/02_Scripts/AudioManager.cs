@@ -8,7 +8,8 @@ public enum BGM
     Main,
     Card,
     BerryPicker,
-    BakeBread
+    BakeBread,
+    Store
 }
 
 public class AudioManager : MonoBehaviour

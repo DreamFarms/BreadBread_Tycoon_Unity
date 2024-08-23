@@ -32,7 +32,7 @@ public class ExcelReader : MonoBehaviour
         List<Menu> menuList = new List<Menu>();
 
         // stream reader
-        StreamReader reader = new StreamReader(Application.dataPath + "/" + path);
+        StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
 
         bool isFinish = false;
 

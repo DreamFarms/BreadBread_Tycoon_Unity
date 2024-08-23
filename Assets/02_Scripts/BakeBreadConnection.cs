@@ -164,8 +164,7 @@ public class BakeBreadConnection : MonoBehaviour
     {
         FoodUpdateRequest request = new FoodUpdateRequest();
 
-        // 임시
-        request.nickname = "kny";
+        request.nickname = InfoManager.Instance.nickName;
         request.foodName = selectedBreadName;
 
         request.remainingIngredients = new List<FoodUpdateRemainingIngredients>(); // 초기화

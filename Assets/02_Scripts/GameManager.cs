@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        AudioManager.Instance.PlayBGM(BGM.Store);
+    }
+
     // plate Å¬·¡½º
     private Plate plate = new Plate();
 

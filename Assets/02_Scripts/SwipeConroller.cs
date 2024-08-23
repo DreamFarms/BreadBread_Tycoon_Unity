@@ -13,11 +13,13 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
+        //#if UNITY_EDITOR
+        //        HandleMouseInput();
+        //#else
+        //        Debug.Log("Iphone");
+        //#endif
+
         HandleMouseInput();
-#else
-        Debug.Log("Iphone");
-#endif
     }
 
     // mouse input
