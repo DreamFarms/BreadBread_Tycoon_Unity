@@ -1,6 +1,5 @@
 # 빵빵빵 타이쿤
-
-![tutorial_main](https://github.com/user-attachments/assets/c8c600b4-5247-46a9-a493-49cd8edb0727)
+<img src="https://github.com/user-attachments/assets/c8c600b4-5247-46a9-a493-49cd8edb0727.png" width="200" height="400"/>
 ![tutorial_map](https://github.com/user-attachments/assets/d876e1f9-e22c-4747-9456-7866b15473b2)
 
 ## 프로젝트 개요
