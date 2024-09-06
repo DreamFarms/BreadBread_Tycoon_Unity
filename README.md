@@ -1,6 +1,7 @@
 # 빵빵빵 타이쿤
-<img src="https://github.com/user-attachments/assets/c8c600b4-5247-46a9-a493-49cd8edb0727.png" width="200" height="400"/>
-<img src="https://github.com/user-attachments/assets/d876e1f9-e22c-4747-9456-7866b15473b2.png" width="200" height="400"/>
+<img src="https://github.com/user-attachments/assets/c8c600b4-5247-46a9-a493-49cd8edb0727.png" width="200" height="200"/>
+<img src="https://github.com/user-attachments/assets/d876e1f9-e22c-4747-9456-7866b15473b2.png" width="200" height="200"/>
+<img src="https://github.com/user-attachments/assets/82217740-273a-4829-89f3-cd8c0e6ae647.png" width="200" height="200"/>
 
 ## 프로젝트 개요
 **빵빵빵 타이쿤은**은 경영 시뮬레이션 장르로, 추억의 플래시 게임을 모바일 속으로 구현하자는 주제를 바탕으로 개발되었습니다. 본 게임은 플래시 게임 이용자, 경영 시뮬레이션 선호자를 대상으로 하며, 1. 미니게임을 통해 재료를 얻고 빵을 만들어 판매 2. 수익을 통해 가게를 운영, 확장, 타이틀 구매 3. 과금을 통한 스페셜 굿즈와 혜택을 제공합니다.
