@@ -1,7 +1,8 @@
 # 빵빵빵 타이쿤
 <img src="https://github.com/user-attachments/assets/c8c600b4-5247-46a9-a493-49cd8edb0727.png" width="200" height="200"/>
 <img src="https://github.com/user-attachments/assets/d876e1f9-e22c-4747-9456-7866b15473b2.png" width="200" height="200"/>
-<img src="https://github.com/user-attachments/assets/82217740-273a-4829-89f3-cd8c0e6ae647.png" width="200" height="200"/>
+<img src="https://private-user-images.githubusercontent.com/114675855/365168480-07578367-0c85-4b3e-9e05-d14066499de8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjU2MjcyOTgsIm5iZiI6MTcyNTYyNjk5OCwicGF0aCI6Ii8xMTQ2NzU4NTUvMzY1MTY4NDgwLTA3NTc4MzY3LTBjODUtNGIzZS05ZTA1LWQxNDA2NjQ5OWRlOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwOTA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDkwNlQxMjQ5NThaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iNDViOGRlZWZhZThiMmNhM2VmYWZkOTU5OTczZTQ0ZmFjMTczOTRlODQ5YTFlYmRlZDkyZGVmYzJmM2Y3NGQyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.NFQYVz-2d2E9oPWP2dndF6w1X2hTJ4FuwL28uKR9ewU.png" width="200" height="200"/>
+
 
 ![프로필_영주](https://github.com/user-attachments/assets/82217740-273a-4829-89f3-cd8c0e6ae647)
 
