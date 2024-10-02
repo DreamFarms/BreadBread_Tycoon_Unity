@@ -96,7 +96,7 @@ public class BakeBreadConnection : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(request, true);
 
-        string url = "http://ec2-13-124-19-125.ap-northeast-2.compute.amazonaws.com:8081/api/v1/food/check";
+        string url = "http://ec2-3-35-69-253.ap-northeast-2.compute.amazonaws.com:8081/api/v1/food/check";
         HttpRequester requester = new HttpRequester(RequestType.POST, url, jsonData);
         requester.onComplete = OnComplete;
         requester.onFailed = OnFailed;
@@ -181,7 +181,7 @@ public class BakeBreadConnection : MonoBehaviour
 
         string json = JsonUtility.ToJson(request);
 
-        string url = "http://ec2-13-124-19-125.ap-northeast-2.compute.amazonaws.com:8081/api/v1/food/update";
+        string url = "http://ec2-3-35-69-253.ap-northeast-2.compute.amazonaws.com:8081/api/v1/food/update";
         HttpRequester requester = new HttpRequester(RequestType.POST, url, json);
         requester.onComplete = OnCompleteFoodUpdate;
         requester.onFailed = OnFailedFoodUpdate;

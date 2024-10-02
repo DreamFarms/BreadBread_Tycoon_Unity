@@ -41,7 +41,7 @@ public class RewardConnection : MonoBehaviour
 
     public void RewardSaveRequest(Dictionary<string, int> rewardDic)
     {
-        string url = "http://ec2-13-124-19-125.ap-northeast-2.compute.amazonaws.com:8081/api/v1/user/reward/save";
+        string url = "http://ec2-3-35-69-253.ap-northeast-2.compute.amazonaws.com:8081/api/v1/user/reward/save";
 
         RewardSaveRequest request = new RewardSaveRequest();
         request.nickname = InfoManager.Instance.nickName;

@@ -60,7 +60,7 @@ public class Login : MonoBehaviour
 
         string json = JsonUtility.ToJson(request);
 
-        string url = "http://ec2-13-124-19-125.ap-northeast-2.compute.amazonaws.com:8081/api/v1/user/save";
+        string url = "http://ec2-3-35-69-253.ap-northeast-2.compute.amazonaws.com:8081/api/v1/user/save";
         HttpRequester requester = new HttpRequester(RequestType.POST, url, json);
         requester.onComplete = OnComplete;
         requester.onFailed = OnFailed;
