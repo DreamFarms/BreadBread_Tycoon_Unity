@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnDeleteMilkGlass : MonoBehaviour
+public class SpawnGameObject : MonoBehaviour
 {
     // ½ºÆù
     [SerializeField] private GameObject milkGlassPrefab;

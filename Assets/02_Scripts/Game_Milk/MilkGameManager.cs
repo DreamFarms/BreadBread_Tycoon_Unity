@@ -15,6 +15,7 @@ public class MilkGameManager : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveDistance; // -6.5f
 
+    [SerializeField] private SpawnGameObject spawnGameObject; // assign
 
     void Update()
     {
@@ -58,6 +59,7 @@ public class MilkGameManager : MonoBehaviour
     {
         // 목표 위치를 잡고
         // 그 위치에 도달하면 반복문 탈출
+        // 그리고 우유 생성
         float targetTopRailPosition = topRail.transform.position.x + moveDistance; // 목표 x 위치
 
         while (topRail.transform.position.x >= targetTopRailPosition) // 목표 위치에 도달하면 반복문 탈출
@@ -73,6 +75,7 @@ public class MilkGameManager : MonoBehaviour
             yield return null;
         }
         isTouchEnabled = true;
+        spawnGameObject.SpawnMilkGlass();
 
     }
 
