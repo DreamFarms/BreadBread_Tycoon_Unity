@@ -18,7 +18,7 @@ public class Scrolling : MonoBehaviour
         float yScreenHalfSize = Camera.main.orthographicSize;
         xScreenHalfSize = yScreenHalfSize * Camera.main.aspect; // 세로 절반 * 종횡비(비율)
 
-        if(isLeft )
+        if(isLeft)
         {
             // 왼쪽과 오른쪽 끝 위치 계산
             leftPosX = -xScreenHalfSize;
@@ -26,8 +26,9 @@ public class Scrolling : MonoBehaviour
         }
         else
         {
-            rightPosX = xScreenHalfSize;
-            leftPosX = -xScreenHalfSize * 2 * (scrollingSprites.Length - 1);
+            // 오른쪽과 왼쪽 끝 위치 계산
+            rightPosX = xScreenHalfSize * 2;
+            leftPosX = -xScreenHalfSize * (scrollingSprites.Length -1);
         }
     }
 
@@ -36,7 +37,6 @@ public class Scrolling : MonoBehaviour
         // 스프라이트 이동
         for (int i = 0; i < scrollingSprites.Length; i++)
         {
-            Debug.Log("되긴하니");
             if(isLeft)
             {
                 // 왼쪽 끝을 넘어가면 오른쪽 끝으로 이동
@@ -50,10 +50,10 @@ public class Scrolling : MonoBehaviour
             else
             {
                 // 오른쪽 끝을 넘어가면 왼쪽 끝으로 이동
-                if (scrollingSprites[i].position.x > rightPosX * 2)
+                if (scrollingSprites[i].position.x > rightPosX * 1.5)
                 {
                     Vector3 nextPos = scrollingSprites[i].position;
-                    nextPos.x += leftPosX; // 왼쪽 끝으로 이동
+                    nextPos.x += leftPosX * 2; // 왼쪽 끝으로 이동
                     scrollingSprites[i].position = nextPos;
                 }
             }
