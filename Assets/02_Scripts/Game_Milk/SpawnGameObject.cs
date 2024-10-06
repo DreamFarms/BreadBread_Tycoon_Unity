@@ -9,15 +9,6 @@ public class SpawnGameObject : MonoBehaviour
     [SerializeField] private GameObject milkGlassPrefab;
     [SerializeField] private float spawnPositionX; // 13.0f
 
-    private void Update()
-    {
-        // юс╫ц
-        if(Input.GetMouseButton(0))
-        {
-            SpawnMilkGlass();
-        }
-    }
-
     public void SpawnMilkGlass()
     {
         Vector2 spawnPosition = new Vector2();

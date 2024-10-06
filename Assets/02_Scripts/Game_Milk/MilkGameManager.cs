@@ -10,7 +10,7 @@ public class MilkGameManager : MonoBehaviour
     private float currentTime;
 
     [Header("rail")]
-    [SerializeField] private GameObject topRail;
+    [SerializeField] private GameObject moveGroup;
     [SerializeField] private GameObject bottomRail;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveDistance; // -6.5f
@@ -60,13 +60,13 @@ public class MilkGameManager : MonoBehaviour
         // 목표 위치를 잡고
         // 그 위치에 도달하면 반복문 탈출
         // 그리고 우유 생성
-        float targetTopRailPosition = topRail.transform.position.x + moveDistance; // 목표 x 위치
+        float targetTopRailPosition = moveGroup.transform.position.x + moveDistance; // 목표 x 위치
 
-        while (topRail.transform.position.x >= targetTopRailPosition) // 목표 위치에 도달하면 반복문 탈출
+        while (moveGroup.transform.position.x >= targetTopRailPosition) // 목표 위치에 도달하면 반복문 탈출
         {
-            Vector2 currentTopPosition = topRail.transform.position;
+            Vector2 currentTopPosition = moveGroup.transform.position;
             currentTopPosition.x -= moveSpeed * Time.deltaTime;
-            topRail.transform.position = currentTopPosition;
+            moveGroup.transform.position = currentTopPosition;
            
             Vector2 currentBottomPosition = bottomRail.transform.position;
             currentBottomPosition.x += moveSpeed * Time.deltaTime;
