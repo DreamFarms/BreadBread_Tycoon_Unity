@@ -9,6 +9,10 @@ public class MilkGameManager : MonoBehaviour
     [SerializeField] private float targetTime;
     private float currentTime;
 
+    [Header("milk")]
+    [SerializeField] private MilkDrop milkDrop; // milk_drip에 milk drop.cs assign
+
+
     [Header("rail")]
     [SerializeField] private GameObject moveGroup;
     [SerializeField] private GameObject bottomRail;
@@ -40,7 +44,7 @@ public class MilkGameManager : MonoBehaviour
         // 레일 이동 끝나면 -> 터치 풀기
         if (Input.GetMouseButtonDown(0) && isTouchEnabled)
         {
-            Debug.Log("클릭합니다.");
+            milkDrop.DropMilk();
         }
 
     }
