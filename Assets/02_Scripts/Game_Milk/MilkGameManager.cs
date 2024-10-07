@@ -19,7 +19,7 @@ public class MilkGameManager : MonoBehaviour
 
     [Header("milk")]
     [SerializeField] private MilkDrop milkDrop; // milk_drop에 milk drop.cs assign
-    [SerializeField] public MilkFill milkFill; // milk_drop의 trigger enter에서 코드로 assign
+    public MilkFill milkFill; // milk_drop의 trigger enter에서 코드로 assign
 
     [Header("rail")]
     [SerializeField] private GameObject moveGroup;
@@ -33,7 +33,7 @@ public class MilkGameManager : MonoBehaviour
     {
         if(_instance == null)
         {
-            _instance = new MilkGameManager();
+            _instance = this;
         }
     }
 
@@ -47,11 +47,22 @@ public class MilkGameManager : MonoBehaviour
         {
             isTouchEnabled = false;
             currentTime = 0;
-            Debug.Log("시간을 초기화합니다");
             
             // 레일 이동
             // 이동이 끝나면 터치 활성화
             MoveRail();
+
+            // UI 활성화
+            if(milkFill.IsComplete)
+            {
+                // 성공
+                MilkUIManager.Instance.ActiveO();
+            }
+            else
+            {
+                // 실패
+                MilkUIManager.Instance.ActiveX();
+            }
         }
 
 
@@ -64,6 +75,7 @@ public class MilkGameManager : MonoBehaviour
         }
 
     }
+
 
     private void Timer()
     {

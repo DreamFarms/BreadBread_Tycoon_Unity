@@ -35,7 +35,7 @@ public class MilkDrop : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("MilkBottle"))
+        if (collision.CompareTag("MilkBottle"))
         {
             MilkGameManager.Instance.milkFill = collision.gameObject.GetComponent<MilkFill>();
             MilkGameManager.Instance.FillMilkBottle();
