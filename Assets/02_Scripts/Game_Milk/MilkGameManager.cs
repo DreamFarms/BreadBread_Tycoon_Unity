@@ -62,10 +62,12 @@ public class MilkGameManager : MonoBehaviour
         Debug.Log("대기");
         yield return new WaitForSeconds(1.5f);
         isStart = !isStart;
+        isTouchEnabled = true; // 이것을 여기서 호출하는 것이 맞는지에 대한 고민...
     }
 
     private void PlayGame()
     {
+        
         Timer();
 
         // 타이머가 끝나면
@@ -98,7 +100,6 @@ public class MilkGameManager : MonoBehaviour
         // 레일 이동 끝나면 -> 터치 풀기
         if (Input.GetMouseButtonDown(0) && isTouchEnabled)
         {
-            Debug.Log("우유 넣기");
             milkDrop.DropMilk();
         }
     }
