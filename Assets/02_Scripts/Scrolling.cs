@@ -22,13 +22,13 @@ public class Scrolling : MonoBehaviour
         {
             // 왼쪽과 오른쪽 끝 위치 계산
             leftPosX = -xScreenHalfSize;
-            rightPosX = xScreenHalfSize * 2 * (scrollingSprites.Length -1); // 모든 스프라이트를 고려한 오른쪽 끝 위치
+            rightPosX = xScreenHalfSize * 2 * (scrollingSprites.Length - 1); // 모든 스프라이트를 고려한 오른쪽 끝 위치
         }
         else
         {
             // 오른쪽과 왼쪽 끝 위치 계산
             rightPosX = xScreenHalfSize * 2;
-            leftPosX = -xScreenHalfSize * (scrollingSprites.Length -1);
+            leftPosX = -xScreenHalfSize * (scrollingSprites.Length + 1);
         }
     }
 
@@ -53,7 +53,7 @@ public class Scrolling : MonoBehaviour
                 if (scrollingSprites[i].position.x > rightPosX * 1.5)
                 {
                     Vector3 nextPos = scrollingSprites[i].position;
-                    nextPos.x += leftPosX * 2; // 왼쪽 끝으로 이동
+                    nextPos.x += leftPosX; // 왼쪽 끝으로 이동
                     scrollingSprites[i].position = nextPos;
                 }
             }
