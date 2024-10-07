@@ -19,7 +19,7 @@ public class MilkGameManager : MonoBehaviour
 
     [Header("milk")]
     [SerializeField] private MilkDrop milkDrop; // milk_drop에 milk drop.cs assign
-    public MilkFill milkFill; // milk_drop의 trigger enter에서 코드로 assign
+    public MilkFill milkFill; // 실행전 : milk_bottle 직접 assign, 실행후 : milk_drop의 trigger enter에서 코드로 assign
 
     [Header("rail")]
     [SerializeField] private GameObject moveGroup;
