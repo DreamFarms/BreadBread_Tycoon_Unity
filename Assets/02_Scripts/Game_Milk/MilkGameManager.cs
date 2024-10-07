@@ -59,8 +59,8 @@ public class MilkGameManager : MonoBehaviour
 
     private IEnumerator CoChangeGameState()
     {
-        Debug.Log("대기");
-        yield return new WaitForSeconds(1.5f);
+        MilkUIManager.Instance.StartCountDown();
+        yield return new WaitForSeconds(4.0f);
         isStart = !isStart;
         isTouchEnabled = true; // 이것을 여기서 호출하는 것이 맞는지에 대한 고민...
     }

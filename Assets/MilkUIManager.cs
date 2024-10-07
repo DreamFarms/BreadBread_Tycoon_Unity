@@ -19,6 +19,11 @@ public class MilkUIManager : MonoBehaviour
     [SerializeField] private GameObject startButton; // assign
     [SerializeField] private GameObject rememberButton; // 서버, 기기에 저장?
 
+    [Header("카운트다운 UI")]
+    [SerializeField] private GameObject[] countNumbers;
+
+
+
     private void Awake()
     {
         if(_instance == null)
@@ -35,6 +40,11 @@ public class MilkUIManager : MonoBehaviour
         {
             go.SetActive(false);
         }
+
+        foreach(GameObject go in countNumbers)
+        {
+            go.SetActive(false);
+        }
     }
 
     private void Start()
@@ -46,6 +56,21 @@ public class MilkUIManager : MonoBehaviour
     {
         tutorial.SetActive(false);
         MilkGameManager.Instance.ChangeGameState();
+    }
+
+    public void StartCountDown()
+    {
+        StartCoroutine(CoStartCountDown());
+    }
+
+    private IEnumerator CoStartCountDown()
+    {
+        for (int i = 0; i < countNumbers.Length; i++)
+        {
+            countNumbers[i].SetActive(true);
+            yield return new WaitForSeconds(1);
+            countNumbers[i].SetActive(false);
+        }
     }
 
 
