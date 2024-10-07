@@ -7,11 +7,14 @@ public class MilkFill : MonoBehaviour
     [SerializeField] private GameObject[] risingImages;
     
     private int currnetIndex;
-    private bool isComplete = false;
 
-    public bool IsComplete
+    public bool GetResult()
     {
-        get { return isComplete; }
+        if (currnetIndex == risingImages.Length - 2)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void OnEnable()
@@ -41,17 +44,11 @@ public class MilkFill : MonoBehaviour
         if(currnetIndex >= risingImages.Length - 1)
         {
             risingImages[risingImages.Length - 1].SetActive(true);
-            isComplete = false;
         }
         // ¼º°ø
         else
         {
             risingImages[currnetIndex].SetActive(true);
-            isComplete = false;
-            if(currnetIndex == risingImages.Length - 2)
-            {
-                isComplete = true;
-            }
         }
     }
 }

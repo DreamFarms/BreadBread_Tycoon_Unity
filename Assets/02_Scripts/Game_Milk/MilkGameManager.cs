@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,6 +17,13 @@ public class MilkGameManager : MonoBehaviour
     private bool isTouchEnabled;
     [SerializeField] private float targetTime;
     private float currentTime;
+    private bool isStart;
+
+    public bool IsStart
+    {
+        get { return isStart; }
+        set { isStart = value; }
+    }
 
     [Header("milk")]
     [SerializeField] private MilkDrop milkDrop; // milk_drop에 milk drop.cs assign
@@ -39,21 +47,41 @@ public class MilkGameManager : MonoBehaviour
 
     void Update()
     {
+        if(isStart)
+        {
+            PlayGame();
+        }
+    }
+    public void ChangeGameState()
+    {
+        StartCoroutine(CoChangeGameState());   
+    }
+
+    private IEnumerator CoChangeGameState()
+    {
+        Debug.Log("대기");
+        yield return new WaitForSeconds(1.5f);
+        isStart = !isStart;
+    }
+
+    private void PlayGame()
+    {
         Timer();
 
         // 타이머가 끝나면
         // 터치 막고, 레일 이동, 시간 초기화
-        if(currentTime >= targetTime)
+        if (currentTime >= targetTime)
         {
             isTouchEnabled = false;
             currentTime = 0;
-            
+
             // 레일 이동
             // 이동이 끝나면 터치 활성화
             MoveRail();
 
             // UI 활성화
-            if(milkFill.IsComplete)
+            bool result = milkFill.GetResult();
+            if (result)
             {
                 // 성공
                 MilkUIManager.Instance.ActiveO();
@@ -65,17 +93,15 @@ public class MilkGameManager : MonoBehaviour
             }
         }
 
-
         // 클릭 + 레일 이동 가능하면 -> 우유 채우기
         // 타이머 끝나면 -> 터치 막고, 레일 이동
         // 레일 이동 끝나면 -> 터치 풀기
         if (Input.GetMouseButtonDown(0) && isTouchEnabled)
         {
+            Debug.Log("우유 넣기");
             milkDrop.DropMilk();
         }
-
     }
-
 
     private void Timer()
     {
