@@ -5,13 +5,21 @@ using UnityEngine;
 
 public class MilkGameManager : MonoBehaviour
 {
+    #region instance
+    private static MilkGameManager _instance;
+
+    public static MilkGameManager Instance
+    {
+        get { return _instance; }
+    }
+    #endregion
     private bool isTouchEnabled;
     [SerializeField] private float targetTime;
     private float currentTime;
 
     [Header("milk")]
-    [SerializeField] private MilkDrop milkDrop; // milk_drip에 milk drop.cs assign
-
+    [SerializeField] private MilkDrop milkDrop; // milk_drop에 milk drop.cs assign
+    [SerializeField] public MilkFill milkFill; // milk_drop의 trigger enter에서 코드로 assign
 
     [Header("rail")]
     [SerializeField] private GameObject moveGroup;
@@ -20,6 +28,14 @@ public class MilkGameManager : MonoBehaviour
     [SerializeField] private float moveDistance; // -6.5f
 
     [SerializeField] private SpawnGameObject spawnGameObject; // assign
+
+    private void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = new MilkGameManager();
+        }
+    }
 
     void Update()
     {
@@ -81,6 +97,11 @@ public class MilkGameManager : MonoBehaviour
         isTouchEnabled = true;
         spawnGameObject.SpawnMilkGlass();
 
+    }
+
+    public void FillMilkBottle()
+    {
+        milkFill.FillMilk();
     }
 
 }

@@ -97,8 +97,8 @@ GameObject:
   - component: {fileID: 6557760033006843900}
   - component: {fileID: 6864562278079582181}
   m_Layer: 0
-  m_Name: Milk_Glass_Empty
-  m_TagString: Untagged
+  m_Name: Milk_Bottle_Empty
+  m_TagString: MilkBottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

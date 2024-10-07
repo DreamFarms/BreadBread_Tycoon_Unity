@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MilkDrop : MonoBehaviour
 {
-    [SerializeField] public float dropSpeed;
-    [SerializeField] public float initPositionY;
-    [SerializeField] public float targetPositionY;
+    [Header("Drop")]
+    [SerializeField] private float dropSpeed;
+    [SerializeField] private float initPositionY;
+    [SerializeField] private float targetPositionY;
 
     public void DropMilk()
     {
@@ -19,7 +21,6 @@ public class MilkDrop : MonoBehaviour
 
         while(transform.position.y >= targetPositionY)
         {
-            Debug.Log("코루틴 실행");    
             // 아래로 이동
             currentTransform.y -= dropSpeed * Time.deltaTime;
 
@@ -30,5 +31,14 @@ public class MilkDrop : MonoBehaviour
         }
 
         transform.position = new Vector3(0, initPositionY, 0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("MilkBottle"))
+        {
+            MilkGameManager.Instance.milkFill = collision.gameObject.GetComponent<MilkFill>();
+            MilkGameManager.Instance.FillMilkBottle();
+        }
     }
 }
