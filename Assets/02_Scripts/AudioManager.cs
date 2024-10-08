@@ -9,8 +9,10 @@ public enum BGM
     Card,
     BerryPicker,
     BakeBread,
-    Store
+    Store,
+    Milk
 }
+
 
 public class AudioManager : MonoBehaviour
 {
@@ -36,11 +38,24 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private List<AudioClip> BGM = new List<AudioClip>();
     [SerializeField] private AudioSource audioSource;
+    public bool isPlay = false;
+
+    private void Start()
+    {
+        audioSource = gameObject.GetComponent<AudioSource>();    
+    }
 
     public void PlayBGM(BGM bgm)
     {
         int index = (int)bgm;
         audioSource.clip = BGM[index];
         audioSource.Play();
+        isPlay = true;
+    }
+
+    public void StopBGM()
+    {
+        audioSource.Stop();
+        isPlay = false;
     }
 }

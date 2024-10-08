@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01_Scenes/Game_BakeBread.unity
     guid: 6865c210c43c4e84ab351e9ae5ab4a5d
+  - enabled: 1
+    path: Assets/01_Scenes/Game_Milk.unity
+    guid: 9ae36f94aec989e4e80ef3f800c5e712
   m_configObjects: {}

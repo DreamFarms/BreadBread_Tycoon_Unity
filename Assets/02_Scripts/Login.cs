@@ -53,7 +53,6 @@ public class Login : MonoBehaviour
 
     private void LoginRequest()
     {
-        Debug.Log("로그인 통신 시작");
         LoginRequest request = new LoginRequest();
         request.nickname = nickNameinput.text;
         Debug.Log(request.nickname);
@@ -70,7 +69,6 @@ public class Login : MonoBehaviour
     }
     private void OnComplete(DownloadHandler handler)
     {
-        Debug.Log("로그인 완료");
         LoginResponse response = JsonUtility.FromJson<LoginResponse>(handler.text);
 
         InfoManager.Instance.nickName = response.message.nickname;

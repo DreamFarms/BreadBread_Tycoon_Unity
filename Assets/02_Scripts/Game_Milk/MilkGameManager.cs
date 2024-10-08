@@ -49,6 +49,7 @@ public class MilkGameManager : MonoBehaviour
     {
         if(isStart)
         {
+            PlayMusic();
             PlayGame();
         }
     }
@@ -102,6 +103,15 @@ public class MilkGameManager : MonoBehaviour
         {
             milkDrop.DropMilk();
         }
+    }
+
+    private void PlayMusic()
+    {
+        if(AudioManager.Instance.isPlay)
+        {
+            return;
+        }
+        AudioManager.Instance.PlayBGM(BGM.Milk);
     }
 
     private void Timer()
