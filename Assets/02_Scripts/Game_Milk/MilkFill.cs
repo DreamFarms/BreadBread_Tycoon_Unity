@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MilkFill : MonoBehaviour
@@ -10,8 +11,6 @@ public class MilkFill : MonoBehaviour
 
     public bool GetResult()
     {
-        Debug.Log(gameObject.name);
-        Debug.Log(currnetIndex);
         if (currnetIndex == risingImages.Length - 2)
         {
             return true;
@@ -26,7 +25,7 @@ public class MilkFill : MonoBehaviour
             go.SetActive(false);
         }
 
-        int target = MakeRandomNumber(); // 0 ~ 2±îÁö
+        int target = MakeRandomNumber();
         risingImages[target].SetActive(true);
         currnetIndex = target;
     }

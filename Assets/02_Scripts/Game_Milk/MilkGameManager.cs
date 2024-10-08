@@ -93,7 +93,6 @@ public class MilkGameManager : MonoBehaviour
 
             // UI 활성화
             bool result = milkFill.GetResult();
-            Debug.Log(result);
             if (result)
             {
                 // 성공
