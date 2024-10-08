@@ -13,7 +13,6 @@ public class Button_Island : Button
 
     public void CallSceneManagerAndPlzChangeScene()
     {
-        AudioManager.Instance.StopBGM();
         SceneManager_BJH.Instance.ChangeScene(gameObject.name);
     }
 }

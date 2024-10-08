@@ -38,7 +38,6 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private List<AudioClip> BGM = new List<AudioClip>();
     [SerializeField] private AudioSource audioSource;
-    public bool isPlay = false;
 
     private void Start()
     {
@@ -50,12 +49,5 @@ public class AudioManager : MonoBehaviour
         int index = (int)bgm;
         audioSource.clip = BGM[index];
         audioSource.Play();
-        isPlay = true;
-    }
-
-    public void StopBGM()
-    {
-        audioSource.Stop();
-        isPlay = false;
     }
 }

@@ -45,11 +45,15 @@ public class MilkGameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PlayMusic();
+    }
+
     void Update()
     {
         if(isStart)
         {
-            PlayMusic();
             PlayGame();
         }
     }
@@ -107,10 +111,6 @@ public class MilkGameManager : MonoBehaviour
 
     private void PlayMusic()
     {
-        if(AudioManager.Instance.isPlay)
-        {
-            return;
-        }
         AudioManager.Instance.PlayBGM(BGM.Milk);
     }
 
