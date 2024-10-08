@@ -88,6 +88,7 @@ public class MilkGameManager : MonoBehaviour
 
             // UI 활성화
             bool result = milkFill.GetResult();
+            Debug.Log(result);
             if (result)
             {
                 // 성공
@@ -105,7 +106,7 @@ public class MilkGameManager : MonoBehaviour
         // 레일 이동 끝나면 -> 터치 풀기
         if (Input.GetMouseButtonDown(0) && isTouchEnabled)
         {
-            milkDrop.DropMilk();
+            milkDrop.DropMilk();    
         }
     }
 

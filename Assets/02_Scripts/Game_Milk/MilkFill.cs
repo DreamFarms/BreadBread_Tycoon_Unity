@@ -10,6 +10,8 @@ public class MilkFill : MonoBehaviour
 
     public bool GetResult()
     {
+        Debug.Log(gameObject.name);
+        Debug.Log(currnetIndex);
         if (currnetIndex == risingImages.Length - 2)
         {
             return true;
@@ -24,7 +26,7 @@ public class MilkFill : MonoBehaviour
             go.SetActive(false);
         }
 
-        int target = MakeRandomNumber();
+        int target = MakeRandomNumber(); // 0 ~ 2까지
         risingImages[target].SetActive(true);
         currnetIndex = target;
     }
@@ -38,7 +40,7 @@ public class MilkFill : MonoBehaviour
 
     public void FillMilk()
     {
-        currnetIndex++;
+        ++currnetIndex;
 
         // 실패
         if(currnetIndex >= risingImages.Length - 1)
