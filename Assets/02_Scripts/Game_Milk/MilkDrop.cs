@@ -37,7 +37,6 @@ public class MilkDrop : MonoBehaviour
     {
         if (collision.CompareTag("MilkBottle"))
         {
-            MilkGameManager.Instance.milkFill = collision.gameObject.GetComponent<MilkFill>();
             MilkGameManager.Instance.FillMilkBottle();
         }
     }
