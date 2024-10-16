@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class RecipeUIManager : MonoBehaviour
 {
-    [SerializeField] Button recipeBookButton; // 레시피 북 버튼
-    [SerializeField] GameObject recipeBookImage; // 레시피 북 이미지
+    [SerializeField] private Button recipeBookButton; // 레시피 북 버튼
+    [SerializeField] private GameObject recipeBookImage; // 레시피 북 이미지
+    [SerializeField] private GameManager ball; // 믹싱볼
 
     private void OnEnable()
     {
