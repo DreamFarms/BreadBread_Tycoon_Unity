@@ -35,6 +35,7 @@ public class MilkUIManager : MonoBehaviour
     private void OnEnable()
     {
         tutorial.SetActive(true);
+        startButton.GetComponent<Button>().onClick.AddListener(OnClickStartButton);
 
         foreach(GameObject go in oxSprites)
         {
@@ -45,11 +46,6 @@ public class MilkUIManager : MonoBehaviour
         {
             go.SetActive(false);
         }
-    }
-
-    private void Start()
-    {
-        startButton.GetComponent<Button>().onClick.AddListener(OnClickStartButton);
     }
 
     private void OnClickStartButton()
