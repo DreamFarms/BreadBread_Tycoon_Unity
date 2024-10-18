@@ -1,10 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RecipeUIManager : MonoBehaviour
 {
+    private static RecipeUIManager _instance;
+
+    public static RecipeUIManager Instance
+    {
+        get { return _instance; }
+    }
+
+    private void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    [Header("재료")]
+    [SerializeField] private Transform indexTr;
+    [SerializeField] private GameObject ingredientIndexButton;
+    [SerializeField] public string[] indexNames; // Inspector에서 설정
+
+    [SerializeField] private GameObject ingredientScroll;
+    [SerializeField] private Transform viewPartTr;
+    [SerializeField] private GameObject contentPrefab;
+    [SerializeField] private GameObject ingredientPrefab;
+
     [SerializeField] private Button recipeBookButton; // 레시피 북 버튼
     [SerializeField] private GameObject recipeBookImage; // 레시피 북 이미지
     [SerializeField] private Button recipeBookCloseBtn; // 레시피 북 닫기 버튼
@@ -27,6 +58,15 @@ public class RecipeUIManager : MonoBehaviour
             ActiveGameobject(recipeBookImage);
         });
 
+        foreach(string name in indexNames)
+        {
+            GameObject indexButton = Instantiate(ingredientIndexButton, indexTr);
+            indexButton.name = name;
+            indexButton.transform.GetChild(0).GetComponent<TMP_Text>().text = name;
+        }
+
+        GameObject go = Instantiate(contentPrefab, viewPartTr);
+        ingredientScroll.GetComponent<ScrollRect>().content = go.GetComponent<RectTransform>();
 
     }
 
