@@ -27,8 +27,8 @@ public class RecipeGameManager : MonoBehaviour
 
     public List<string> powders = new List<string>();
     public List<string> dairies = new List<string>();
-    public List<string> processed = new List<string>();
     public List<string> fruit = new List<string>();
+    public List<string> processed = new List<string>();
 
     public void SetIngrredientsFromDic()
     {
@@ -36,16 +36,16 @@ public class RecipeGameManager : MonoBehaviour
         {
             switch(item.Value)
             {
-                case "가루류":
+                case "Powder":
                     powders.Add(item.Key);
                     break;
-                case "유제품":
+                case "Dairy":
                     dairies.Add(item.Key);
                     break;
-                case "과일":
+                case "Fruit":
                     fruit.Add(item.Key);
                     break;
-                case "가공식품":
+                case "Processed":
                     processed.Add(item.Key);
                     break;
             }

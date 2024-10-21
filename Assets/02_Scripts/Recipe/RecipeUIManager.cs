@@ -67,12 +67,8 @@ public class RecipeUIManager : MonoBehaviour
             
             GameObject content = Instantiate(contentPrefab, viewPartTr);
             content.name = name + "Content";
-            Instantiate(ingredientPrefab, content.transform);
-            Instantiate(ingredientPrefab, content.transform);
-            Instantiate(ingredientPrefab, content.transform);
-            Instantiate(ingredientPrefab, content.transform);
-            Instantiate(ingredientPrefab, content.transform);
-            Instantiate(ingredientPrefab, content.transform);
+
+            
 
 
 
