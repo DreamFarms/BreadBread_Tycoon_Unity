@@ -25,6 +25,10 @@ public class MilkGameManager : MonoBehaviour
         set { isStart = value; }
     }
 
+    [Header("game")]
+    [SerializeField] private float targetPlayTime; // inspector에서 설정
+    private float currentPlayTime;
+
     [Header("milk")]
     [SerializeField] private MilkDrop milkDrop; // milk_drop에 milk drop.cs assign
     [SerializeField] private MilkFill milkFill; // 실행전 : milk_bottle 직접 assign, 실행후 : milk_drop의 trigger enter에서 코드로 assign
@@ -42,12 +46,19 @@ public class MilkGameManager : MonoBehaviour
 
     [SerializeField] private SpawnGameObject spawnGameObject; // assign
 
+    [Header("reward")]
+    [SerializeField] public int currectMilkCount;
+    [SerializeField] private MilkConnection milkConnection; // assign
+
+
     private void Awake()
     {
         if(_instance == null)
         {
             _instance = this;
         }
+
+        milkConnection = GameObject.Find("MilkConnection").GetComponent<MilkConnection>();
     }
 
     private void Start()
@@ -61,6 +72,11 @@ public class MilkGameManager : MonoBehaviour
         {
             PlayGame();
         }
+
+        if(currentPlayTime >= targetPlayTime)
+        {
+            FinishGame();
+        }
     }
     public void ChangeGameState()
     {
@@ -71,7 +87,7 @@ public class MilkGameManager : MonoBehaviour
     {
         MilkUIManager.Instance.StartCountDown();
         yield return new WaitForSeconds(4.0f);
-        isStart = !isStart;
+        isStart = !isStart; // 게임 시작
         isTouchEnabled = true; // 이것을 여기서 호출하는 것이 맞는지에 대한 고민...
     }
 
@@ -97,6 +113,7 @@ public class MilkGameManager : MonoBehaviour
             {
                 // 성공
                 MilkUIManager.Instance.ActiveO();
+                currectMilkCount++;
             }
             else
             {
@@ -114,6 +131,17 @@ public class MilkGameManager : MonoBehaviour
         }
     }
 
+    private void FinishGame()
+    {
+        IsStart = false;
+        MilkUIManager.Instance.ActiveRewardUI(currectMilkCount);
+    }
+
+    public void RequestConnection()
+    {
+        milkConnection.RewardSaveRequest();
+    }
+
     private void PlayMusic()
     {
         AudioManager.Instance.PlayBGM(BGM.Milk);
@@ -122,6 +150,7 @@ public class MilkGameManager : MonoBehaviour
     private void Timer()
     {
         currentTime += Time.deltaTime;
+        currentPlayTime += Time.deltaTime;
     }
 
     private void MoveRail()

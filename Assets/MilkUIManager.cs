@@ -22,6 +22,12 @@ public class MilkUIManager : MonoBehaviour
     [Header("카운트다운 UI")]
     [SerializeField] private GameObject[] countNumbers;
 
+    [Header("Reward UI")]
+    [SerializeField] private GameObject rewardBG;
+    [SerializeField] private GameObject rewardItemPrefab;
+    [SerializeField] private Sprite rewordSprite;
+
+
 
 
     private void Awake()
@@ -35,6 +41,7 @@ public class MilkUIManager : MonoBehaviour
     private void OnEnable()
     {
         tutorial.SetActive(true);
+        rewardBG.SetActive(false);
         startButton.GetComponent<Button>().onClick.AddListener(OnClickStartButton);
 
         foreach(GameObject go in oxSprites)
@@ -69,7 +76,21 @@ public class MilkUIManager : MonoBehaviour
         }
     }
 
+    public void ActiveRewardUI(int itemCount)
+    {
+        // 무한 호출을 방지하기 위해서 UI Manager가 reward 호출
+        if(!rewardBG.activeSelf)
+        {
+            rewardBG.SetActive(true);
+            Transform contentTr = rewardBG.transform.GetChild(1);
+            GameObject rewardItemGo = Instantiate(rewardItemPrefab, contentTr);
+            RewordItem itemInfo = rewardItemGo.GetComponent<RewordItem>();
+            itemInfo.rewordItemImage.sprite = rewordSprite;
+            itemInfo.rewordItemName.text = itemCount + "개";
 
+            MilkGameManager.Instance.RequestConnection();
+        }
+    }
 
     public void ActiveO()
     {
