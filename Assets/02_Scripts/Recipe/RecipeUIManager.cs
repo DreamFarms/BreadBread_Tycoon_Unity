@@ -30,6 +30,7 @@ public class RecipeUIManager : MonoBehaviour
     [SerializeField] private Transform indexTr;
     [SerializeField] private GameObject ingredientIndexButton;
     [SerializeField] public string[] indexNames; // Inspector에서 설정
+    [SerializeField] private string currentIndexName;
 
     [SerializeField] private GameObject ingredientScroll;
     [SerializeField] private Transform viewPartTr;
@@ -63,10 +64,53 @@ public class RecipeUIManager : MonoBehaviour
             GameObject indexButton = Instantiate(ingredientIndexButton, indexTr);
             indexButton.name = name;
             indexButton.transform.GetChild(0).GetComponent<TMP_Text>().text = name;
+            
+            GameObject content = Instantiate(contentPrefab, viewPartTr);
+            content.name = name + "Content";
+            Instantiate(ingredientPrefab, content.transform);
+            Instantiate(ingredientPrefab, content.transform);
+            Instantiate(ingredientPrefab, content.transform);
+            Instantiate(ingredientPrefab, content.transform);
+            Instantiate(ingredientPrefab, content.transform);
+            Instantiate(ingredientPrefab, content.transform);
+
+
+
+            // 이벤트 등록
+            indexButton.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                string currentIndexName = RecipeUIManager.Instance.currentIndexName;
+                if (currentIndexName != indexButton.name)
+                {
+                    content.SetActive(true);
+                    viewPartTr.Find(currentIndexName + "Content").gameObject.SetActive(false);
+                    RecipeUIManager.Instance.ingredientScroll.GetComponent<ScrollRect>().content = content.GetComponent<RectTransform>();
+                    RecipeUIManager.Instance.currentIndexName = indexButton.name;
+                }
+                else
+                {
+                    return;
+                }
+            });
+
+            // 첫번째 IngredientContent 제외하고 비활성화
+            string firstContent = viewPartTr.GetChild(0).gameObject.name;
+            if(content.name == firstContent)
+            {
+                currentIndexName = indexButton.name;
+                ingredientScroll.GetComponent<ScrollRect>().content = content.GetComponent<RectTransform>();
+            }
+            else
+            {
+                content.SetActive(false);
+            }
         }
 
-        GameObject go = Instantiate(contentPrefab, viewPartTr);
-        ingredientScroll.GetComponent<ScrollRect>().content = go.GetComponent<RectTransform>();
+
+
+        
+
+
 
     }
 

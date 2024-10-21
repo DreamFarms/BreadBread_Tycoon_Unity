@@ -1418,7 +1418,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1071051396}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999849
+  m_Size: 0.99999696
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3600,6 +3600,7 @@ MonoBehaviour:
   - "\uC720\uC81C\uD488"
   - "\uD5A5\uC2E0\uB8CC"
   - "\uAE30\uD0C0"
+  currentIndexName: 
   ingredientScroll: {fileID: 1978431281}
   viewPartTr: {fileID: 1033614730}
   contentPrefab: {fileID: 6217068751027079473, guid: be7610ba9f5144b4999c6a130bbf4c70, type: 3}
