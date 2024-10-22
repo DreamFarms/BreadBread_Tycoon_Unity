@@ -1,4 +1,17 @@
-Powder,Flour,Flour_Green,Flour_Red,Salt,Sugar
-Dairy,Butter,Egg,Milk
-Fruit,FreshApple,FreshBanana,FreshBlueberry,FreshPeach,FreshStrawberry
-Processed,Chocolate,MelonSyrup,Vanilla
+종류,영어 이름,한국 이름
+Powder,Flour,중력분
+Powder,Flour_Green,박력분
+Powder,Flour_Red,강력분
+Powder,Salt,소금
+Powder,Sugar,설탕
+Dairy,Butter,버터
+Dairy,Egg,달걀
+Dairy,Milk,우유
+Fruit,FreshApple,사과
+Fruit,FreshBanana,바나나
+Fruit,FreshBlueberry,블루베리
+Fruit,FreshPeach,복숭아
+Fruit,FreshStrawberry,딸기
+Processed,Chocolate,초콜릿
+Processed,MelonSyrup,메론 시럽
+Processed,Vanilla,바닐라

@@ -1417,8 +1417,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1071051397}
   m_HandleRect: {fileID: 1071051396}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3036,10 +3036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d768d8d2e7ac844aec4a34f7b1fb7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powders: []
-  dairies: []
-  processed: []
-  fruit: []
 --- !u!4 &687107291
 Transform:
   m_ObjectHideFlags: 0
@@ -3644,10 +3640,10 @@ MonoBehaviour:
   indexTr: {fileID: 174084512}
   ingredientIndexButton: {fileID: 3603090141659517, guid: 4a9eaea4a7a93d949b4dcc27d684ae29, type: 3}
   indexNames:
-  - "\uAC00\uB8E8\uB958"
-  - "\uC720\uC81C\uD488"
-  - "\uD5A5\uC2E0\uB8CC"
-  - "\uAE30\uD0C0"
+  - Powder
+  - Dairy
+  - Fruit
+  - Processed
   currentIndexName: 
   ingredientScroll: {fileID: 1978431281}
   viewPartTr: {fileID: 1033614730}

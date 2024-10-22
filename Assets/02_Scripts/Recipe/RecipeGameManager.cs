@@ -22,34 +22,30 @@ public class RecipeGameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>();
+    private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>();
 
-    public Dictionary<string, string> ingredientInfoDic = new Dictionary<string, string>();
-
-    public List<string> powders = new List<string>();
-    public List<string> dairies = new List<string>();
-    public List<string> fruit = new List<string>();
-    public List<string> processed = new List<string>();
-
-    public void SetIngrredientsFromDic()
+    public Dictionary<string, string> IndexInfoDic
     {
-        foreach (var item in ingredientInfoDic)
-        {
-            switch(item.Value)
-            {
-                case "Powder":
-                    powders.Add(item.Key);
-                    break;
-                case "Dairy":
-                    dairies.Add(item.Key);
-                    break;
-                case "Fruit":
-                    fruit.Add(item.Key);
-                    break;
-                case "Processed":
-                    processed.Add(item.Key);
-                    break;
-            }
-        }
+        get { return _indexInfoDic; }
+        set { _indexInfoDic = value; }
     }
 
+    public Dictionary<string, string> IngredientInfoDic
+    {
+        get { return _ingredientInfoDic;}
+    }
+
+    public void SetIngredientInfoDic(string enName, string koName)
+    {
+        if(!_ingredientInfoDic.ContainsKey(enName))
+        {
+            _ingredientInfoDic[enName] = koName;
+        }
+    }
+    
+    public void SetInitScrollUI()
+    {
+        RecipeUIManager.Instance.SetInitScrollUI();
+    }
 }

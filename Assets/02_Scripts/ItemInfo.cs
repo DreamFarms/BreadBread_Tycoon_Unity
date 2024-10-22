@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewordItem : MonoBehaviour
+public class ItemInfo : MonoBehaviour
 {
     public Image rewordItemImage;
     public TMP_Text rewordItemName;

@@ -84,7 +84,7 @@ public class MilkUIManager : MonoBehaviour
             rewardBG.SetActive(true);
             Transform contentTr = rewardBG.transform.GetChild(1);
             GameObject rewardItemGo = Instantiate(rewardItemPrefab, contentTr);
-            RewordItem itemInfo = rewardItemGo.GetComponent<RewordItem>();
+            ItemInfo itemInfo = rewardItemGo.GetComponent<ItemInfo>();
             itemInfo.rewordItemImage.sprite = rewordSprite;
             itemInfo.rewordItemName.text = itemCount + "°³";
 
