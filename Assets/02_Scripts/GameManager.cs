@@ -11,12 +11,29 @@ public class GameManager : MonoBehaviour
         get { return _instance; }
     }
 
+    [Header("Connection")]
+    [SerializeField] private string _url = "";
+
+    // plate 클래스
+    private Plate plate = new Plate();
+
+
+    // 메뉴 정보가 저장되는 변수
+    // 이름 / 가격 / 설명
+    public Dictionary<string, ExcelReader.Menu> dicMenu = new Dictionary<string, ExcelReader.Menu>(); // 상품명 : menu(상품 이름, 가격, 정보)
+
     private void Awake()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -24,13 +41,11 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.PlayBGM(BGM.Store);
     }
 
-    // plate 클래스
-    private Plate plate = new Plate();
 
-    // 메뉴 정보가 저장되는 변수
-    // 이름 / 가격 / 설명
-    public Dictionary<string, ExcelReader.Menu> dicMenu = new Dictionary<string, ExcelReader.Menu>(); // 상품명 : menu(상품 이름, 가격, 정보)
-
+    public string Url
+    {
+        get { return _url; }
+    }
 
     // 접시에 음식을 배치하는 메서드
     public void PlateSelectedMenu(string menuName)

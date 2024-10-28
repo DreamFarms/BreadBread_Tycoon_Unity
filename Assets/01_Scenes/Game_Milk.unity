@@ -2175,7 +2175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTime: 0.9
-  targetPlayTime: 5
+  targetPlayTime: 15
   milkDrop: {fileID: 785386780}
   milkFill: {fileID: 0}
   moveGroup: {fileID: 760258783}

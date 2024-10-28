@@ -59,7 +59,7 @@ public class Login : MonoBehaviour
 
         string json = JsonUtility.ToJson(request);
 
-        string url = "https://fcfa-115-136-106-231.ngrok-free.app/api/v1/user/save";
+        string url = "https://b0cd-115-136-106-231.ngrok-free.app/api/v1/user/save";
         HttpRequester requester = new HttpRequester(RequestType.POST, url, json);
         requester.onComplete = OnComplete;
         requester.onFailed = OnFailed;

@@ -32,6 +32,10 @@ public class HttpManager : MonoBehaviour
 
     IEnumerator CoSendProcess(HttpRequester requester)
     {
+        if(requester.url == null)
+        {
+            requester.url = GameManager.Instance.Url;
+        }
         UnityWebRequest request = null;
 
         switch (requester.requestType)

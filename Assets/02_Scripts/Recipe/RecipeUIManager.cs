@@ -88,6 +88,7 @@ public class RecipeUIManager : MonoBehaviour
                 go.GetComponent<ItemInfo>().rewordItemImage.sprite = sprite;
                 string IngredientKoName = RecipeGameManager.Instance.IngredientInfoDic[sprite.name];
                 go.GetComponent<ItemInfo>().rewordItemName.text = IngredientKoName;
+                go.GetComponent<Button>().onClick.AddListener(() => SpawnSpriteAtBall());
 
             }
 
@@ -122,5 +123,10 @@ public class RecipeUIManager : MonoBehaviour
                 content.SetActive(false);
             }
         }
+    }
+
+    private void SpawnSpriteAtBall()
+    {
+        throw new NotImplementedException();
     }
 }

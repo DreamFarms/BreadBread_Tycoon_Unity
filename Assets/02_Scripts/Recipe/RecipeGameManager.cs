@@ -11,6 +11,12 @@ public class RecipeGameManager : MonoBehaviour
         get { return _instance; }
     }
 
+    [SerializeField] private RecipeConnection _connection;
+
+    private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>();
+    private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>();
+
+
     private void Awake()
     {
         if(_instance == null)
@@ -22,8 +28,19 @@ public class RecipeGameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>();
-    private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>();
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _connection.StartRecipeConnection();
+        }
+        if(Input.GetKeyDown(KeyCode.S)) 
+        {
+            _connection.RecipeGameResultConnection();
+        }
+
+    }
 
     public Dictionary<string, string> IndexInfoDic
     {

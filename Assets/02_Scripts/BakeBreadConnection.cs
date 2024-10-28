@@ -96,7 +96,7 @@ public class BakeBreadConnection : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(request, true);
 
-        string url = "https://fcfa-115-136-106-231.ngrok-free.app/api/v1/food/check";
+        string url = "https://b0cd-115-136-106-231.ngrok-free.app/api/v1/food/check";
         HttpRequester requester = new HttpRequester(RequestType.POST, url, jsonData);
         requester.onComplete = OnComplete;
         requester.onFailed = OnFailed;
@@ -181,7 +181,7 @@ public class BakeBreadConnection : MonoBehaviour
 
         string json = JsonUtility.ToJson(request);
 
-        string url = "https://fcfa-115-136-106-231.ngrok-free.app/api/v1/food/update";
+        string url = "https://b0cd-115-136-106-231.ngrok-free.app/api/v1/food/update";
         HttpRequester requester = new HttpRequester(RequestType.POST, url, json);
         requester.onComplete = OnCompleteFoodUpdate;
         requester.onFailed = OnFailedFoodUpdate;
