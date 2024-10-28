@@ -57,16 +57,14 @@ public class RecipeGameResultResponseMessage
 
 public class RecipeConnection : MonoBehaviour
 {
-    [SerializeField]
-    // 임시 
-    private string url = "https://2627-115-136-106-231.ngrok-free.app/";
-    private string endPoint = "api/v1/recipes/start?nickname=";
-    private string nickName = "123"; // 임시
+    [SerializeField] private string StartRecipeEndPoint = "api/v1/recipes/start?nickname=";
+    [SerializeField] private string recipeGameEndPoint = "api/v1/recipes/check";
+
 
     public void StartRecipeConnection()
     {
-        string getUrl = url + endPoint + nickName;
-        HttpRequester requester = new HttpRequester(RequestType.GET, getUrl);
+        string url = GameManager.Instance.Url + StartRecipeEndPoint + GameManager.Instance.nickName;
+        HttpRequester requester = new HttpRequester(RequestType.GET, url);
         requester.onComplete = OnComplete;
         requester.onFailed = OnFailed;
 
@@ -75,11 +73,11 @@ public class RecipeConnection : MonoBehaviour
 
     public void RecipeGameResultConnection()
     {
-        string getUrl = url + "api/v1/recipes/check";
+        string url = GameManager.Instance.Url + recipeGameEndPoint;
         RecipeGameResultRequest request = new RecipeGameResultRequest();
-        request.nickname = nickName;
-        request.ingredients = new List<RecipeGameResultRequestIngredient>(); // 리스트 초기화
+        request.nickname = GameManager.Instance.nickName;
 
+        request.ingredients = new List<RecipeGameResultRequestIngredient>(); // 리스트 초기화
         // 임시
         RecipeGameResultRequestIngredient test1 = new RecipeGameResultRequestIngredient();
         test1.ingredientName = "Flour_Red";
@@ -101,11 +99,9 @@ public class RecipeConnection : MonoBehaviour
         test4.quantity = 1;
         request.ingredients.Add(test4);
 
-        Debug.Log(request.ingredients.Count.ToString());
         string jsonData = JsonUtility.ToJson(request, true);
-        Debug.Log(jsonData.ToString());
 
-        HttpRequester requester = new HttpRequester(RequestType.POST, getUrl, jsonData);
+        HttpRequester requester = new HttpRequester(RequestType.POST, url, jsonData);
         requester.onComplete = OnComplete;
         requester.onFailed = OnFailed;
 

@@ -28,7 +28,7 @@ public class LoginMessage
 
 public class LoginConnection : MonoBehaviour
 {
-    [SerializeField] private string loginUrl = "api/v1/user/save";
+    [SerializeField] private string endPoint = "api/v1/user/save";
 
     public void LoginRequest(string inputNickname)
     {
@@ -37,7 +37,7 @@ public class LoginConnection : MonoBehaviour
 
         string json = JsonUtility.ToJson(request);
 
-        string url = GameManager.Instance.Url + loginUrl;
+        string url = GameManager.Instance.Url + endPoint;
         HttpRequester requester = new HttpRequester(RequestType.POST, url, json);
         requester.onComplete = OnComplete;
         requester.onFailed = OnFailed;

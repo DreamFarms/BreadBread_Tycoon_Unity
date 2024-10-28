@@ -1474,8 +1474,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1071051397}
   m_HandleRect: {fileID: 1071051396}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4091,6 +4091,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 881778428}
   m_CullTransparentMesh: 1
+--- !u!1001 &905250453
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 438738504594398254, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: nickName
+      value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3177814
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 946.55566
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.350309
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438647274982867426, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238358213413297111, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
 --- !u!1 &939421170
 GameObject:
   m_ObjectHideFlags: 0
@@ -6737,7 +6798,7 @@ GameObject:
   - component: {fileID: 1703733638}
   - component: {fileID: 1703733637}
   m_Layer: 0
-  m_Name: Connection
+  m_Name: RecipeConnection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6755,7 +6816,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4d440f0322b734bbeaa5c25f16106f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: https://2627-115-136-106-231.ngrok-free.app/
+  StartRecipeEndPoint: api/v1/recipes/start?nickname=
+  recipeGameEndPoint: api/v1/recipes/check
 --- !u!4 &1703733638
 Transform:
   m_ObjectHideFlags: 0
@@ -9010,3 +9072,4 @@ SceneRoots:
   - {fileID: 687107291}
   - {fileID: 1703733638}
   - {fileID: 84053991}
+  - {fileID: 905250453}
