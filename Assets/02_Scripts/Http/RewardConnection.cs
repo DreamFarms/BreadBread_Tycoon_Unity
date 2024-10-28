@@ -44,7 +44,7 @@ public class RewardConnection : MonoBehaviour
         string url = "https://b0cd-115-136-106-231.ngrok-free.app/api/v1/user/reward/save";
 
         RewardSaveRequest request = new RewardSaveRequest();
-        request.nickname = InfoManager.Instance.nickName;
+        request.nickname = GameManager.Instance.nickName;
         Debug.Log(request.nickname);
         request.rewards = new List<RewardInfo>();
 

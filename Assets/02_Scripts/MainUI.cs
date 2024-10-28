@@ -22,12 +22,12 @@ public class MainUI : MonoBehaviour
         endingButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Login"));
         endingUI.SetActive(false);
         topUIGroup.SetActive(true);
-        nicknameText.text = InfoManager.Instance.nickName;
-        InfoManager.Instance.coin = 100;
-        InfoManager.Instance.cash = 0;
-        coinText.text = InfoManager.Instance.coin.ToString() + " 원";
-        cashText.text = InfoManager.Instance.cash.ToString() + " 원";
-        initTimer = InfoManager.Instance.timer;
+        nicknameText.text = GameManager.Instance.nickName;
+        GameManager.Instance.coin = 100;
+        GameManager.Instance.cash = 0;
+        coinText.text = GameManager.Instance.coin.ToString() + " 원";
+        cashText.text = GameManager.Instance.cash.ToString() + " 원";
+        initTimer = GameManager.Instance.timer;
         timerText.text = initTimer.ToString();
 
         StartCoroutine(CountDown());
@@ -48,7 +48,7 @@ public class MainUI : MonoBehaviour
         while (timer > 0)
         {
             timer -= Time.deltaTime;
-            InfoManager.Instance.timer = timer;
+            GameManager.Instance.timer = timer;
             timerText.text = ((int)timer).ToString();
             yield return null;
         }

@@ -72,7 +72,7 @@ public class Button_BJH : MonoBehaviour
 
     public void OnPlateSelectedMenu()
     {
-        GameManager.Instance.PlateSelectedMenu(recentMenuBtn.gameObject.name);
+        StoreGameManager.Instance.PlateSelectedMenu(recentMenuBtn.gameObject.name);
         UIManager.Instance.EnableBG(false); // 백그라운드 끄기
     }
 

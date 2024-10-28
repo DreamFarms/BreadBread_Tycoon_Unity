@@ -9,7 +9,7 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         // 임시
-        mapCanvas.nicknameText.text = InfoManager.Instance.nickName;
+        mapCanvas.nicknameText.text = GameManager.Instance.nickName;
         mapCanvas.coinText.text = "1,000 원";
         mapCanvas.cashText.text = "0 원";
 

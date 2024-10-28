@@ -91,7 +91,7 @@ public class BakeBreadConnection : MonoBehaviour
     public void StartBakeBreadConnection()
     {
         FoodCheckRequest request = new FoodCheckRequest();
-        request.nickname = InfoManager.Instance.nickName;
+        request.nickname = GameManager.Instance.nickName;
         request.foodName = BakeBreadManager.Instance.selectedBreadName;
 
         string jsonData = JsonUtility.ToJson(request, true);
@@ -164,7 +164,7 @@ public class BakeBreadConnection : MonoBehaviour
     {
         FoodUpdateRequest request = new FoodUpdateRequest();
 
-        request.nickname = InfoManager.Instance.nickName;
+        request.nickname = GameManager.Instance.nickName;
         request.foodName = selectedBreadName;
 
         request.remainingIngredients = new List<FoodUpdateRemainingIngredients>(); // √ ±‚»≠

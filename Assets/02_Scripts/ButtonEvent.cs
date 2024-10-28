@@ -36,7 +36,7 @@ public class ButtonEvent : MonoBehaviour
         if(koName == null)
         {
             List<string> list = new List<string>();
-            list = GameManager.Instance.GetSelectedMenuInfo(gameObject.name);
+            list = StoreGameManager.Instance.GetSelectedMenuInfo(gameObject.name);
             koName = list[0];
             price = list[1];
             description = list[2];

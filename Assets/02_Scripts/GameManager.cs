@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,14 +15,12 @@ public class GameManager : MonoBehaviour
     [Header("Connection")]
     [SerializeField] private string _url = "";
 
-    // plate 클래스
-    private Plate plate = new Plate();
-
-
-    // 메뉴 정보가 저장되는 변수
-    // 이름 / 가격 / 설명
-    public Dictionary<string, ExcelReader.Menu> dicMenu = new Dictionary<string, ExcelReader.Menu>(); // 상품명 : menu(상품 이름, 가격, 정보)
-
+    [Header("Info")]
+    public string nickName;
+    public int coin;
+    public int cash;
+    public float timer;
+    public Dictionary<string, int> userIngredient = new Dictionary<string, int>();
     private void Awake()
     {
         if (_instance == null)
@@ -38,8 +37,23 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlayBGM(BGM.Store);
+        timer = 300;
     }
+
+    private void Update()
+    {
+        if (!SceneManager.GetActiveScene().name.Equals("Main"))
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                timer = 0;
+            }
+        }
+    }
+
+
+
 
 
     public string Url
@@ -47,29 +61,7 @@ public class GameManager : MonoBehaviour
         get { return _url; }
     }
 
-    // 접시에 음식을 배치하는 메서드
-    public void PlateSelectedMenu(string menuName)
-    {
-        plate.PlateSelectedMenu(menuName);
-    }
 
-    // 음식 정보를 dic에서 뽑아주는 메서드
-    public List<string> GetSelectedMenuInfo(string menuEnName)
-    {
-        List<string> menuInfoList = new List<string>();
-        ExcelReader.Menu menu = new ExcelReader.Menu();
-        menu = dicMenu[menuEnName];
-        menuInfoList.Add(menu.koName);
-        menuInfoList.Add(menu.price);
-        menuInfoList.Add(menu.description);
-
-        return menuInfoList;
-    }
-
-    public void SelectedBakeBread()
-    {
-
-    }
 
 
 }

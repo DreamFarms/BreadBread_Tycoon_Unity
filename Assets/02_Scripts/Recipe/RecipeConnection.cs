@@ -47,6 +47,7 @@ public class RecipeGameResultResponse
     public RecipeGameResultResponseMessage message;
 }
 
+
 [System.Serializable]
 public class RecipeGameResultResponseMessage
 {

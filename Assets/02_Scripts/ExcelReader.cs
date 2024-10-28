@@ -51,11 +51,11 @@ public class ExcelReader : MonoBehaviour
             menu.koName = splitData[1];
             menu.price = splitData[2];
             menu.description = splitData[3];
-            
-            GameManager.Instance.dicMenu.Add(menu.enName, menu);
+
+            StoreGameManager.Instance.dicMenu.Add(menu.enName, menu);
             //dicMenu.Add(menu.enName, menu);
         }
         Debug.Log("Complete Read File!!");
-        Debug.Log($"{GameManager.Instance.dicMenu.Count}개가 dictionary에 추가되었습니다.");
+        Debug.Log($"{StoreGameManager.Instance.dicMenu.Count}개가 dictionary에 추가되었습니다.");
     }
 }
