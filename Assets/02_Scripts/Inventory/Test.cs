@@ -16,12 +16,12 @@ public class Test : MonoBehaviour
 
     private void Update()
     {
-        if (i == 6)
+        if (i == 26)
         {
             i = 0;
         }
         
-        if (j == 6)
+        if (j == 26)
         {
             j = 0;
         }

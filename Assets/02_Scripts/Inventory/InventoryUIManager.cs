@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +50,10 @@ public class InventoryUIManager : MonoBehaviour
         {
             if (breadUIData.TryGetValue(itemSlot.id, out ItemSlot existItemSlot))
             {
-                UpdateInventoryUI(state, itemSlot);
+                if (inventoryState == State.Bread)
+                {
+                    UpdateInventoryUI(state, itemSlot);
+                }
             }
             else
             {
@@ -57,25 +61,27 @@ public class InventoryUIManager : MonoBehaviour
             }
             breadUIData[itemSlot.id] = itemSlot;
         }
-        else
+        else if(state == State.Ingredient)
         {
-            if (breadUIData.TryGetValue(itemSlot.id, out ItemSlot existItemSlot))
+            if (ingredientUIData.TryGetValue(itemSlot.id, out ItemSlot existItemSlot))
             {
-                UpdateInventoryUI(state, itemSlot);
+                if (inventoryState == State.Ingredient)
+                {
+                    UpdateInventoryUI(state, itemSlot);
+                }
             }
             else
             {
                 AddInventoryUI(state, itemSlot);
             }
             ingredientUIData[itemSlot.id] = itemSlot;
+            print(itemSlot.id);
         }
     }
 
     //기존에 없던 거라면 추가
     public void AddInventoryUI(State state, ItemSlot itemSlot)
     {
-        ItemSlotUI ui = new ItemSlotUI();
-
         if (state == State.Bread && inventoryState == State.Bread)
         {
             for (int i = 0; i < inventoryUI.Count; i++)
@@ -98,7 +104,10 @@ public class InventoryUIManager : MonoBehaviour
                 }
             }
         }
-
+        else
+        {
+            return;
+        }
     }
 
     //원래 있던거라면 UI 업데이트
@@ -115,22 +124,24 @@ public class InventoryUIManager : MonoBehaviour
     {
         if (state == inventoryState)
             return;
-        
+
         ResetInventoryUI();
         inventoryState = (inventoryState == State.Bread) ? State.Ingredient : State.Bread;
 
         if (inventoryState == State.Bread)
         {
-            for (int i = 0; i < breadUIData.Count; i++)
+            var sortedItems = breadUIData.OrderBy(kvp => kvp.Key).ToList();
+            for (int i = 0; i < sortedItems.Count; i++)
             {
-                inventoryUI[i].UpdateBreadUI(breadUIData[i]);
+                inventoryUI[i].UpdateBreadUI(sortedItems[i].Value);
             }
         }
         else
         {
-            for (int i = 0; i < ingredientUIData.Count; i++)
+            var sortedItems = ingredientUIData.OrderBy(kvp => kvp.Key).ToList();
+            for (int i = 0; i < sortedItems.Count; i++)
             {
-                inventoryUI[i].UpdateIngredientUI(ingredientUIData[i]);
+                inventoryUI[i].UpdateIngredientUI(sortedItems[i].Value);
             }
         }
     }
