@@ -8,6 +8,7 @@ public class InfoManager : MonoBehaviour
     private static InfoManager _instance;
 
     public Dictionary<string, string> enKoMappingDic = new Dictionary<string, string>();
+    
 
     public static InfoManager Instance
     { get { return _instance; } }
@@ -38,6 +39,12 @@ public class InfoManager : MonoBehaviour
             print(enKoMappingDic.Count);
         }
     }
+
+    // test
+    //public void SetInfoManager(string key, string value)
+    //{
+    //    enKoMappingDic.Add(key, value);
+    //}
 
     //public string nickName;
     //public int coin;
