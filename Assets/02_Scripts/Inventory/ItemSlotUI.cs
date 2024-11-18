@@ -13,17 +13,17 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI count;
     [SerializeField] private TextMeshProUGUI price;
     [SerializeField] private TextMeshProUGUI explain;
-    [SerializeField] public int id = 0;
+    [SerializeField] public int id;
 
     public void UpdateBreadUI(ItemSlot itemSlot)
     {
         Item item = itemSlot.GetItemSlot(itemSlot);
 
         itemSprite.sprite = LoadSprite(item.iconPath);
+        id = item.id;
         name.text = item.name;
         count.text = "수량: " + item.count.ToString();
         price.text = "가격: " + item.price.ToString();
-        id = item.id;
     }
 
     public void UpdateIngredientUI(ItemSlot itemSlot)
@@ -31,9 +31,9 @@ public class ItemSlotUI : MonoBehaviour
         Item item = itemSlot.GetItemSlot(itemSlot);
 
         itemSprite.sprite = LoadSprite(item.iconPath);
+        id = item.id;
         name.text = item.name;
         count.text = "수량: " + item.count.ToString();
-        id = item.id;
     }
 
     public void UpdateCount(int num)
@@ -43,7 +43,6 @@ public class ItemSlotUI : MonoBehaviour
 
     public Sprite LoadSprite(string path)
     {
-        print(path);
         return Resources.Load<Sprite>(path);
     }
 
@@ -53,5 +52,6 @@ public class ItemSlotUI : MonoBehaviour
         name.text = null;
         price.text = null;
         count.text = null;
+        id = 0;
     }
 }
