@@ -25,6 +25,20 @@ public class InfoManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log("dsdsd");
+            foreach (var pair in enKoMappingDic)
+            {
+                Debug.Log("in_foreach");
+                Debug.Log($"Key: {pair.Key}, Value: {pair.Value}");
+            }
+            print(enKoMappingDic.Count);
+        }
+    }
+
     //public string nickName;
     //public int coin;
     //public int cash;

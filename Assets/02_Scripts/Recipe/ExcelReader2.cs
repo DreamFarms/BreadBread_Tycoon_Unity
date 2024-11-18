@@ -63,10 +63,13 @@ public class ExcelReader2 : MonoBehaviour
             if (firstChar >= 'A' && firstChar <= 'Z' || firstChar >= 'a' && firstChar <= 'z')
             {
                 Index index = new Index();
-                index.enName = splitData[0];
-                index.koName = splitData[1];
+                index.enName = splitData[0].Trim();
+                index.koName = splitData[1].Trim();
+
 
                 InfoManager.Instance.enKoMappingDic[index.enName] = index.koName;
+                Debug.Log(InfoManager.Instance.enKoMappingDic[index.enName]);
+                //InfoManager.Instance.enKoMappingDic.Add(index.koName, index.enName);
                 //RecipeGameManager.Instance.IndexInfoDic[index.enName] = index.koName;
             }
 

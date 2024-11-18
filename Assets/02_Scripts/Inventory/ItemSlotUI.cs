@@ -18,7 +18,23 @@ public class ItemSlotUI : MonoBehaviour
 
     private void OnEnable()
     {
-        plateButton.onClick.AddListener(() => StoreGameManager.Instance.PlateSelectedMenu(name.text));
+        plateButton.onClick.AddListener(() => StoreGameManager.Instance.PlateSelectedMenu(FindEnKoMappingDIc()));
+    }
+
+    private string FindEnKoMappingDIc()
+    {
+        var dictionary = InfoManager.Instance.enKoMappingDic;
+
+        foreach (var pair in dictionary)
+        {
+            if (pair.Value == name.text) // 값 비교
+            {
+                Debug.Log($"Key: {pair.Key}, Value: {pair.Value}");
+                return pair.Key; // 키 반환
+            }
+        }
+        Debug.Log("없습니다");
+        return null;
     }
 
     public void UpdateBreadUI(ItemSlot itemSlot)
