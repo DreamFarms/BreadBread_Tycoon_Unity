@@ -54,7 +54,7 @@ public class Plate : MonoBehaviour
     // 선택된 접시에 메뉴를 진열하는 메서드
     public void PlateSelectedMenu(string menuName)
     {
-        Sprite sprite = Resources.Load<Sprite>(menuName);
+        Sprite sprite = Resources.Load<Sprite>("Breads/" + menuName);
         // 이슈 : _selectedPlate에서 null이 발생. 분명 Plate 게임오브젝트가 할당 된 상태
         // 해결이 안되서 find로 찾기 시작. 하지만 성능 문제가 있으므로 곧 해결 해야됨
         GameObject childGo = GameObject.Find("Food").gameObject;

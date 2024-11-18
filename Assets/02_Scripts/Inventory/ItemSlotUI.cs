@@ -14,6 +14,12 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI price;
     [SerializeField] private TextMeshProUGUI explain;
     [SerializeField] public int id;
+    [SerializeField] private Button plateButton;
+
+    private void OnEnable()
+    {
+        plateButton.onClick.AddListener(() => StoreGameManager.Instance.PlateSelectedMenu(name.text));
+    }
 
     public void UpdateBreadUI(ItemSlot itemSlot)
     {

@@ -39,7 +39,7 @@ public class ExcelReader2 : MonoBehaviour
     private void ReadIndexInfoCSV()
     {
         // 파일 경로
-        string path = "Files/IndexInfo.csv";
+        string path = "Files/EnKoMapping.csv";
 
         // stream reader
         StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
@@ -66,7 +66,8 @@ public class ExcelReader2 : MonoBehaviour
                 index.enName = splitData[0];
                 index.koName = splitData[1];
 
-                RecipeGameManager.Instance.IndexInfoDic[index.enName] = index.koName;
+                InfoManager.Instance.enKoMappingDic[index.enName] = index.koName;
+                //RecipeGameManager.Instance.IndexInfoDic[index.enName] = index.koName;
             }
 
         }
