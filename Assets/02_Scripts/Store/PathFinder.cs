@@ -29,6 +29,15 @@ public class PathFinder : MonoBehaviour
     PathFinderNode StartNode, TargetNode, CurNode;
     List<PathFinderNode> OpenList, ClosedList;
 
+    public GameObject npc;
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            MoveNPC();
+        }
+    }
 
     public void PathFinding()
     {
@@ -139,5 +148,22 @@ public class PathFinder : MonoBehaviour
     {
         if (FinalNodeList.Count != 0) for (int i = 0; i < FinalNodeList.Count - 1; i++)
                 Gizmos.DrawLine(new Vector2(FinalNodeList[i].x, FinalNodeList[i].y), new Vector2(FinalNodeList[i + 1].x, FinalNodeList[i + 1].y));
+    }
+
+    private void MoveNPC()
+    {
+        StartCoroutine(CoMoveNPC());
+    }
+
+    private IEnumerator CoMoveNPC()
+    {
+        if (FinalNodeList.Count != 0)
+        {
+            for (int i = 0; i < FinalNodeList.Count - 1; i++)
+            {
+                npc.transform.position = new Vector2(FinalNodeList[i].x, FinalNodeList[i].y);
+                yield return new WaitForSeconds(1f);
+            }
+        }
     }
 }
