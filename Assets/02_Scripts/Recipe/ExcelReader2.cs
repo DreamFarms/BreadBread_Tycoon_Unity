@@ -33,7 +33,7 @@ public class ExcelReader2 : MonoBehaviour
 
     private void SetInitScrollUI()
     {
-        //RecipeGameManager.Instance.SetInitScrollUI();
+        RecipeGameManager.Instance.SetInitScrollUI();
     }
 
     private void ReadIndexInfoCSV()
@@ -43,10 +43,6 @@ public class ExcelReader2 : MonoBehaviour
 
         // stream reader
         StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
-
-        // instance
-        //RecipeGameManager instance = RecipeGameManager.Instance;
-        InfoManager infoManagerInstance = InfoManager.Instance;
 
         bool isFinish = false;
 
@@ -69,11 +65,7 @@ public class ExcelReader2 : MonoBehaviour
 
 
                 InfoManager.Instance.enKoMappingDic[index.enName] = index.koName;
-                //InfoManager.Instance.SetInfoManager(index.enName, index.koName);
-
-
-                //InfoManager.Instance.enKoMappingDic.Add(index.koName, index.enName);
-                //RecipeGameManager.Instance.IndexInfoDic[index.enName] = index.koName;
+                RecipeGameManager.Instance.IndexInfoDic[index.enName] = index.koName;
             }
 
         }
@@ -88,9 +80,6 @@ public class ExcelReader2 : MonoBehaviour
 
         // stream reader
         StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
-
-        // instance
-        RecipeGameManager instance = RecipeGameManager.Instance;
 
         bool isFinish = false;
 
@@ -112,7 +101,7 @@ public class ExcelReader2 : MonoBehaviour
                 ingredient.enName = splitData[1];
                 ingredient.koName = splitData[2];
 
-                // RecipeGameManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
+                RecipeGameManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
             }
 
         }
