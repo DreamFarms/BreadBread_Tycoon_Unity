@@ -43,6 +43,10 @@ public class PathFinder : MonoBehaviour
     private bool _isNpcMoving;
     private int _loadIndex = 0;
 
+    private void Start()
+    {
+        PathFinding();
+    }
     private void FixedUpdate()
     {
         if (_isNpcMoving)
@@ -62,18 +66,11 @@ public class PathFinder : MonoBehaviour
                 npc.transform.position = targetPosition; // 정확한 목표 위치로 설정
                 _isNpcMoving = false; // 이동 상태를 false로 변경
                 _loadIndex++;
-                Debug.Log("목표에 도달했습니다.");
+                Debug.Log("Finish moving");
+
+                Invoke("PathFinding", 3f);
             }
         }
-    }
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            MoveNPC();
-        }
-
-
     }
 
     public void PathFinding()
@@ -187,52 +184,11 @@ public class PathFinder : MonoBehaviour
         }
     }
 
+    // 기즈모로 이동 거리 표시
     void OnDrawGizmos()
     {
         if (FinalNodeList.Count != 0) for (int i = 0; i < FinalNodeList.Count - 1; i++)
                 Gizmos.DrawLine(new Vector2(FinalNodeList[i].x, FinalNodeList[i].y), new Vector2(FinalNodeList[i + 1].x, FinalNodeList[i + 1].y));
     }
 
-    private void MoveNPC()
-    {
-        Debug.Log("Moving NPC");
-
-        // 현재 위치, 목표 위치 사이 거리 계산
-        Vector2 currentPosition = npc.transform.position;
-        Vector2 targetPosition = new Vector2(targetPos2.x, targetPos2.y);
-
-        npc.transform.position = Vector2.Lerp(currentPosition, targetPos, speed);
-
-        _isNpcMoving = false;
-
-        //// 방향
-        //Vector2 dir = (targetPosition - currentPosition).normalized; // 정규화
-
-        //// 이동 할 거리
-        //int step = (int)(speed * Time.deltaTime);
-
-        //// 이동
-        //if(Vector2.Distance(currentPosition, targetPosition) < step)
-        //{
-        //    npc.transform.position = currentPosition + dir * step; // 현재 위치 + (방향 * 속도)
-        //}
-        //else
-        //{
-        //    npc.transform.position = currentPosition; // 목표 위치로 이동\
-        //    _isNpcMoving = false;
-        //    Debug.Log("Finish moving");
-        //}
-    }
-
-    private IEnumerator CoMoveNPC()
-    {
-        if (FinalNodeList.Count != 0)
-        {
-            for (int i = 0; i < FinalNodeList.Count - 1; i++)
-            {
-                npc.transform.position = new Vector2(FinalNodeList[i].x, FinalNodeList[i].y);
-                yield return new WaitForSeconds(0.3f);
-            }
-        }
-    }
 }
