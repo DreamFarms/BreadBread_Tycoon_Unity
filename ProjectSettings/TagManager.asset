@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Plate
   - MilkBottle
+  - Table
+  - Counter
   layers:
   - Default
   - TransparentFX

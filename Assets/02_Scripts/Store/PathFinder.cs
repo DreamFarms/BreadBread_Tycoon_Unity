@@ -26,9 +26,9 @@ public class PathFinderNode
 
 public class PathFinder : MonoBehaviour
 {
-    public Vector2Int bottomLeft, topRight, startPos, targetPos; // int 값 vector
+    public Vector2Int bottomLeft, topRight, startPos; // int 값 vector
     [SerializeField] private List<Transform> targetTr = new List<Transform>();
-    [SerializeField] private Vector2Int targetPos2; // targetPost대신 2를 사용
+    [SerializeField] private Vector2Int targetPos;
     [SerializeField] private float speed;
     public List<PathFinderNode> FinalNodeList;
     public bool allowDiagonal, dontCrossCorner; // 대각선 허용 여부
@@ -38,10 +38,11 @@ public class PathFinder : MonoBehaviour
     PathFinderNode StartNode, TargetNode, CurNode;
     List<PathFinderNode> OpenList, ClosedList;
 
-    public GameObject npc;
-
     private bool _isNpcMoving;
     private int _loadIndex = 0;
+
+    private bool _isShopping;
+    private Table _tabedTable;
 
     private void Start()
     {
@@ -52,18 +53,18 @@ public class PathFinder : MonoBehaviour
         if (_isNpcMoving)
         {
             // 현재 위치, 목표 위치 사이 거리 계산
-            Vector2 currentPosition = npc.transform.position;
-            Vector2 targetPosition = new Vector2(targetPos2.x, targetPos2.y);
+            Vector2 currentPosition = transform.position;
+            Vector2 targetPosition = new Vector2(targetPos.x, targetPos.y);
 
             if (Vector2.Distance(currentPosition, targetPosition) > 0.1f) // 임계값 설정
             {
                 // NPC 위치 업데이트
-                npc.transform.position = Vector2.Lerp(currentPosition, targetPosition, speed * Time.deltaTime);
+                transform.position = Vector2.Lerp(currentPosition, targetPosition, speed * Time.deltaTime);
             }
             else
             {
                 // 목표에 도달한 경우 멈춤
-                npc.transform.position = targetPosition; // 정확한 목표 위치로 설정
+                transform.position = targetPosition; // 정확한 목표 위치로 설정
                 _isNpcMoving = false; // 이동 상태를 false로 변경
                 _loadIndex++;
                 Debug.Log("Finish moving");
@@ -71,6 +72,34 @@ public class PathFinder : MonoBehaviour
                 Invoke("PathFinding", 3f);
             }
         }
+    }
+
+    private void Update()
+    {
+        if(_isShopping)
+        {
+            Invoke("PickBread", 1.8f);
+            _isShopping = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Table"))
+        {
+            _isShopping = true;
+            _tabedTable = collision.transform.GetComponent<Table>();
+        }
+
+        if(collision.CompareTag("Counter"))
+        {
+            Debug.Log("buy bread");
+        }
+    }
+
+    private void PickBread()
+    {
+        Debug.Log("pick bread");
     }
 
     public void PathFinding()
@@ -100,8 +129,8 @@ public class PathFinder : MonoBehaviour
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
         StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
 
-        targetPos2 = new Vector2Int((int) tr.position.x, (int) tr.position.y);
-        TargetNode = NodeArray[targetPos2.x - bottomLeft.x, targetPos2.y - bottomLeft.y];
+        targetPos = new Vector2Int((int) tr.position.x, (int) tr.position.y);
+        TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
 
         OpenList = new List<PathFinderNode>() { StartNode }; // open에 시작 노드 담아주기
         ClosedList = new List<PathFinderNode>();
