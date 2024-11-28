@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using TMPro;
+using UnityEditor;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
+using UnityEngine.Windows.Speech;
+using static UnityEngine.GraphicsBuffer;
 
 
 [System.Serializable]
@@ -21,6 +27,9 @@ public class PathFinderNode
 public class PathFinder : MonoBehaviour
 {
     public Vector2Int bottomLeft, topRight, startPos, targetPos; // int 값 vector
+    [SerializeField] private List<Transform> targetTr = new List<Transform>();
+    [SerializeField] private Vector2Int targetPos2; // targetPost대신 2를 사용
+    [SerializeField] private float speed;
     public List<PathFinderNode> FinalNodeList;
     public bool allowDiagonal, dontCrossCorner; // 대각선 허용 여부
 
@@ -31,12 +40,40 @@ public class PathFinder : MonoBehaviour
 
     public GameObject npc;
 
+    private bool _isNpcMoving;
+    private int _loadIndex = 0;
+
+    private void FixedUpdate()
+    {
+        if (_isNpcMoving)
+        {
+            // 현재 위치, 목표 위치 사이 거리 계산
+            Vector2 currentPosition = npc.transform.position;
+            Vector2 targetPosition = new Vector2(targetPos2.x, targetPos2.y);
+
+            if (Vector2.Distance(currentPosition, targetPosition) > 0.1f) // 임계값 설정
+            {
+                // NPC 위치 업데이트
+                npc.transform.position = Vector2.Lerp(currentPosition, targetPosition, speed * Time.deltaTime);
+            }
+            else
+            {
+                // 목표에 도달한 경우 멈춤
+                npc.transform.position = targetPosition; // 정확한 목표 위치로 설정
+                _isNpcMoving = false; // 이동 상태를 false로 변경
+                _loadIndex++;
+                Debug.Log("목표에 도달했습니다.");
+            }
+        }
+    }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.S))
         {
             MoveNPC();
         }
+
+
     }
 
     public void PathFinding()
@@ -61,14 +98,17 @@ public class PathFinder : MonoBehaviour
         }
 
 
+        Transform tr = targetTr[_loadIndex];
+
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
         StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
-        TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
+
+        targetPos2 = new Vector2Int((int) tr.position.x, (int) tr.position.y);
+        TargetNode = NodeArray[targetPos2.x - bottomLeft.x, targetPos2.y - bottomLeft.y];
 
         OpenList = new List<PathFinderNode>() { StartNode }; // open에 시작 노드 담아주기
         ClosedList = new List<PathFinderNode>();
         FinalNodeList = new List<PathFinderNode>();
-
 
         while (OpenList.Count > 0)
         {
@@ -94,7 +134,7 @@ public class PathFinder : MonoBehaviour
                 FinalNodeList.Reverse();
 
                 for (int i = 0; i < FinalNodeList.Count; i++) Debug.Log(i + "번째는 " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
-                return;
+                break;
             }
 
 
@@ -113,6 +153,9 @@ public class PathFinder : MonoBehaviour
             OpenListAdd(CurNode.x, CurNode.y - 1);
             OpenListAdd(CurNode.x - 1, CurNode.y);
         }
+
+        _isNpcMoving = true;
+
     }
 
     void OpenListAdd(int checkX, int checkY)
@@ -152,7 +195,33 @@ public class PathFinder : MonoBehaviour
 
     private void MoveNPC()
     {
-        StartCoroutine(CoMoveNPC());
+        Debug.Log("Moving NPC");
+
+        // 현재 위치, 목표 위치 사이 거리 계산
+        Vector2 currentPosition = npc.transform.position;
+        Vector2 targetPosition = new Vector2(targetPos2.x, targetPos2.y);
+
+        npc.transform.position = Vector2.Lerp(currentPosition, targetPos, speed);
+
+        _isNpcMoving = false;
+
+        //// 방향
+        //Vector2 dir = (targetPosition - currentPosition).normalized; // 정규화
+
+        //// 이동 할 거리
+        //int step = (int)(speed * Time.deltaTime);
+
+        //// 이동
+        //if(Vector2.Distance(currentPosition, targetPosition) < step)
+        //{
+        //    npc.transform.position = currentPosition + dir * step; // 현재 위치 + (방향 * 속도)
+        //}
+        //else
+        //{
+        //    npc.transform.position = currentPosition; // 목표 위치로 이동\
+        //    _isNpcMoving = false;
+        //    Debug.Log("Finish moving");
+        //}
     }
 
     private IEnumerator CoMoveNPC()
@@ -162,7 +231,7 @@ public class PathFinder : MonoBehaviour
             for (int i = 0; i < FinalNodeList.Count - 1; i++)
             {
                 npc.transform.position = new Vector2(FinalNodeList[i].x, FinalNodeList[i].y);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.3f);
             }
         }
     }
