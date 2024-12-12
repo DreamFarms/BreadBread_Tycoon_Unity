@@ -32,7 +32,7 @@ public class StoreGameManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlayBGM(BGM.Store);
+        //AudioManager.Instance.PlayBGM(BGM.Store);
     }
 
     // 접시에 음식을 배치하는 메서드
