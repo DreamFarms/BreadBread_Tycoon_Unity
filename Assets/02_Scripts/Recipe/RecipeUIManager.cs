@@ -25,7 +25,12 @@ public class RecipeUIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
     }
+
+    [Header("관리")]
+    [SerializeField] private RecipeGameManager recipeGameManager; // assign
 
     [Header("재료")]
     [SerializeField] private Transform indexTr;
@@ -44,6 +49,12 @@ public class RecipeUIManager : MonoBehaviour
 
     [SerializeField] private GameManager ball; // 믹싱볼
 
+    [Header("레시피 북")]
+    [SerializeField] private List<GameObject> categories = new List<GameObject>(); // 카테고리 리스트
+    [SerializeField] private Button _nextButton; // ui
+    private int _currentPage;
+    private GameObject _currentCategory;
+
     private void OnEnable()
     {
         recipeBookImage.SetActive(false);
@@ -59,13 +70,20 @@ public class RecipeUIManager : MonoBehaviour
             ActiveGameobject(recipeBookButton.gameObject);
             ActiveGameobject(recipeBookImage);
         });
+
+        _nextButton.onClick.AddListener(() =>
+        {
+            Debug.Log("다음 페이지를 넘겼습니다.");
+        });
     }
+
 
     private void ActiveGameobject(GameObject go)
     {
         go.SetActive(!go.activeSelf);
     }
 
+    // 재료 영역 생성
     internal void SetInitScrollUI()
     {
         foreach (string name in indexNames)
@@ -88,8 +106,9 @@ public class RecipeUIManager : MonoBehaviour
                 go.GetComponent<ItemInfo>().rewordItemImage.sprite = sprite;
                 string IngredientKoName = RecipeGameManager.Instance.IngredientInfoDic[sprite.name];
                 go.GetComponent<ItemInfo>().rewordItemName.text = IngredientKoName;
-                go.GetComponent<Button>().onClick.AddListener(() => SpawnSpriteAtBall());
 
+                
+                go.GetComponent<Button>().onClick.AddListener(() => recipeGameManager.PuntIngredientInBall(sprite));
             }
 
 
@@ -123,10 +142,5 @@ public class RecipeUIManager : MonoBehaviour
                 content.SetActive(false);
             }
         }
-    }
-
-    private void SpawnSpriteAtBall()
-    {
-        throw new NotImplementedException();
     }
 }

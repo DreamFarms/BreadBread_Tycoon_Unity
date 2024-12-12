@@ -100,6 +100,7 @@ public class PathFinder : MonoBehaviour
     private void PickBread()
     {
         Debug.Log("pick bread");
+        // tabed table에 count를 수정
     }
 
     public void PathFinding()
@@ -138,6 +139,7 @@ public class PathFinder : MonoBehaviour
 
         while (OpenList.Count > 0)
         {
+            // G H F
             // 열린리스트 중 가장 F가 작고 F가 같다면 H가 작은 걸 현재노드로 하고 열린리스트에서 닫힌리스트로 옮기기
             CurNode = OpenList[0];
             for (int i = 1; i < OpenList.Count; i++)
@@ -146,8 +148,6 @@ public class PathFinder : MonoBehaviour
             OpenList.Remove(CurNode);
             ClosedList.Add(CurNode);
 
-
-            // 마지막
             if (CurNode == TargetNode)
             {
                 PathFinderNode TargetCurNode = TargetNode;
