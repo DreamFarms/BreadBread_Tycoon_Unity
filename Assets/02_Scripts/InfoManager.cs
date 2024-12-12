@@ -8,7 +8,7 @@ public class InfoManager : MonoBehaviour
     private static InfoManager _instance;
 
     public Dictionary<string, string> enKoMappingDic = new Dictionary<string, string>();
-    
+    private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>();
 
     public static InfoManager Instance
     { get { return _instance; } }
@@ -37,6 +37,14 @@ public class InfoManager : MonoBehaviour
                 Debug.Log($"Key: {pair.Key}, Value: {pair.Value}");
             }
             print(enKoMappingDic.Count);
+        }
+    }
+
+    public void SetIngredientInfoDic(string enName, string koName)
+    {
+        if (!_ingredientInfoDic.ContainsKey(enName))
+        {
+            _ingredientInfoDic[enName] = koName;
         }
     }
 

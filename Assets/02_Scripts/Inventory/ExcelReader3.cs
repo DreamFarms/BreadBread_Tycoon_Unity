@@ -163,7 +163,7 @@ public class ExcelReader3 : MonoBehaviour
                 ingredient.enName = splitData[1];
                 ingredient.koName = splitData[2];
 
-                RecipeGameManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
+                InfoManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
             }
 
         }
