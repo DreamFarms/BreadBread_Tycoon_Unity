@@ -78,6 +78,7 @@ public class RecipeConnection : MonoBehaviour
         request.nickname = GameManager.Instance.nickName;
 
         request.ingredients = new List<RecipeGameResultRequestIngredient>(); // 리스트 초기화
+
         // 임시
         RecipeGameResultRequestIngredient test1 = new RecipeGameResultRequestIngredient();
         test1.ingredientName = "Flour_Red";
@@ -112,6 +113,21 @@ public class RecipeConnection : MonoBehaviour
     {
         Debug.Log("완료");
         Debug.Log(result.text);
+
+        // 동작 위치 이동 필요해 보임
+        // "resultCode":"SUCCESS","message":{"ingredients":[{"ingredientName":"Flour","count":10},{"ingredientName":"Flour_Green","count":10},{"ingredientName":"Flour_Red","count":10},{"ingredientName":"Salt","count":10},{"ingredientName":"Sugar","count":10},{"ingredientName":"Butter","count":10},{"ingredientName":"Egg","count":10},{"ingredientName":"Milk","count":10},{"ingredientName":"Strawberry","count":10}],"unlockedRecipes":[]}}
+        string jsonResult = result.text;
+        RecipeGameStartResponse response = JsonUtility.FromJson<RecipeGameStartResponse>(jsonResult);
+
+        foreach(RecipeGameStartResponseMessageIngredient ingredient in response.message.ingredients)
+        {
+            string name = ingredient.ingredientName;
+            int count = ingredient.count;
+            RecipeGameManager.Instance.IngredientCountDic.Add(name, count);
+        }
+
+
+
     }
 
     public void OnFailed(DownloadHandler result)

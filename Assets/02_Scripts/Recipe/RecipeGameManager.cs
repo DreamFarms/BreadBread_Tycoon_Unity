@@ -27,8 +27,9 @@ public class RecipeGameManager : MonoBehaviour
 
     [SerializeField] private RecipeConnection _connection;
 
-    private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>();
-    private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>();
+    private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>(); // ??
+    private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>(); // 영어 : 한국어
+    private Dictionary<string, int> _ingredientCountDic = new Dictionary<string, int>(); // 영어 : 개수
     [SerializeField] private BallPositions _ballPositions; // assign
     [SerializeField] public Dictionary<string, int> selectedIngredientDic = new Dictionary<string, int>(); // 재료 : n번 위치
 
@@ -57,6 +58,7 @@ public class RecipeGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             _connection.StartRecipeConnection();
+            Invoke("SetInitScrollUI", 3f);
         }
         if(Input.GetKeyDown(KeyCode.S)) 
         {
@@ -98,15 +100,18 @@ public class RecipeGameManager : MonoBehaviour
     public Dictionary<string, string> IngredientInfoDic
     {
         get { return _ingredientInfoDic;}
+        set { _ingredientInfoDic = value; }
     }
 
-    public void SetIngredientInfoDic(string enName, string koName)
-    {
-        if(!_ingredientInfoDic.ContainsKey(enName))
-        {
-            _ingredientInfoDic[enName] = koName;
-        }
-    }
+    public Dictionary<string, int> IngredientCountDic { get => _ingredientCountDic; set => _ingredientCountDic = value; }
+
+    //public void SetIngredientInfoDic(string enName, string koName)
+    //{
+    //    if(!_ingredientInfoDic.ContainsKey(enName))
+    //    {
+    //        _ingredientInfoDic[enName] = koName;
+    //    }
+    //}
     
     public void SetInitScrollUI()
     {

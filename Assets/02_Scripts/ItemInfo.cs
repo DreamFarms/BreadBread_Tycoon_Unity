@@ -8,6 +8,7 @@ public class ItemInfo : MonoBehaviour
 {
     public Image rewordItemImage;
     public TMP_Text rewordItemName;
+    public TMP_Text rewordItemCount;
 
     private void OnEnable()
     {

@@ -43,6 +43,7 @@ public class RecipeUIManager : MonoBehaviour
     [SerializeField] private GameObject contentPrefab;
     [SerializeField] private GameObject ingredientPrefab;
 
+    [Header("레시피 북")]
     [SerializeField] private Button recipeBookButton; // 레시피 북 버튼
     [SerializeField] private GameObject recipeBookImage; // 레시피 북 이미지
     [SerializeField] private Button recipeBookCloseBtn; // 레시피 북 닫기 버튼
@@ -99,15 +100,23 @@ public class RecipeUIManager : MonoBehaviour
             content.name = name + "Content";
 
             Sprite[] sprites = Resources.LoadAll<Sprite>("Ingredients/" + name);
+
             foreach(Sprite sprite in sprites)
             {
                 GameObject go = Instantiate(ingredientPrefab, content.transform);
                 go.name = sprite.name;
                 go.GetComponent<ItemInfo>().rewordItemImage.sprite = sprite;
-                string IngredientKoName = RecipeGameManager.Instance.IngredientInfoDic[sprite.name];
-                go.GetComponent<ItemInfo>().rewordItemName.text = IngredientKoName;
 
-                
+                string ingredientKoName = RecipeGameManager.Instance.IngredientInfoDic[sprite.name];
+                int ingredientCount = 0;
+                if (recipeGameManager.IngredientCountDic.ContainsKey(sprite.name))
+                {
+                    ingredientCount = RecipeGameManager.Instance.IngredientCountDic[sprite.name];
+                }
+
+                go.GetComponent<ItemInfo>().rewordItemName.text = ingredientKoName;
+                go.GetComponent<ItemInfo>().rewordItemCount.text = ingredientCount.ToString() + "개";
+
                 go.GetComponent<Button>().onClick.AddListener(() => recipeGameManager.PuntIngredientInBall(sprite));
             }
 

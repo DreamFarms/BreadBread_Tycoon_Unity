@@ -26,14 +26,8 @@ public class ExcelReader2 : MonoBehaviour
 {
     private void Start()
     {
-        //ReadIndexInfoCSV();
-        //ReadIngredientInfoCSV();
-        //SetInitScrollUI();
-    }
-
-    private void SetInitScrollUI()
-    {
-        RecipeGameManager.Instance.SetInitScrollUI();
+        ReadIndexInfoCSV();
+        ReadIngredientInfoCSV();
     }
 
     private void ReadIndexInfoCSV()
@@ -101,7 +95,7 @@ public class ExcelReader2 : MonoBehaviour
                 ingredient.enName = splitData[1];
                 ingredient.koName = splitData[2];
 
-                RecipeGameManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
+                RecipeGameManager.Instance.IngredientInfoDic.Add(ingredient.enName, ingredient.koName);
             }
 
         }

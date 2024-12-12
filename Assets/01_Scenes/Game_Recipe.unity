@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1071051396}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4213,6 +4213,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 438738504594398254, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
+      propertyPath: _url
+      value: https://33a4-115-136-106-231.ngrok-free.app/
+      objectReference: {fileID: 0}
     - target: {fileID: 438738504594398254, guid: 7749fb53baaf8dd469cc929a6c669801, type: 3}
       propertyPath: nickName
       value: 123
