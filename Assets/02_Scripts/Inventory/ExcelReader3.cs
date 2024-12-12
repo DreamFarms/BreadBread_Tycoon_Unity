@@ -16,6 +16,8 @@ public class ExcelReader3 : MonoBehaviour
     private void Awake()
     {
         ItemManager instance = ItemManager.Instance;
+        ReadIndexInfoCSV();
+        ReadIngredientInfoCSV();
         ReadKJY_MenuInfoCSV();
         ReadKJY_IngredientInfoCSV();
         inventoryConnection.StartInventoryConnection();
@@ -87,6 +89,83 @@ public class ExcelReader3 : MonoBehaviour
         {
             Item item = new Item(breadPath + tempList[i], tempList[i + 1], tempList[i + 2], tempList[i + 3], tempList[i + 4], int.Parse(tempList[i + 5]), 0);
             ItemManager.Instance.SetItemDictionary(item.id, item);
+        }
+    }
+
+    private void ReadIndexInfoCSV()
+    {
+        // 파일 경로
+        string path = "Files/EnKoMapping.csv";
+
+        // stream reader
+        StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
+
+        // instance
+        RecipeGameManager instance = RecipeGameManager.Instance;
+
+        bool isFinish = false;
+
+        while (isFinish == false)
+        {
+            string data = reader.ReadLine(); // 한 줄 읽기
+            if (data == null)
+            {
+                isFinish = true;
+                break;
+            }
+            var splitData = data.Split(','); // 콤마로 데이터 분할
+
+            char firstChar = splitData[0][0];
+            if (firstChar >= 'A' && firstChar <= 'Z' || firstChar >= 'a' && firstChar <= 'z')
+            {
+                Index index = new Index();
+                index.enName = splitData[0].Trim();
+                index.koName = splitData[1].Trim();
+
+
+                InfoManager.Instance.enKoMappingDic[index.enName] = index.koName;
+                Debug.Log(InfoManager.Instance.enKoMappingDic[index.enName]);
+                //InfoManager.Instance.enKoMappingDic.Add(index.koName, index.enName);
+                //RecipeGameManager.Instance.IndexInfoDic[index.enName] = index.koName;
+            }
+
+        }
+    }
+
+    private void ReadIngredientInfoCSV()
+    {
+        // 파일 경로
+        string path = "Files/IngredientInfo.csv";
+
+        // stream reader
+        StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
+
+        // instance
+        RecipeGameManager instance = RecipeGameManager.Instance;
+
+        bool isFinish = false;
+
+        while (isFinish == false)
+        {
+            string data = reader.ReadLine(); // 한 줄 읽기
+            if (data == null)
+            {
+                isFinish = true;
+                break;
+            }
+            var splitData = data.Split(','); // 콤마로 데이터 분할
+
+            char firstChar = splitData[1][0];
+            if (firstChar >= 'A' && firstChar <= 'Z' || firstChar >= 'a' && firstChar <= 'z')
+            {
+                Ingredient ingredient = new Ingredient();
+                ingredient.index = splitData[0];
+                ingredient.enName = splitData[1];
+                ingredient.koName = splitData[2];
+
+                RecipeGameManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
+            }
+
         }
     }
 }

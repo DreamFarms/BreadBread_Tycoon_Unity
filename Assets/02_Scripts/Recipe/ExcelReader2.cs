@@ -26,9 +26,9 @@ public class ExcelReader2 : MonoBehaviour
 {
     private void Awake()
     {
-        ReadIndexInfoCSV();
-        ReadIngredientInfoCSV();
-        SetInitScrollUI();
+        //ReadIndexInfoCSV();
+        //ReadIngredientInfoCSV();
+        //SetInitScrollUI();
     }
 
     private void SetInitScrollUI()
