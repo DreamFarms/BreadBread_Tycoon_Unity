@@ -31,6 +31,10 @@ public class RecipeUIManager : MonoBehaviour
 
     [Header("관리")]
     [SerializeField] private RecipeGameManager recipeGameManager; // assign
+    [SerializeField] private RecipeConnection recipeConnection; // go assign
+
+    [Header("버튼")]
+    [SerializeField] private Button submitButton; // ui assign
 
     [Header("재료")]
     [SerializeField] private Transform indexTr;
@@ -56,8 +60,15 @@ public class RecipeUIManager : MonoBehaviour
     private int _currentPage;
     private GameObject _currentCategory;
 
+    
+
     private void OnEnable()
     {
+        // 버튼
+        submitButton.onClick.AddListener(() => recipeConnection.RecipeGameResultConnection());
+
+
+        // 레시피 북
         recipeBookImage.SetActive(false);
 
         recipeBookButton.onClick.AddListener(() =>
