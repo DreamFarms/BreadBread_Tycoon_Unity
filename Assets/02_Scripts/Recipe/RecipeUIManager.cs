@@ -51,21 +51,19 @@ public class RecipeUIManager : MonoBehaviour
     [SerializeField] private Button recipeBookButton; // ·¹½ÃÇÇ ºÏ ¹öÆ°
     [SerializeField] private GameObject recipeBookImage; // ·¹½ÃÇÇ ºÏ ÀÌ¹ÌÁö
     [SerializeField] private Button recipeBookCloseBtn; // ·¹½ÃÇÇ ºÏ ´Ý±â ¹öÆ°
-
-    [SerializeField] private GameManager ball; // ¹Í½Ìº¼
-
-    [Header("·¹½ÃÇÇ ºÏ")]
     [SerializeField] private List<GameObject> categories = new List<GameObject>(); // Ä«Å×°í¸® ¸®½ºÆ®
     [SerializeField] private Button _nextButton; // ui
     private int _currentPage;
     private GameObject _currentCategory;
 
+    [Header("¹Í½Ìº¼")]
+    [SerializeField] private GameManager ball; // ¹Í½Ìº¼
     
 
     private void OnEnable()
     {
         // ¹öÆ°
-        submitButton.onClick.AddListener(() => recipeConnection.RecipeGameResultConnection());
+        submitButton.onClick.AddListener(() => RecipeGameManager.Instance.SubmitIngredient());
 
 
         // ·¹½ÃÇÇ ºÏ

@@ -30,6 +30,7 @@ public class RecipeGameManager : MonoBehaviour
     private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>(); // ??
     private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>(); // 영어 : 한국어
     private Dictionary<string, int> _ingredientCountDic = new Dictionary<string, int>(); // 영어 : 개수
+    
     [SerializeField] private BallPositions _ballPositions; // assign
     [SerializeField] public Dictionary<string, int> selectedIngredientDic = new Dictionary<string, int>(); // 재료 : n번 위치
 
@@ -50,21 +51,18 @@ public class RecipeGameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        InitSetting();
+        
+    }
+
+    private void OnEnable()
+    {
         submitButton.onClick.AddListener(() => SubmitIngredient());
+        
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            _connection.StartRecipeConnection();
-            Invoke("SetInitScrollUI", 3f);
-        }
-        if(Input.GetKeyDown(KeyCode.S)) 
-        {
-            _connection.RecipeGameResultConnection();
-        }
-
         // 테스트
         if(Input.GetKeyDown(KeyCode.D)) 
         {
@@ -89,6 +87,12 @@ public class RecipeGameManager : MonoBehaviour
             Debug.Log("테스트용 작업을 마쳤습니다. \n 밀가루, 설탕, 블루베리를 담고 제출 버튼을 누르세요.");
         }
 
+    }
+
+    private void InitSetting()
+    {
+        _connection.StartRecipeConnection(); // 사용자 재료, 레시피 정보 통신
+        Invoke("SetInitScrollUI", 3f); // UI 셋팅.. 레시피 정보 통신이 끝난 후 진행 되어야 함
     }
 
     public Dictionary<string, string> IndexInfoDic
@@ -127,14 +131,25 @@ public class RecipeGameManager : MonoBehaviour
     // 알맞게 수정 필요
     public void SubmitIngredient()
     {
+        List<string> selectedIngredients = new List<string>();
 
-        Debug.Log("레시피를 찾았습니다. 레시피 북을 여세요.");
+        foreach(var ingredient in selectedIngredientDic.Keys)
+        {
+            selectedIngredients.Add(ingredient);
+        }
+
         foreach(Transform tr in _ballPositions.ingredientPositions)
         {
             tr.GetComponent<SpriteRenderer>().sprite = null;
             tr.gameObject.SetActive(false);
         }
+
         selectedIngredientDic.Clear();
-        recipeBookImage.AddRecipeOnRecipeBook();
+
+        _connection.RecipeGameResultConnection(selectedIngredients);
+
+        // 테스트용
+        // 레시피 북에 사진 등록하는 메서드
+        // recipeBookImage.AddRecipeOnRecipeBook();
     }
 }

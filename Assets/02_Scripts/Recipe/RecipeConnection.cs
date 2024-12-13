@@ -60,6 +60,7 @@ public class RecipeConnection : MonoBehaviour
     [SerializeField] private string StartRecipeEndPoint = "api/v1/recipes/start?nickname=";
     [SerializeField] private string recipeGameEndPoint = "api/v1/recipes/check";
 
+    
 
     public void StartRecipeConnection()
     {
@@ -71,7 +72,8 @@ public class RecipeConnection : MonoBehaviour
         HttpManager.Instance.SendRequest(requester);
     }
 
-    public void RecipeGameResultConnection()
+    // 재료를 제출해서 레시피를 알아내는 메서드
+    public void RecipeGameResultConnection(List<string> selectedIngredients)
     {
         string url = GameManager.Instance.Url + recipeGameEndPoint;
         RecipeGameResultRequest request = new RecipeGameResultRequest();
@@ -79,26 +81,13 @@ public class RecipeConnection : MonoBehaviour
 
         request.ingredients = new List<RecipeGameResultRequestIngredient>(); // 리스트 초기화
 
-        // 임시
-        RecipeGameResultRequestIngredient test1 = new RecipeGameResultRequestIngredient();
-        test1.ingredientName = "Flour_Red";
-        test1.quantity = 2;
-        request.ingredients.Add(test1);
-
-        RecipeGameResultRequestIngredient test2 = new RecipeGameResultRequestIngredient();
-        test2.ingredientName = "Butter";
-        test2.quantity = 1;  // 원래 1
-        request.ingredients.Add(test2);
-
-        RecipeGameResultRequestIngredient test3 = new RecipeGameResultRequestIngredient();
-        test3.ingredientName = "Egg";
-        test3.quantity = 1;
-        request.ingredients.Add(test3);
-
-        RecipeGameResultRequestIngredient test4 = new RecipeGameResultRequestIngredient();
-        test4.ingredientName = "Salt";
-        test4.quantity = 1;
-        request.ingredients.Add(test4);
+        foreach(string ingredientName in selectedIngredients)
+        {
+            RecipeGameResultRequestIngredient requestIngredient = new RecipeGameResultRequestIngredient();
+            requestIngredient.ingredientName = ingredientName;
+            requestIngredient.quantity = 1; // 1개 고정(이후 밸런스 피드백 후 개수 조절 필요)
+            request.ingredients.Add(requestIngredient);
+        }
 
         string jsonData = JsonUtility.ToJson(request, true);
 
