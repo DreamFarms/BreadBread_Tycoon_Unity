@@ -58,6 +58,10 @@ public class RecipeUIManager : MonoBehaviour
 
     [Header("¹Í½Ìº¼")]
     [SerializeField] private GameManager ball; // ¹Í½Ìº¼
+
+    [Header("¸®¿öµå")]
+    [SerializeField] private GameObject rewordUIGo; // reword bg img
+    [SerializeField] private RewordUI rewordUI; // reword bg img
     
 
     private void OnEnable()
@@ -85,6 +89,8 @@ public class RecipeUIManager : MonoBehaviour
         {
             Debug.Log("´ÙÀ½ ÆäÀÌÁö¸¦ ³Ñ°å½À´Ï´Ù.");
         });
+
+        rewordUIGo.SetActive(false);
     }
 
 
@@ -160,5 +166,12 @@ public class RecipeUIManager : MonoBehaviour
                 content.SetActive(false);
             }
         }
+    }
+
+    public  void ActiveRewordUI(string findedBreadName)
+    {
+        rewordUIGo.SetActive(true);
+        rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
+        rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
     }
 }

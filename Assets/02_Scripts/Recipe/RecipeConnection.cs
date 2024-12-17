@@ -66,7 +66,7 @@ public class RecipeConnection : MonoBehaviour
     {
         string url = GameManager.Instance.Url + StartRecipeEndPoint + GameManager.Instance.nickName;
         HttpRequester requester = new HttpRequester(RequestType.GET, url);
-        requester.onComplete = OnComplete;
+        requester.onComplete = OnComplete<RecipeGameStartResponse>;
         requester.onFailed = OnFailed;
 
         HttpManager.Instance.SendRequest(requester);
@@ -92,32 +92,84 @@ public class RecipeConnection : MonoBehaviour
         string jsonData = JsonUtility.ToJson(request, true);
 
         HttpRequester requester = new HttpRequester(RequestType.POST, url, jsonData);
-        requester.onComplete = OnComplete;
+        requester.onComplete = OnComplete<RecipeGameResultResponse>;
         requester.onFailed = OnFailed;
 
         HttpManager.Instance.SendRequest(requester);
     }
 
-    public void OnComplete(DownloadHandler result)
+    public void OnComplete<T>(DownloadHandler result) where T : new()
     {
-        Debug.Log("완료");
-        Debug.Log(result.text);
+        T typeClass = new T();
+        typeClass = JsonUtility.FromJson<T>(result.text);
 
-        // 동작 위치 이동 필요해 보임
-        // "resultCode":"SUCCESS","message":{"ingredients":[{"ingredientName":"Flour","count":10},{"ingredientName":"Flour_Green","count":10},{"ingredientName":"Flour_Red","count":10},{"ingredientName":"Salt","count":10},{"ingredientName":"Sugar","count":10},{"ingredientName":"Butter","count":10},{"ingredientName":"Egg","count":10},{"ingredientName":"Milk","count":10},{"ingredientName":"Strawberry","count":10}],"unlockedRecipes":[]}}
-        string jsonResult = result.text;
-        RecipeGameStartResponse response = JsonUtility.FromJson<RecipeGameStartResponse>(jsonResult);
-
-        foreach(RecipeGameStartResponseMessageIngredient ingredient in response.message.ingredients)
+        switch(typeClass)
         {
-            string name = ingredient.ingredientName;
-            int count = ingredient.count;
-            RecipeGameManager.Instance.IngredientCountDic.Add(name, count);
+            case RecipeGameStartResponse _:
+                RecipeGameStartResponse startResponse = typeClass as RecipeGameStartResponse;
+
+                if(startResponse != null)
+                {
+                    foreach (RecipeGameStartResponseMessageIngredient ingredient in startResponse.message.ingredients)
+                    {
+                        string name = ingredient.ingredientName;
+                        int count = ingredient.count;
+                        RecipeGameManager.Instance.IngredientCountDic.Add(name, count);
+                    }
+                }
+                break;
+
+            case RecipeGameResultResponse _:
+                RecipeGameResultResponse resultResponse = typeClass as RecipeGameResultResponse;
+
+                if (resultResponse != null)
+                {
+                    string breadName = resultResponse.message.breadName;
+
+                    Debug.Log("내가 만든 빵 : " + breadName);
+                    RecipeUIManager.Instance.ActiveRewordUI(breadName);
+
+                }
+                    break;
         }
-
-
-
     }
+
+    //public void OnComplete01(DownloadHandler result)
+    //{
+    //    Debug.Log("완료");
+    //    Debug.Log(result.text);
+    //    downloadHandler = result;
+
+    //    // 동작 위치 이동 필요해 보임
+    //    // "resultCode":"SUCCESS","message":{"ingredients":[{"ingredientName":"Flour","count":10},{"ingredientName":"Flour_Green","count":10},{"ingredientName":"Flour_Red","count":10},{"ingredientName":"Salt","count":10},{"ingredientName":"Sugar","count":10},{"ingredientName":"Butter","count":10},{"ingredientName":"Egg","count":10},{"ingredientName":"Milk","count":10},{"ingredientName":"Strawberry","count":10}],"unlockedRecipes":[]}}
+    //    string jsonResult = result.text;
+    //    RecipeGameStartResponse response = JsonUtility.FromJson<RecipeGameStartResponse>(jsonResult);
+
+    //    foreach (RecipeGameStartResponseMessageIngredient ingredient in response.message.ingredients)
+    //    {
+    //        string name = ingredient.ingredientName;
+    //        int count = ingredient.count;
+    //        RecipeGameManager.Instance.IngredientCountDic.Add(name, count);
+    //    }
+
+    //}
+
+    //public void OnComplete02(DownloadHandler result)
+    //{
+    //    Debug.Log("완료");
+    //    Debug.Log(result.text);
+    //    downloadHandler = result;
+
+    //    // 통신 완료
+    //    string jsonResult = downloadHandler.text;
+    //    RecipeGameResultResponse response = new RecipeGameResultResponse();
+    //    response = JsonUtility.FromJson<RecipeGameResultResponse>(jsonResult);
+    //    string breadName = response.message.breadName;
+    //    RecipeUIManager.Instance.findedBreadRecipeName = breadName;
+
+    //    RecipeUIManager.Instance.OpenRewordUI();
+
+    //}
 
     public void OnFailed(DownloadHandler result)
     {

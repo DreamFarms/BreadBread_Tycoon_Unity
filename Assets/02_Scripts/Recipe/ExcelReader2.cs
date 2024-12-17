@@ -24,6 +24,9 @@ public class Ingredient
 
 public class ExcelReader2 : MonoBehaviour
 {
+    // 해당 리더는 리팩토링이 필요합니다.
+    // 모든 리더는 하나로 통합하고, gamemanager에 데이터를 저장하는 방향으로 추후 수정 해야합니다.
+
     private void Start()
     {
         ReadIndexInfoCSV();

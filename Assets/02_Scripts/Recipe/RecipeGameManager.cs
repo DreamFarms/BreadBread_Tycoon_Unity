@@ -27,12 +27,14 @@ public class RecipeGameManager : MonoBehaviour
 
     [SerializeField] private RecipeConnection _connection;
 
-    private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>(); // ??
-    private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>(); // 영어 : 한국어
-    private Dictionary<string, int> _ingredientCountDic = new Dictionary<string, int>(); // 영어 : 개수
+    private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>(); // 인덱스, 빵 영어 : 한국어(분리 필요)
+    private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>(); // 재료 영어 : 한국어
+    private Dictionary<string, int> _ingredientCountDic = new Dictionary<string, int>(); // 재료 영어 : 개수
     
     [SerializeField] private BallPositions _ballPositions; // assign
     [SerializeField] public Dictionary<string, int> selectedIngredientDic = new Dictionary<string, int>(); // 재료 : n번 위치
+
+    public Dictionary<string, string> breadNameInfoDic = new Dictionary<string, string>(); // 빵 이름 영어 : 한국어
 
     // test
     public List<string> findedRecipes = new List<string>(); // 찾은 레시피들
