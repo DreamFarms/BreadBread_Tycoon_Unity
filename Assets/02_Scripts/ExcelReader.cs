@@ -52,7 +52,9 @@ public class ExcelReader : MonoBehaviour
             menu.price = splitData[2];
             menu.description = splitData[3];
 
+            // 아래 두개는 동일한 내용을 담고 있으므로 병합이 필요
             StoreGameManager.Instance.dicMenu.Add(menu.enName, menu);
+            // GameManager.Instance.menuInfoDic.Add(menu.enName, menu);
             //dicMenu.Add(menu.enName, menu);
         }
         Debug.Log("Complete Read File!!");

@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1071051396}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.066568784
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3821,8 +3821,9 @@ MonoBehaviour:
   viewPartTr: {fileID: 1033614730}
   contentPrefab: {fileID: 6217068751027079473, guid: be7610ba9f5144b4999c6a130bbf4c70, type: 3}
   ingredientPrefab: {fileID: 7504373513926544484, guid: 6408ace926152174ea65a0efbd69dbed, type: 3}
+  recipeBookImage: {fileID: 232049542}
   recipeBookButton: {fileID: 1348068785}
-  recipeBookImage: {fileID: 232049538}
+  recipeBookImageGo: {fileID: 232049538}
   recipeBookCloseBtn: {fileID: 978476794}
   categories: []
   _nextButton: {fileID: 2132846433}

@@ -35,10 +35,8 @@ public class RecipeGameManager : MonoBehaviour
     [SerializeField] public Dictionary<string, int> selectedIngredientDic = new Dictionary<string, int>(); // 재료 : n번 위치
 
     public Dictionary<string, string> breadNameInfoDic = new Dictionary<string, string>(); // 빵 이름 영어 : 한국어
+    public List<string> findedRecipes = new List<string>(); // 찾은 레시피
 
-    // test
-    public List<string> findedRecipes = new List<string>(); // 찾은 레시피들
-    public Dictionary<string, Recipe> findedRecipeDic = new Dictionary<string, Recipe>(); // 빵 이름 : 레시피
     public Button submitButton; // ui
     public RecipeBookImage recipeBookImage; // ui
 
@@ -65,29 +63,6 @@ public class RecipeGameManager : MonoBehaviour
 
     private void Update()
     {
-        // 테스트
-        if(Input.GetKeyDown(KeyCode.D)) 
-        {
-            // dic에 레시피 등록
-            string flour = "Flour";
-            string sugar = "Sugar";
-            string blueberry = "FreshBlueBerry";
-
-            string[] ingredients = new string[3];
-
-            ingredients[0] = flour;
-            ingredients[1] = sugar;
-            ingredients[2] = blueberry;
-
-            Recipe recipe = new Recipe(ingredients);
-
-            findedRecipeDic["딸기타르트"] = recipe;
-
-            // list에 찾은 레시피 등록
-            findedRecipes.Add("딸기타르트");
-
-            Debug.Log("테스트용 작업을 마쳤습니다. \n 밀가루, 설탕, 블루베리를 담고 제출 버튼을 누르세요.");
-        }
 
     }
 
@@ -150,8 +125,8 @@ public class RecipeGameManager : MonoBehaviour
 
         _connection.RecipeGameResultConnection(selectedIngredients);
 
-        // 테스트용
         // 레시피 북에 사진 등록하는 메서드
+        // ui manager로 옮길 필요
         // recipeBookImage.AddRecipeOnRecipeBook();
     }
 }

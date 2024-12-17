@@ -48,8 +48,9 @@ public class RecipeUIManager : MonoBehaviour
     [SerializeField] private GameObject ingredientPrefab;
 
     [Header("레시피 북")]
+    [SerializeField] private RecipeBookImage recipeBookImage; // recipeBookImage
     [SerializeField] private Button recipeBookButton; // 레시피 북 버튼
-    [SerializeField] private GameObject recipeBookImage; // 레시피 북 이미지
+    [SerializeField] private GameObject recipeBookImageGo; // 레시피 북 이미지
     [SerializeField] private Button recipeBookCloseBtn; // 레시피 북 닫기 버튼
     [SerializeField] private List<GameObject> categories = new List<GameObject>(); // 카테고리 리스트
     [SerializeField] private Button _nextButton; // ui
@@ -62,7 +63,9 @@ public class RecipeUIManager : MonoBehaviour
     [Header("리워드")]
     [SerializeField] private GameObject rewordUIGo; // reword bg img
     [SerializeField] private RewordUI rewordUI; // reword bg img
-    
+
+
+
 
     private void OnEnable()
     {
@@ -71,18 +74,18 @@ public class RecipeUIManager : MonoBehaviour
 
 
         // 레시피 북
-        recipeBookImage.SetActive(false);
+        recipeBookImageGo.SetActive(false);
 
         recipeBookButton.onClick.AddListener(() =>
         {
             ActiveGameobject(recipeBookButton.gameObject);
-            ActiveGameobject(recipeBookImage);
+            ActiveGameobject(recipeBookImageGo);
         });
 
         recipeBookCloseBtn.onClick.AddListener(() =>
         {
             ActiveGameobject(recipeBookButton.gameObject);
-            ActiveGameobject(recipeBookImage);
+            ActiveGameobject(recipeBookImageGo);
         });
 
         _nextButton.onClick.AddListener(() =>
@@ -166,6 +169,8 @@ public class RecipeUIManager : MonoBehaviour
                 content.SetActive(false);
             }
         }
+
+        recipeBookImage.InitRecipeBook();
     }
 
     public  void ActiveRewordUI(string findedBreadName)

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,13 @@ public class RecipeGameStartResponse
 public class RecipeGameStartResponseMessage
 {
     public List<RecipeGameStartResponseMessageIngredient> ingredients;
-    public List<string> unlockedRecipes;
+    public List<UnLockedRecipe> unlockedRecipes;
+}
+
+[System.Serializable]
+public class UnLockedRecipe
+{
+    public String foodName;
 }
 
 [System.Serializable]
@@ -116,6 +123,11 @@ public class RecipeConnection : MonoBehaviour
                         int count = ingredient.count;
                         RecipeGameManager.Instance.IngredientCountDic.Add(name, count);
                     }
+                    
+                    foreach(UnLockedRecipe findedRecipeName in startResponse.message.unlockedRecipes)
+                    {
+                        RecipeGameManager.Instance.findedRecipes.Add(findedRecipeName.foodName);
+                    }
                 }
                 break;
 
@@ -128,7 +140,6 @@ public class RecipeConnection : MonoBehaviour
 
                     Debug.Log("³»°¡ ¸¸µç »§ : " + breadName);
                     RecipeUIManager.Instance.ActiveRewordUI(breadName);
-
                 }
                     break;
         }

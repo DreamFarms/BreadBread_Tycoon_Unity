@@ -19,7 +19,14 @@ public class RecipeBookImage : MonoBehaviour
         category02.SetActive(false);
 
 
-        if(findedRecipes.Count == 0)
+
+    }
+
+    public void InitRecipeBook()
+    {
+        findedRecipes = RecipeGameManager.Instance.findedRecipes;
+
+        if (findedRecipes.Count == 0)
         {
             RecipeBookPage page = basicPage.GetComponent<RecipeBookPage>();
             page.recipeImage.gameObject.SetActive(false);
@@ -31,6 +38,15 @@ public class RecipeBookImage : MonoBehaviour
         {
             // todo
             // 찾은 레시피가 존재하면 어떤 행위를 할 것인지 추가
+            foreach (string findedRecipeName in findedRecipes)
+            {
+                RecipeBookPage page = basicPage.GetComponent<RecipeBookPage>();
+                page.recipeImage.gameObject.SetActive(true);
+                page.recipeImage.sprite = Resources.Load<Sprite>("Breads/" + findedRecipeName);
+                page.recipeName.text = GameManager.Instance.menuInfoDic[findedRecipeName].koName;
+                page.recipeInfo.text = GameManager.Instance.menuInfoDic[findedRecipeName].description;
+                basicPage.SetActive(true);
+            }
         }
     }
 

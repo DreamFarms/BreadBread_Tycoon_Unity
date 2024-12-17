@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     public int cash;
     public float timer;
     public Dictionary<string, int> userIngredient = new Dictionary<string, int>();
+
+    [Header("ExcelReader")]
+    public Dictionary<string, ExcelReader2.Menu> menuInfoDic = new Dictionary<string, ExcelReader2.Menu>();
+
     private void Awake()
     {
         if (_instance == null)
