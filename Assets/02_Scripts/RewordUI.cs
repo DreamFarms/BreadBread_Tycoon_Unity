@@ -16,10 +16,4 @@ public class RewordUI : MonoBehaviour
         closeButton.onClick.AddListener(() => gameObject.SetActive(false));
         gameObject.SetActive(false);
     }
-
-    private void OnEnable()
-    {
-        title.text = "빵을 찾았어요!";
-        title.fontSize = 60;
-    }
 }

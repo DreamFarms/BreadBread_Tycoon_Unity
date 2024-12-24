@@ -181,24 +181,29 @@ public class RecipeUIManager : MonoBehaviour
         recipeBookImage.InitRecipeBook();
     }
 
-    public  void ActiveRewordUI(string findedBreadName, bool isFinded)
+    public  void ActiveRewordUI(string findedBreadName, int findedState)
     {
 
-        if(findedBreadName == "")
-        {
-            rewordFailUIGo.SetActive(true);
-            return;
-        }
 
-        rewordUIGo.SetActive(true);
-        rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
-        rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
-        
-        // 이미 찾은 레시피
-        if(isFinded)
+        switch(findedState)
         {
-            rewordUI.title.text = "이미 알고있는 레시피";
-            rewordUI.title.fontSize = 50;
+            case 1:
+                rewordUIGo.SetActive(true);
+                rewordUI.title.text = "성공!";
+                rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
+                rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
+                break;
+            case 0:
+                rewordFailUIGo.SetActive(true);
+                break;
+            case -1:
+                rewordUIGo.SetActive(true);
+                rewordUI.title.text = "이미 알고있는 레시피";
+                rewordUI.title.fontSize = 50;
+                rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
+                rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
+
+                break;
         }
 
     }

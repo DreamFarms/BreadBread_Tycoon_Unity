@@ -57,7 +57,7 @@ public class RecipeGameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        submitButton.onClick.AddListener(() => SubmitIngredient());
+        // submitButton.onClick.AddListener(() => SubmitIngredient());
         
     }
 
