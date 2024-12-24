@@ -49,4 +49,17 @@ public class InventoryManager : MonoBehaviour
             inventoryUIManager.UpdateInventoryUIData(State.Ingredient, slot);
         }
     }
+
+    public bool CheckIsPlateItem()
+    {
+        for (int i = 0; i < breadInventory.Count; i++)
+        {
+            if (inventoryUIManager.inventoryUI[i].isPlate == true)
+            {
+                print("true");
+                return true;
+            }
+        }
+        return false;
+    }
 }

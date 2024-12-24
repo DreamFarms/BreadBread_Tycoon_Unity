@@ -15,14 +15,34 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI explain;
     [SerializeField] public int id;
     [SerializeField] private Button plateButton;
+    [SerializeField] private Button returnButton;
+    [SerializeField] private GameObject plateBtnObj;
+    [SerializeField] private GameObject returnBtnObj;
+    [SerializeField] private GameObject noticePlate;
+
+    public bool isPlate = false;
+
+    private void Start()
+    {
+        plateBtnObj.SetActive(false);
+        returnBtnObj.SetActive(false);
+    }
 
     private void OnEnable()
     {
         plateButton.onClick.AddListener(() => StoreGameManager.Instance.PlateSelectedMenu(FindEnKoMappingDIc()));
+        returnButton.onClick.AddListener(() => StoreGameManager.Instance.ReturnSelectedMenu());
+        returnButton.onClick.AddListener(() => ChangeButton());
     }
 
     private string FindEnKoMappingDIc()
     {
+        if (InventoryManager.Instance.CheckIsPlateItem())
+        {
+            noticePlate.SetActive(true);
+            return null;
+        }
+
         var dictionary = InfoManager.Instance.enKoMappingDic;
 
         foreach (var pair in dictionary)
@@ -30,11 +50,26 @@ public class ItemSlotUI : MonoBehaviour
             if (pair.Value == name.text) // 값 비교
             {
                 Debug.Log($"Key: {pair.Key}, Value: {pair.Value}");
+                ChangeButton();
                 return pair.Key; // 키 반환
             }
         }
         Debug.Log("없습니다");
         return null;
+    }
+
+    public void ChangeButton()
+    {
+        if (isPlate == false)
+        {
+            isPlate = true;
+            plateBtnObj.SetActive(false);
+        }
+        else
+        {
+            isPlate = false;
+            plateBtnObj.SetActive(true);
+        }
     }
 
     public void UpdateBreadUI(ItemSlot itemSlot)
@@ -46,6 +81,10 @@ public class ItemSlotUI : MonoBehaviour
         name.text = item.name;
         count.text = "수량: " + item.count.ToString();
         price.text = "가격: " + item.price.ToString();
+
+        plateButton.interactable = true;
+        returnBtnObj.SetActive(true);
+        plateBtnObj.SetActive(true);
     }
 
     public void UpdateIngredientUI(ItemSlot itemSlot)
