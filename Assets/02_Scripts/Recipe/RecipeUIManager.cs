@@ -134,9 +134,16 @@ public class RecipeUIManager : MonoBehaviour
                 }
 
                 go.GetComponent<ItemInfo>().rewordItemName.text = ingredientKoName;
-                go.GetComponent<ItemInfo>().rewordItemCount.text = ingredientCount.ToString() + "개";
+                go.GetComponent<ItemInfo>().rewordItemCount.text = ingredientCount.ToString();
 
-                go.GetComponent<Button>().onClick.AddListener(() => recipeGameManager.PuntIngredientInBall(sprite));
+                // 이벤트 등록 : 택한 재료가 ball에 배치됨
+                go.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    // ItemInfo는 PutIngredientInBall에 전달되어 재료를 선택하면 -, 선택 해제하면 +가 됨
+                    ItemInfo itemInfo = go.GetComponent<ItemInfo>();
+                    recipeGameManager.PuntIngredientInBall(itemInfo, sprite);
+
+                });
             }
 
 

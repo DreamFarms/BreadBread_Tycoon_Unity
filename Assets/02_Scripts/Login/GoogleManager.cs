@@ -7,34 +7,34 @@ using UnityEngine;
 
 public class GoogleManager : MonoBehaviour
 {
-    public TextMeshProUGUI loginText;
+    //public TextMeshProUGUI loginText;
 
-    private void Start()
-    {
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
+    //private void Start()
+    //{
+    //    PlayGamesPlatform.DebugLogEnabled = true;
+    //    PlayGamesPlatform.Activate();
         
-        SignIn();
-    }
+    //    SignIn();
+    //}
 
-    public void SignIn()
-    {
-        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
-    }
+    //public void SignIn()
+    //{
+    //    PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
+    //}
 
-    internal void ProcessAuthentication(SignInStatus status)
-    {
-        if (status == SignInStatus.Success)
-        {
-            string name = PlayGamesPlatform.Instance.GetUserDisplayName();
-            string id = PlayGamesPlatform.Instance.GetUserId();
-            string Imgurl = PlayGamesPlatform.Instance.GetUserImageUrl();
+    //internal void ProcessAuthentication(SignInStatus status)
+    //{
+    //    if (status == SignInStatus.Success)
+    //    {
+    //        string name = PlayGamesPlatform.Instance.GetUserDisplayName();
+    //        string id = PlayGamesPlatform.Instance.GetUserId();
+    //        string Imgurl = PlayGamesPlatform.Instance.GetUserImageUrl();
 
-            loginText.text = "Succes :" + name;
-        }
-        else
-        {
-            loginText.text = "Login Fail";
-        }
-    }
+    //        loginText.text = "Succes :" + name;
+    //    }
+    //    else
+    //    {
+    //        loginText.text = "Login Fail";
+    //    }
+    //}
 }

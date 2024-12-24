@@ -24,7 +24,7 @@ public class BallPositions : MonoBehaviour
     {
         recipeGameManage = RecipeGameManager.Instance;
     }
-    public void PutIngredient(Sprite sprite)
+    public void PutIngredient(ItemInfo itemInfo, Sprite sprite)
     {
         // 이미 선택된 재료라면 list에서 삭제
         if(recipeGameManage.selectedIngredientDic.ContainsKey(sprite.name))
@@ -32,6 +32,7 @@ public class BallPositions : MonoBehaviour
             int index = recipeGameManage.selectedIngredientDic[sprite.name];
             ingredientPositions[index].gameObject.SetActive(false);
             recipeGameManage.selectedIngredientDic.Remove(sprite.name);
+            itemInfo.PlusItemCount();
             return;
         }
         for (int i = 0; i < ingredientPositions.Count; i++)
@@ -41,6 +42,7 @@ public class BallPositions : MonoBehaviour
                 // 재료 배치
                 ingredientPositions[i].gameObject.SetActive(true);
                 ingredientPositions[i].GetComponent<SpriteRenderer>().sprite = sprite;
+                itemInfo.MinusItemCount();
 
                 // 재료 인덱스 설정
                 recipeGameManage.selectedIngredientDic[sprite.name] = i;
