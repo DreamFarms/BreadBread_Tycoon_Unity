@@ -134,12 +134,28 @@ public class RecipeConnection : MonoBehaviour
             case RecipeGameResultResponse _:
                 RecipeGameResultResponse resultResponse = typeClass as RecipeGameResultResponse;
 
+                // 코드를 깔끔하게 변경 할 필요가 있음
+                // fasle, true를 직접 넘겨주는 방법밖에 없을까? 고민
                 if (resultResponse != null)
                 {
                     string breadName = resultResponse.message.breadName;
+                    if(resultResponse.message.result)
+                    {
+                        Debug.Log("내가 만든 빵 : " + breadName);
+                        RecipeUIManager.Instance.ActiveRewordUI(breadName, false);
+                    }
+                    else if(!resultResponse.message.result)
+                    {
+                        Debug.Log("레시피가 없습니다.");
+                        breadName = null;
+                        RecipeUIManager.Instance.ActiveRewordUI(breadName, false);
+                    }
+                    else
+                    {
+                        Debug.Log("이미 찾은 조합입니다.");
+                        RecipeUIManager.Instance.ActiveRewordUI(breadName, true);
+                    }
 
-                    Debug.Log("내가 만든 빵 : " + breadName);
-                    RecipeUIManager.Instance.ActiveRewordUI(breadName);
                 }
                     break;
         }

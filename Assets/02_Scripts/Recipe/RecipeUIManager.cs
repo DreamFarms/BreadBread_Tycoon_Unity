@@ -63,6 +63,7 @@ public class RecipeUIManager : MonoBehaviour
     [Header("리워드")]
     [SerializeField] private GameObject rewordUIGo; // reword bg img
     [SerializeField] private RewordUI rewordUI; // reword bg img
+    [SerializeField] private GameObject rewordFailUIGo; // resord bg img fail
 
 
 
@@ -93,7 +94,7 @@ public class RecipeUIManager : MonoBehaviour
             Debug.Log("다음 페이지를 넘겼습니다.");
         });
 
-        rewordUIGo.SetActive(false);
+        //rewordUIGo.SetActive(false);
     }
 
 
@@ -173,10 +174,25 @@ public class RecipeUIManager : MonoBehaviour
         recipeBookImage.InitRecipeBook();
     }
 
-    public  void ActiveRewordUI(string findedBreadName)
+    public  void ActiveRewordUI(string findedBreadName, bool isFinded)
     {
+
+        if(findedBreadName == "")
+        {
+            rewordFailUIGo.SetActive(true);
+            return;
+        }
+
         rewordUIGo.SetActive(true);
         rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
         rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
+        
+        // 이미 찾은 레시피
+        if(isFinded)
+        {
+            rewordUI.title.text = "이미 알고있는 레시피";
+            rewordUI.title.fontSize = 50;
+        }
+
     }
 }
