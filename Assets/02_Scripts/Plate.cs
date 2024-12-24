@@ -59,7 +59,7 @@ public class Plate : MonoBehaviour
         // 해결이 안되서 find로 찾기 시작. 하지만 성능 문제가 있으므로 곧 해결 해야됨
         GameObject childGo = GameObject.Find("Food").gameObject;
         SpriteRenderer spriteRenderer = childGo.GetComponent<SpriteRenderer>();
-        if(spriteRenderer == null)
+        if (spriteRenderer == null)
         {
             GameObject go = new GameObject("Food");
             Instantiate(go, _selectedPlate.transform);
@@ -68,6 +68,13 @@ public class Plate : MonoBehaviour
         // 음식 올라가는 부분 레이어를 3으로 설정
         spriteRenderer.sortingOrder = 3;
         spriteRenderer.sprite = sprite;
+    }
+
+    public void ReturnSelectMenu()
+    {
+        GameObject childGo = GameObject.Find("Food").gameObject;
+        SpriteRenderer spriteRenderer = childGo.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = null;
     }
 
     

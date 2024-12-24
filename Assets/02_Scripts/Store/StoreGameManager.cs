@@ -38,7 +38,16 @@ public class StoreGameManager : MonoBehaviour
     // 접시에 음식을 배치하는 메서드
     public void PlateSelectedMenu(string menuName)
     {
+        if (menuName == null)
+            return;
+
+        print(menuName);
         plate.PlateSelectedMenu(menuName);
+    }
+
+    public void ReturnSelectedMenu()
+    {
+        plate.ReturnSelectMenu();
     }
 
     // 음식 정보를 dic에서 뽑아주는 메서드
