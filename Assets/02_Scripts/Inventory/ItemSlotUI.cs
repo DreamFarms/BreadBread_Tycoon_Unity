@@ -30,6 +30,9 @@ public class ItemSlotUI : MonoBehaviour
 
     private void OnEnable()
     {
+        plateButton.onClick.RemoveAllListeners(); 
+        returnButton.onClick.RemoveAllListeners(); 
+
         plateButton.onClick.AddListener(() => StoreGameManager.Instance.PlateSelectedMenu(FindEnKoMappingDIc()));
         returnButton.onClick.AddListener(() => StoreGameManager.Instance.ReturnSelectedMenu());
         returnButton.onClick.AddListener(() => ChangeButton());

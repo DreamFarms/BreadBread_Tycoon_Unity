@@ -10,16 +10,19 @@ public class InventoryManager : MonoBehaviour
     public Dictionary<int, ItemSlot> breadInventory {get; private set;} //빵 정보
     public Dictionary<int, ItemSlot> ingredientInventory { get; private set;}//재료 정보
     [SerializeField] private InventoryUIManager inventoryUIManager;
+    private GameObject inventroy;
 
     private void Awake()
     {
         Instance = this;
         breadInventory = new Dictionary<int, ItemSlot>();
         ingredientInventory = new Dictionary<int, ItemSlot>();
+        inventroy = transform.root.gameObject;
     }
 
     private void Start()
     {
+        inventroy.SetActive(false);
     }
 
     //인벤토리를 업데이트 하는 함수

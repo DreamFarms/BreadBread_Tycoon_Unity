@@ -13,14 +13,19 @@ public class ExcelReader3 : MonoBehaviour
     public static string ingredientPath = @"Ingredients\";
     [SerializeField] InventoryConnection inventoryConnection;
 
+    public Dictionary<string, string> enKoMapping = new Dictionary<string, string>();
+    public Dictionary<string, string> ingerdientMapping = new Dictionary<string, string>();
+
     private void Awake()
     {
-        ItemManager instance = ItemManager.Instance;
+        InfoManager instance = InfoManager.Instance;
         ReadIndexInfoCSV();
         ReadIngredientInfoCSV();
         ReadKJY_MenuInfoCSV();
         ReadKJY_IngredientInfoCSV();
         inventoryConnection.StartInventoryConnection();
+        instance.SetEnKoInfoDicTest(enKoMapping);
+        instance.SetIngredientInfoDicTest(ingerdientMapping);
     }
 
     private void ReadKJY_IngredientInfoCSV()
@@ -100,9 +105,6 @@ public class ExcelReader3 : MonoBehaviour
         // stream reader
         StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
 
-        // instance
-        RecipeGameManager instance = RecipeGameManager.Instance;
-
         bool isFinish = false;
 
         while (isFinish == false)
@@ -122,11 +124,8 @@ public class ExcelReader3 : MonoBehaviour
                 index.enName = splitData[0].Trim();
                 index.koName = splitData[1].Trim();
 
-
-                InfoManager.Instance.enKoMappingDic[index.enName] = index.koName;
-                Debug.Log(InfoManager.Instance.enKoMappingDic[index.enName]);
-                //InfoManager.Instance.enKoMappingDic.Add(index.koName, index.enName);
-                //RecipeGameManager.Instance.IndexInfoDic[index.enName] = index.koName;
+                enKoMapping[index.enName] = index.koName;
+                //InfoManager.Instance.SetEnKoInfoDic(index.enName, index.koName);
             }
 
         }
@@ -163,7 +162,8 @@ public class ExcelReader3 : MonoBehaviour
                 ingredient.enName = splitData[1];
                 ingredient.koName = splitData[2];
 
-                InfoManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
+                ingerdientMapping[ingredient.enName] = ingredient.koName;
+                //InfoManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
             }
 
         }

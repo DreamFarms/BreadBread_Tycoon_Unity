@@ -32,6 +32,7 @@ public class StoreGameManager : MonoBehaviour
 
     private void Start()
     {
+        plate = new Plate();
         //AudioManager.Instance.PlayBGM(BGM.Store);
     }
 
@@ -41,7 +42,6 @@ public class StoreGameManager : MonoBehaviour
         if (menuName == null)
             return;
 
-        print(menuName);
         plate.PlateSelectedMenu(menuName);
     }
 

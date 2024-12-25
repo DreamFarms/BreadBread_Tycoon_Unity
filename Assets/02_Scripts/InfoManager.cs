@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,15 +16,16 @@ public class InfoManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        _instance = this;
+        //if (_instance == null)
+        //{
+        //    _instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     private void Update()
@@ -46,6 +48,22 @@ public class InfoManager : MonoBehaviour
         {
             _ingredientInfoDic[enName] = koName;
         }
+    }
+
+    public void SetEnKoInfoDic(string enName, string koName)
+    {
+        print(enName);
+        enKoMappingDic[enName] = koName;
+    }
+
+    public void SetEnKoInfoDicTest(Dictionary<string, string> Dic)
+    {
+        enKoMappingDic = Dic;
+    }
+
+    public void SetIngredientInfoDicTest(Dictionary<string,string> Dic)
+    {
+        _ingredientInfoDic = Dic;
     }
 
     // test

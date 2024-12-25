@@ -28,6 +28,8 @@ public class InventoryResponseMessage
 
 public class InventoryConnection : MonoBehaviour
 {
+    [SerializeField] private string inventoryPoint = "https://ec00-115-136-106-231.ngrok-free.app/api/v1/inventory/load?nickname=";
+
     public void StartInventoryConnection()
     {
         InventoryRequest request = new InventoryRequest();
@@ -35,28 +37,38 @@ public class InventoryConnection : MonoBehaviour
         //request.nickname = GameManager.Instance.nickName;
         request.nickname = "웨지감자";
 
-        string json = JsonUtility.ToJson(request);
+        string url = inventoryPoint + request.nickname;
 
-        string url = "https://ec00-115-136-106-231.ngrok-free.app/api/v1/inventory/load?nickname=" + request.nickname;
-        HttpRequester requester = new HttpRequester(RequestType.GET, url, json);
-        requester.onComplete = OnCompleteInventoryConnection;
-        requester.onFailed = OnFailedInventoryConnection;
+        HttpRequester requester = new HttpRequester(RequestType.GET, url);
+        requester.onComplete = OnComplete<InventoryResponse>;
+        requester.onFailed = OnFailed;
 
         HttpManager.Instance.SendRequest(requester);
     }
 
-    public void OnCompleteInventoryConnection(DownloadHandler result)
+    public void OnComplete<T>(DownloadHandler result) where T : new()
     {
+        T typeClass = new T();
         Debug.Log("인벤토리 통신 성공");
-        InventoryResponse response = JsonUtility.FromJson<InventoryResponse>(result.text);
-        for (int i = 0; i < response.message.Count; i++)
+        typeClass = JsonUtility.FromJson<T>(result.text);
+
+        switch(typeClass)
         {
-            ItemManager.Instance.PlusItemCount(response.message[i].code, response.message[i].count);
+            case InventoryResponse _:
+                InventoryResponse response =  typeClass as InventoryResponse;
+                if (response != null)
+                {
+                    for (int i = 0; i < response.message.Count; i++)
+                    {
+                        ItemManager.Instance.PlusItemCount(response.message[i].code, response.message[i].count);
+                    }
+                    Debug.Log("인벤토리 통신 끝");
+                }
+                break;
         }
-        Debug.Log("인벤토리 통신 끝");
     }
 
-    public void OnFailedInventoryConnection(DownloadHandler result)
+    public void OnFailed(DownloadHandler result)
     {
         Debug.Log("인벤토리 통신 실패");
     }
