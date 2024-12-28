@@ -57,7 +57,7 @@ public class RecipeGameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        submitButton.onClick.AddListener(() => SubmitIngredient());
+        // submitButton.onClick.AddListener(() => SubmitIngredient());
         
     }
 
@@ -99,9 +99,9 @@ public class RecipeGameManager : MonoBehaviour
         RecipeUIManager.Instance.SetInitScrollUI();
     }
 
-    public void PuntIngredientInBall(Sprite sprite)
+    public void PuntIngredientInBall(ItemInfo itemInfo, Sprite sprite)
     {
-        _ballPositions.PutIngredient(sprite);
+        _ballPositions.PutIngredient(itemInfo, sprite);
     }
 
     // test

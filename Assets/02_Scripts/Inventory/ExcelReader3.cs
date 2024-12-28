@@ -120,7 +120,7 @@ public class ExcelReader3 : MonoBehaviour
             char firstChar = splitData[0][0];
             if (firstChar >= 'A' && firstChar <= 'Z' || firstChar >= 'a' && firstChar <= 'z')
             {
-                Index index = new Index();
+                IndexEnum index = new IndexEnum();
                 index.enName = splitData[0].Trim();
                 index.koName = splitData[1].Trim();
 
@@ -157,7 +157,7 @@ public class ExcelReader3 : MonoBehaviour
             char firstChar = splitData[1][0];
             if (firstChar >= 'A' && firstChar <= 'Z' || firstChar >= 'a' && firstChar <= 'z')
             {
-                Ingredient ingredient = new Ingredient();
+                IngredientEnum ingredient = new IngredientEnum();
                 ingredient.index = splitData[0];
                 ingredient.enName = splitData[1];
                 ingredient.koName = splitData[2];

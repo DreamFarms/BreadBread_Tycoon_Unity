@@ -134,9 +134,16 @@ public class RecipeUIManager : MonoBehaviour
                 }
 
                 go.GetComponent<ItemInfo>().rewordItemName.text = ingredientKoName;
-                go.GetComponent<ItemInfo>().rewordItemCount.text = ingredientCount.ToString() + "개";
+                go.GetComponent<ItemInfo>().rewordItemCount.text = ingredientCount.ToString();
 
-                go.GetComponent<Button>().onClick.AddListener(() => recipeGameManager.PuntIngredientInBall(sprite));
+                // 이벤트 등록 : 택한 재료가 ball에 배치됨
+                go.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    // ItemInfo는 PutIngredientInBall에 전달되어 재료를 선택하면 -, 선택 해제하면 +가 됨
+                    ItemInfo itemInfo = go.GetComponent<ItemInfo>();
+                    recipeGameManager.PuntIngredientInBall(itemInfo, sprite);
+
+                });
             }
 
 
@@ -174,24 +181,29 @@ public class RecipeUIManager : MonoBehaviour
         recipeBookImage.InitRecipeBook();
     }
 
-    public  void ActiveRewordUI(string findedBreadName, bool isFinded)
+    public  void ActiveRewordUI(string findedBreadName, int findedState)
     {
 
-        if(findedBreadName == "")
-        {
-            rewordFailUIGo.SetActive(true);
-            return;
-        }
 
-        rewordUIGo.SetActive(true);
-        rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
-        rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
-        
-        // 이미 찾은 레시피
-        if(isFinded)
+        switch(findedState)
         {
-            rewordUI.title.text = "이미 알고있는 레시피";
-            rewordUI.title.fontSize = 50;
+            case 1:
+                rewordUIGo.SetActive(true);
+                rewordUI.title.text = "성공!";
+                rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
+                rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
+                break;
+            case 0:
+                rewordFailUIGo.SetActive(true);
+                break;
+            case -1:
+                rewordUIGo.SetActive(true);
+                rewordUI.title.text = "이미 알고있는 레시피";
+                rewordUI.title.fontSize = 50;
+                rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
+                rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
+
+                break;
         }
 
     }

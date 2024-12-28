@@ -58,7 +58,7 @@ public class RecipeGameResultResponse
 [System.Serializable]
 public class RecipeGameResultResponseMessage
 {
-    public bool result;
+    public int resultState; // -1 : 이미 찾음, 0 : 못찾음, 1 : 새로 찾음
     public string breadName;
 }
 
@@ -139,21 +139,21 @@ public class RecipeConnection : MonoBehaviour
                 if (resultResponse != null)
                 {
                     string breadName = resultResponse.message.breadName;
-                    if(resultResponse.message.result)
+                    if(resultResponse.message.resultState == 1)
                     {
                         Debug.Log("내가 만든 빵 : " + breadName);
-                        RecipeUIManager.Instance.ActiveRewordUI(breadName, false);
+                        RecipeUIManager.Instance.ActiveRewordUI(breadName, 1);
                     }
-                    else if(!resultResponse.message.result)
+                    else if(resultResponse.message.resultState == 0)
                     {
                         Debug.Log("레시피가 없습니다.");
                         breadName = null;
-                        RecipeUIManager.Instance.ActiveRewordUI(breadName, false);
+                        RecipeUIManager.Instance.ActiveRewordUI(breadName, 0);
                     }
                     else
                     {
                         Debug.Log("이미 찾은 조합입니다.");
-                        RecipeUIManager.Instance.ActiveRewordUI(breadName, true);
+                        RecipeUIManager.Instance.ActiveRewordUI(breadName, -1);
                     }
 
                 }
