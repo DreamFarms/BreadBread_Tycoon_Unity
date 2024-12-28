@@ -11,7 +11,7 @@ public class Test : MonoBehaviour
 
     private void Start()
     {
-        test = ItemManager.Instance.ItemData;
+        test = ItemManager.Instance.ItemData; // key : value
     }
 
     private void Update()

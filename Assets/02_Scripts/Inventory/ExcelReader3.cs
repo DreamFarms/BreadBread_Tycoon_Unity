@@ -92,6 +92,7 @@ public class ExcelReader3 : MonoBehaviour
 
         for (int i = 0; i < tempList.Count; i += 6)
         {
+            // 이미지, 메뉴이름_한글, 가격, 메뉴설명, 재료, 아이디(int), 개수
             Item item = new Item(breadPath + tempList[i], tempList[i + 1], tempList[i + 2], tempList[i + 3], tempList[i + 4], int.Parse(tempList[i + 5]), 0);
             ItemManager.Instance.SetItemDictionary(item.id, item);
         }
