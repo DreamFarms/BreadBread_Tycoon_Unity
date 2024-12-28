@@ -46,7 +46,8 @@ public class ItemSlotUI : MonoBehaviour
             return null;
         }
 
-        var dictionary = InfoManager.Instance.enKoMappingDic;
+        var dictionary = GameManager.Instance.indexInfoDic;
+            // InfoManager.Instance.enKoMappingDic; GameManager로 수정했습니다. -변지환-
 
         foreach (var pair in dictionary)
         {

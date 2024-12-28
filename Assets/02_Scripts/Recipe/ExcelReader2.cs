@@ -25,7 +25,7 @@ public class IngredientEnum
 public class ExcelReader2 : MonoBehaviour
 {
     [System.Serializable]
-    public class Menu
+    public class Bread
     {
         public string enName;
         public string koName;
@@ -69,9 +69,7 @@ public class ExcelReader2 : MonoBehaviour
                 index.enName = splitData[0].Trim();
                 index.koName = splitData[1].Trim();
 
-
-                InfoManager.Instance.enKoMappingDic[index.enName] = index.koName;
-                RecipeGameManager.Instance.IndexInfoDic[index.enName] = index.koName;
+                GameManager.Instance.indexInfoDic[index.enName] = index.koName;
             }
 
         }
@@ -85,7 +83,7 @@ public class ExcelReader2 : MonoBehaviour
         string path = "Files/MenuInfo.csv";
 
         // 데이터를 저장하는 리스트
-        List<Menu> menuList = new List<Menu>();
+        List<Bread> menuList = new List<Bread>();
 
         // stream reader
         StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
@@ -102,13 +100,13 @@ public class ExcelReader2 : MonoBehaviour
             }
             var splitData = data.Split(','); // 콤마로 데이터 분할
 
-            Menu menu = new Menu();
+            Bread menu = new Bread();
             menu.enName = splitData[0];
             menu.koName = splitData[1];
             menu.price = splitData[2];
             menu.description = splitData[3];
 
-            GameManager.Instance.menuInfoDic.Add(menu.enName, menu);
+            GameManager.Instance.breadInfoDic.Add(menu.enName, menu);
             //dicMenu.Add(menu.enName, menu);
         }
         Debug.Log("Complete Read File!!");

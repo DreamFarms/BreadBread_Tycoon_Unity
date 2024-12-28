@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, int> userIngredient = new Dictionary<string, int>();
 
     [Header("ExcelReader")]
-    public Dictionary<string, ExcelReader2.Menu> menuInfoDic = new Dictionary<string, ExcelReader2.Menu>();
+    public Dictionary<string, ExcelReader2.Bread> breadInfoDic = new Dictionary<string, ExcelReader2.Bread>();
+    public Dictionary<string, string> indexInfoDic = new Dictionary<string, string>(); // index : 인덱스
+    public Dictionary<string, string> ingredientInfoDic = new Dictionary<string, string>(); // four : 밀가루
 
     private void Awake()
     {

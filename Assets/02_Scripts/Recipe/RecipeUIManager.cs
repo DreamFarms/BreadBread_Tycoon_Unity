@@ -91,7 +91,7 @@ public class RecipeUIManager : MonoBehaviour
 
         _nextButton.onClick.AddListener(() =>
         {
-            Debug.Log("다음 페이지를 넘겼습니다.");
+            recipeBookImage.OnClickNextPageButton();
         });
 
         //rewordUIGo.SetActive(false);
@@ -112,7 +112,7 @@ public class RecipeUIManager : MonoBehaviour
             GameObject indexButton = Instantiate(ingredientIndexButton, indexTr);
             indexButton.name = name;
 
-            string koName = RecipeGameManager.Instance.IndexInfoDic[name];
+            string koName = GameManager.Instance.indexInfoDic[name];
             indexButton.transform.GetChild(0).GetComponent<TMP_Text>().text = koName;
 
             GameObject content = Instantiate(contentPrefab, viewPartTr);
