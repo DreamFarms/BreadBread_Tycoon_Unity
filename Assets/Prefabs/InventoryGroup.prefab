@@ -873,9 +873,9 @@ RectTransform:
   - {fileID: 7269856570373916260}
   m_Father: {fileID: 8656109370306768295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 316.065, y: -76.355}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6011509107624989956
@@ -1016,6 +1016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355a44e80a9dd8545a7ddd583fe1ea5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryPoint: https://ec00-115-136-106-231.ngrok-free.app/api/v1/inventory/load?nickname=
 --- !u!1 &3580170021966920733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,7 +1082,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &490380535234506561
 MonoBehaviour:
@@ -1397,7 +1398,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB2EB\uAE30"
+  m_text: '
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b109e4dfcbb439f4c928cbb6e20cf4d5, type: 2}
   m_sharedMaterial: {fileID: -8050570973057238527, guid: b109e4dfcbb439f4c928cbb6e20cf4d5, type: 2}
@@ -2397,7 +2400,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1008.32, y: 960.92}
+  m_SizeDelta: {x: 1008.32, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5520244591914524769
 CanvasRenderer:
@@ -2802,7 +2805,7 @@ MonoBehaviour:
   m_Content: {fileID: 3746517328613012549}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -2867,7 +2870,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8672591300833584696
@@ -3078,8 +3081,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -240, y: -320}
-  m_SizeDelta: {x: 240, y: 181.6}
+  m_AnchoredPosition: {x: -175, y: -315}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4878092320375495114
 CanvasRenderer:
@@ -3109,7 +3112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3d4b82d503a5f5f4ba7fe37f73f55a8d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3fc4489a0d1294e4facfc02fb57e985b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5584,6 +5587,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3746517328613012549}
     m_Modifications:
+    - target: {fileID: 706433471607705737, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_margin.z
+      value: 38.243958
+      objectReference: {fileID: 0}
+    - target: {fileID: 2556913757372696133, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2556913757372696133, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3069495435434764689, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5664,14 +5679,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3125882956221562572, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125882956221562572, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125882956221562572, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3706076296148285204, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
       propertyPath: m_Name
       value: InventorySlotUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727396497628913011, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 180.8781
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727396497628913011, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 101.439026
       objectReference: {fileID: 0}
     - target: {fileID: 4739774621089474742, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
       propertyPath: noticePlate
       value: 
       objectReference: {fileID: 6939064455150503872}
+    - target: {fileID: 4860113571440946879, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -4.5000215
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860113571440946879, guid: f3c0d84db71b0c948810819c42e9802d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.2499893
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
