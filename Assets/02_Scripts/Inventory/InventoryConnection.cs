@@ -28,16 +28,15 @@ public class InventoryResponseMessage
 
 public class InventoryConnection : MonoBehaviour
 {
-    [SerializeField] private string inventoryPoint = "https://ec00-115-136-106-231.ngrok-free.app/api/v1/inventory/load?nickname=";
+    [SerializeField] private string inventoryPoint = "inventory/load?nickname=";
 
     public void StartInventoryConnection()
     {
         InventoryRequest request = new InventoryRequest();
 
-        //request.nickname = GameManager.Instance.nickName;
-        request.nickname = "웨지감자";
+        request.nickname = GameManager.Instance.nickName;
 
-        string url = inventoryPoint + request.nickname;
+        string url = GameManager.Instance.Url + inventoryPoint + request.nickname;
 
         HttpRequester requester = new HttpRequester(RequestType.GET, url);
         requester.onComplete = OnComplete<InventoryResponse>;
