@@ -14,6 +14,7 @@ public class Category : MonoBehaviour
 
     public void InitPage()
     {
+        // 첫번째 페이지만 두고 다 끄기
         for (int i = pages.Count-1; i > 1; i--) 
         {
             pages[i].gameObject.SetActive(false);

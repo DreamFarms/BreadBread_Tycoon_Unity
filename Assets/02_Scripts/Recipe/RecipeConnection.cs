@@ -23,7 +23,8 @@ public class RecipeGameStartResponseMessage
 [System.Serializable]
 public class UnLockedRecipe
 {
-    public String foodName;
+    public string foodName;
+    public string category;
 }
 
 [System.Serializable]
@@ -60,9 +61,10 @@ public class RecipeGameResultResponseMessage
 {
     public int resultState; // -1 : 이미 찾음, 0 : 못찾음, 1 : 새로 찾음
     public string breadName;
+    public string category;
 }
 
-public class RecipeConnection : MonoBehaviour
+public class RecipeConnection : MonoBehaviour, IConnection
 {
     [SerializeField] private string StartRecipeEndPoint = "api/v1/recipes/start?nickname=";
     [SerializeField] private string recipeGameEndPoint = "api/v1/recipes/check";
@@ -160,43 +162,6 @@ public class RecipeConnection : MonoBehaviour
                     break;
         }
     }
-
-    //public void OnComplete01(DownloadHandler result)
-    //{
-    //    Debug.Log("완료");
-    //    Debug.Log(result.text);
-    //    downloadHandler = result;
-
-    //    // 동작 위치 이동 필요해 보임
-    //    // "resultCode":"SUCCESS","message":{"ingredients":[{"ingredientName":"Flour","count":10},{"ingredientName":"Flour_Green","count":10},{"ingredientName":"Flour_Red","count":10},{"ingredientName":"Salt","count":10},{"ingredientName":"Sugar","count":10},{"ingredientName":"Butter","count":10},{"ingredientName":"Egg","count":10},{"ingredientName":"Milk","count":10},{"ingredientName":"Strawberry","count":10}],"unlockedRecipes":[]}}
-    //    string jsonResult = result.text;
-    //    RecipeGameStartResponse response = JsonUtility.FromJson<RecipeGameStartResponse>(jsonResult);
-
-    //    foreach (RecipeGameStartResponseMessageIngredient ingredient in response.message.ingredients)
-    //    {
-    //        string name = ingredient.ingredientName;
-    //        int count = ingredient.count;
-    //        RecipeGameManager.Instance.IngredientCountDic.Add(name, count);
-    //    }
-
-    //}
-
-    //public void OnComplete02(DownloadHandler result)
-    //{
-    //    Debug.Log("완료");
-    //    Debug.Log(result.text);
-    //    downloadHandler = result;
-
-    //    // 통신 완료
-    //    string jsonResult = downloadHandler.text;
-    //    RecipeGameResultResponse response = new RecipeGameResultResponse();
-    //    response = JsonUtility.FromJson<RecipeGameResultResponse>(jsonResult);
-    //    string breadName = response.message.breadName;
-    //    RecipeUIManager.Instance.findedBreadRecipeName = breadName;
-
-    //    RecipeUIManager.Instance.OpenRewordUI();
-
-    //}
 
     public void OnFailed(DownloadHandler result)
     {

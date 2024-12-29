@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,16 +12,32 @@ public class RecipeBookImage : MonoBehaviour
 
     public GameObject recipeBookPageGo; // prefab
     public GameObject basicPage; // go
-    public GameObject category01, category02; // assign
+    public Button categoryBtn01, categoryBtn02, categoryBtn03; // assign
+    public GameObject category01, category02, category03; // assign
     public GameObject currentCategory;
     public List<string> findedRecipes = new List<string>();
 
     private void Awake()
     {
+        categoryBtn01.onClick.AddListener(() => OnClickCategoryBtn(category01));
+        categoryBtn02.onClick.AddListener(() => OnClickCategoryBtn(category02));
+        categoryBtn03.onClick.AddListener(() => OnClickCategoryBtn(category03));
+
+
         category01.SetActive(true);
         category02.SetActive(false);
-        currentCategory = category01;
+        category03.SetActive(false);
+
+        currentCategory = category01; // 기본으로 보여줄 카테고리는 무조건 01번
+
         
+    }
+
+    public void OnClickCategoryBtn(GameObject categoryGo)
+    {
+        currentCategory.SetActive(false);
+        categoryGo.SetActive(true);
+        currentCategory = categoryGo;
     }
 
     public void InitRecipeBook()
@@ -40,32 +58,101 @@ public class RecipeBookImage : MonoBehaviour
             // 찾은 레시피가 존재하면 어떤 행위를 할 것인지 추가
             foreach (string findedRecipeName in findedRecipes)
             {
-                GameObject page = Instantiate(recipeBookPageGo, category01.transform); // 임시로 category01에 스폰
-
-                // page 설정
-                RecipeBookPage recipeBookPage = page.GetComponent<RecipeBookPage>();
-                recipeBookPage.recipeImage.gameObject.SetActive(true);
-                recipeBookPage.SetRecipeBookPage(findedRecipeName);
-
                 // page를 카테고리로 편입
-                category01.GetComponent<Category>().AddPages(recipeBookPage);
+                string type = GameManager.Instance.breadInfoDic[findedRecipeName].type;
+                BreadType enumType = (BreadType)Enum.Parse(typeof(BreadType), type);
+                switch(enumType)
+                {
+                    case BreadType.bread:
+                        GameObject page1 = Instantiate(recipeBookPageGo, category01.transform);
+
+                        // page 설정
+                        // 중복되는 코드 정리 필요
+                        RecipeBookPage recipeBookPage1 = page1.GetComponent<RecipeBookPage>();
+                        recipeBookPage1.recipeImage.gameObject.SetActive(true);
+                        recipeBookPage1.SetRecipeBookPage(findedRecipeName);
+
+                        category01.GetComponent<Category>().AddPages(recipeBookPage1);
+                        category01.GetComponent<Category>().InitPage();
+
+                        break;
+
+                    case BreadType.desert:
+                        GameObject page2 = Instantiate(recipeBookPageGo, category02.transform);
+                        // page 설정
+                        RecipeBookPage recipeBookPage2 = page2.GetComponent<RecipeBookPage>();
+                        recipeBookPage2.recipeImage.gameObject.SetActive(true);
+                        recipeBookPage2.SetRecipeBookPage(findedRecipeName);
+
+                        category02.GetComponent<Category>().AddPages(recipeBookPage2);
+                        category02.GetComponent<Category>().InitPage();
+
+                        break;
+
+                    case BreadType.special:
+                        GameObject page3 = Instantiate(recipeBookPageGo, category03.transform);
+                        // page 설정
+                        RecipeBookPage recipeBookPage3 = page3.GetComponent<RecipeBookPage>();
+                        recipeBookPage3.recipeImage.gameObject.SetActive(true);
+                        recipeBookPage3.SetRecipeBookPage(findedRecipeName);
+
+                        category03.GetComponent<Category>().AddPages(recipeBookPage3);
+                        category02.GetComponent<Category>().InitPage();
+
+                        break;
+                }
             }
-            category01.GetComponent<Category>().InitPage();
 
         }
     }
 
-    public void AddRecipeOnRecipeBook()
+    public void AddRecipeOnRecipeBook(string findedRecipeName)
     {
-        // 수정 필요
-        GameObject go = GameObject.Instantiate(recipeBookPageGo, category01.transform);
-        RecipeBookPage page = go.GetComponent<RecipeBookPage>();
-        page.recipeImage.sprite = Resources.Load<Sprite>("Icebox_Strawberry");
-        page.recipeName.text = "딸기 아이스박스";
-        page.recipeInfo.text = "맞아요. 바바(baba)가 광고하는\n 그 아이스크림 케이크!";
-        go.name = "딸기 아이스박스 레시피";
-        go.SetActive(true); 
+        // page를 카테고리로 편입
+        string type = GameManager.Instance.breadInfoDic[findedRecipeName].type;
+        BreadType enumType = (BreadType)Enum.Parse(typeof(BreadType), type);
+        switch (enumType)
+        {
+            case BreadType.bread:
+                GameObject page1 = Instantiate(recipeBookPageGo, category01.transform);
+
+                // page 설정
+                // 중복되는 코드 정리 필요
+                RecipeBookPage recipeBookPage1 = page1.GetComponent<RecipeBookPage>();
+                recipeBookPage1.recipeImage.gameObject.SetActive(true);
+                recipeBookPage1.SetRecipeBookPage(findedRecipeName);
+
+                category01.GetComponent<Category>().AddPages(recipeBookPage1);
+                category01.GetComponent<Category>().InitPage();
+
+                break;
+
+            case BreadType.desert:
+                GameObject page2 = Instantiate(recipeBookPageGo, category02.transform);
+                // page 설정
+                RecipeBookPage recipeBookPage2 = page2.GetComponent<RecipeBookPage>();
+                recipeBookPage2.recipeImage.gameObject.SetActive(true);
+                recipeBookPage2.SetRecipeBookPage(findedRecipeName);
+
+                category02.GetComponent<Category>().AddPages(recipeBookPage2);
+                category02.GetComponent<Category>().InitPage();
+
+                break;
+
+            case BreadType.special:
+                GameObject page3 = Instantiate(recipeBookPageGo, category03.transform);
+                // page 설정
+                RecipeBookPage recipeBookPage3 = page3.GetComponent<RecipeBookPage>();
+                recipeBookPage3.recipeImage.gameObject.SetActive(true);
+                recipeBookPage3.SetRecipeBookPage(findedRecipeName);
+
+                category03.GetComponent<Category>().AddPages(recipeBookPage3);
+                category03.GetComponent<Category>().InitPage();
+
+                break;
+        }
     }
+
 
     public void OnClickNextPageButton()
     {

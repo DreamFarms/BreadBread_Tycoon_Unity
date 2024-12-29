@@ -4,6 +4,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum BreadType
+{
+    bread,
+    desert,
+    special
+}
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;

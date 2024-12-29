@@ -1,12 +1,12 @@
-메뉴이름_영어,메뉴이름_한글,메뉴가격,메뉴설명
-Sandwich,샌드위치,500,비건 샌드위치입니다! 바쁠 때 입에 하나씩 물고가세요^3^
-Icebox_Strawberry,딸기 아이스박스,1200,맞아요! 그거! 가수 바바(baba)가 광고한 그 케이크입니다!-!
-Donut_Chocolate,초콜릿 도넛,300,쌉싸름한 초콜릿이 감싸져 있어요!! 물론 비건입니다^.^
-RollCake_Strawberry,딸기 롤케이크,700,5cm이상 친환경 무농약 딸기만 사용합니다.
-RollCake_Chocolate,초코 롤케이크,700,누가 초코롤케이크를 만들 생각을 했을까요?
-DinnerRoll,모닝빵,200,당신의 아침을 챙겨주는 궁뎅이 모닝빵!! 하나만 사면 섭섭해요.
-Bread_Melon,메론빵,200,메론을 등에 업은 거북이 빵이에요.
-ButterBar_Plane,버터바,200,고소한 풍미가 가득! 기본 버터바
-ButterRoll_Salted,소금빵,200,고짠고짠 최고급 프랑스 버터가 들어간 소금빵
-Cake_Strawberry,딸기케이크,200,제철! 딸기를 수확해서 만든 딸기케이크
-Cookie_Strawberry,딸기 쿠키,150,딸기잼을 사이에 콕! 바삭고소한 딸기 쿠키
+메뉴이름_영어,메뉴이름_한글,메뉴가격,메뉴설명, 타입
+Sandwich,샌드위치,500,비건 샌드위치입니다! 바쁠 때 입에 하나씩 물고가세요^3^,bread
+Icebox_Strawberry,딸기 아이스박스,1200,맞아요! 그거! 가수 바바(baba)가 광고한 그 케이크입니다!-!,desert
+Donut_Chocolate,초콜릿 도넛,300,쌉싸름한 초콜릿이 감싸져 있어요!! 물론 비건입니다^.^,desert
+RollCake_Strawberry,딸기 롤케이크,700,5cm이상 친환경 무농약 딸기만 사용합니다.,desert
+RollCake_Chocolate,초코 롤케이크,700,누가 초코롤케이크를 만들 생각을 했을까요?,desert
+DinnerRoll,모닝빵,200,당신의 아침을 챙겨주는 궁뎅이 모닝빵!! 하나만 사면 섭섭해요,bread
+Bread_Melon,메론빵,200,메론을 등에 업은 거북이 빵이에요,bread
+ButterBar_Plane,버터바,200,고소한 풍미가 가득! 기본 버터바,desert
+ButterRoll_Salted,소금빵,200,고짠고짠 최고급 프랑스 버터가 들어간 소금빵,bread
+Cake_Strawberry,딸기케이크,200,제철! 딸기를 수확해서 만든 딸기케이크,desert
+Cookie_Strawberry,딸기 쿠키,150,딸기잼을 사이에 콕! 바삭고소한 딸기 쿠키,desert

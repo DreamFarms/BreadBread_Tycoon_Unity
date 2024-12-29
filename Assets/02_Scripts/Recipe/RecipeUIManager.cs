@@ -183,15 +183,14 @@ public class RecipeUIManager : MonoBehaviour
 
     public  void ActiveRewordUI(string findedBreadName, int findedState)
     {
-
-
         switch(findedState)
         {
             case 1:
                 rewordUIGo.SetActive(true);
                 rewordUI.title.text = "성공!";
                 rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
-                rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
+                rewordUI.rewordItemName.text = GameManager.Instance.indexInfoDic[findedBreadName];
+                recipeBookImage.AddRecipeOnRecipeBook(findedBreadName);
                 break;
             case 0:
                 rewordFailUIGo.SetActive(true);
@@ -201,8 +200,7 @@ public class RecipeUIManager : MonoBehaviour
                 rewordUI.title.text = "이미 알고있는 레시피";
                 rewordUI.title.fontSize = 50;
                 rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
-                rewordUI.rewordItemName.text = RecipeGameManager.Instance.IndexInfoDic[findedBreadName];
-
+                rewordUI.rewordItemName.text = GameManager.Instance.indexInfoDic[findedBreadName];
                 break;
         }
 
