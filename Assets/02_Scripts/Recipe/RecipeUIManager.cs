@@ -26,8 +26,11 @@ public class RecipeUIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-
+        roading.SetActive(true);
     }
+
+    [Header("Roading")]
+    [SerializeField] public GameObject roading; // assign
 
     [Header("°ü¸®")]
     [SerializeField] private RecipeGameManager recipeGameManager; // assign
