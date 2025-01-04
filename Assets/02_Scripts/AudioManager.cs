@@ -10,7 +10,8 @@ public enum BGM
     BerryPicker,
     BakeBread,
     Store,
-    Milk
+    Milk,
+    Recipe
 }
 
 
@@ -32,17 +33,15 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }    
+        }
+
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
     #endregion
 
     [SerializeField] private List<AudioClip> BGM = new List<AudioClip>();
     [SerializeField] private AudioSource audioSource;
 
-    private void Start()
-    {
-        audioSource = gameObject.GetComponent<AudioSource>();    
-    }
 
     public void PlayBGM(BGM bgm)
     {

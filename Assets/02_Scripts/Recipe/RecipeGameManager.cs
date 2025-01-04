@@ -59,15 +59,9 @@ public class RecipeGameManager : MonoBehaviour
         
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        // submitButton.onClick.AddListener(() => SubmitIngredient());
-        
-    }
-
-    private void Update()
-    {
-
+        AudioManager.Instance.PlayBGM(BGM.Recipe);
     }
 
     private void InitSetting()

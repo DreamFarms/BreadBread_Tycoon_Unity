@@ -50,7 +50,7 @@ public class RecipeUIManager : MonoBehaviour
     [Header("레시피 북")]
     [SerializeField] private RecipeBookImage recipeBookImage; // recipeBookImage
     [SerializeField] private Button recipeBookButton; // 레시피 북 버튼
-    [SerializeField] private GameObject recipeBookImageGo; // 레시피 북 이미지
+    [SerializeField] private GameObject recipeBookGroup; // 레시피 북 이미지
     [SerializeField] private Button recipeBookCloseBtn; // 레시피 북 닫기 버튼
     [SerializeField] private List<GameObject> categories = new List<GameObject>(); // 카테고리 리스트
     [SerializeField] private Button _nextButton; // ui
@@ -61,11 +61,9 @@ public class RecipeUIManager : MonoBehaviour
     [SerializeField] private GameManager ball; // 믹싱볼
 
     [Header("리워드")]
-    [SerializeField] private GameObject rewordUIGo; // reword bg img
+    [SerializeField] private GameObject rewordGroup; // reword bg img
     [SerializeField] private RewordUI rewordUI; // reword bg img
-    [SerializeField] private GameObject rewordFailUIGo; // resord bg img fail
-
-
+    [SerializeField] private GameObject rewordFailGroup; // resord bg img fail
 
 
     private void OnEnable()
@@ -78,18 +76,18 @@ public class RecipeUIManager : MonoBehaviour
 
 
         // 레시피 북
-        recipeBookImageGo.SetActive(false);
+        recipeBookGroup.SetActive(false);
 
         recipeBookButton.onClick.AddListener(() =>
         {
             ActiveGameobject(recipeBookButton.gameObject);
-            ActiveGameobject(recipeBookImageGo);
+            ActiveGameobject(recipeBookGroup);
         });
 
         recipeBookCloseBtn.onClick.AddListener(() =>
         {
             ActiveGameobject(recipeBookButton.gameObject);
-            ActiveGameobject(recipeBookImageGo);
+            ActiveGameobject(recipeBookGroup);
         });
 
         _nextButton.onClick.AddListener(() =>
@@ -189,19 +187,19 @@ public class RecipeUIManager : MonoBehaviour
         switch(findedState)
         {
             case 1:
-                rewordUIGo.SetActive(true);
+                rewordGroup.SetActive(true);
                 rewordUI.title.text = "성공!";
                 rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
                 rewordUI.rewordItemName.text = GameManager.Instance.indexInfoDic[findedBreadName];
                 recipeBookImage.AddRecipeOnRecipeBook(findedBreadName);
                 break;
             case 0:
-                rewordFailUIGo.SetActive(true);
-                RewordUI failUI = rewordFailUIGo.GetComponent<RewordUI>();
+                rewordFailGroup.SetActive(true);
+                RewordUI failUI = rewordFailGroup.GetComponent<RewordUI>();
                 failUI.rewordItemName.text = "찾는 레시피가 없습니다.";
                 break;
             case -1:
-                rewordUIGo.SetActive(true);
+                rewordGroup.SetActive(true);
                 rewordUI.title.text = "이미 알고있는 레시피";
                 rewordUI.title.fontSize = 50;
                 rewordUI.rewordItemImage.sprite = Resources.Load<Sprite>("Breads/" + findedBreadName);
@@ -213,8 +211,8 @@ public class RecipeUIManager : MonoBehaviour
 
     public void ActiveFailUI()
     {
-        rewordFailUIGo.SetActive(true);
-        RewordUI rewordUI = rewordFailUIGo.GetComponent<RewordUI>();
+        rewordFailGroup.SetActive(true);
+        RewordUI rewordUI = rewordFailGroup.GetComponent<RewordUI>();
         rewordUI.rewordItemName.text = "재료를 담아주세요.";
     }
 }
