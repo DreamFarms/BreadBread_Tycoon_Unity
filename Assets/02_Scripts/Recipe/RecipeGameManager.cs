@@ -40,6 +40,8 @@ public class RecipeGameManager : MonoBehaviour
     public Button submitButton; // ui
     public RecipeBookImage recipeBookImage; // ui
 
+    public GameObject doughGo; // assign
+
     private void Awake()
     {
         if(_instance == null)
@@ -52,6 +54,8 @@ public class RecipeGameManager : MonoBehaviour
         }
 
         InitSetting();
+
+        doughGo.SetActive(false);
         
     }
 
@@ -104,23 +108,27 @@ public class RecipeGameManager : MonoBehaviour
         _ballPositions.PutIngredient(itemInfo, sprite);
     }
 
-    // test
-    // 알맞게 수정 필요
     public void SubmitIngredient()
+    {
+        if (selectedIngredientDic.Count <= 0) // 여기서 유효성 검사를 하는게 맞는지 의문
+        {
+            RecipeUIManager.Instance.ActiveFailUI();
+            return;
+        }
+
+        RemoveIngredientInBall();
+        PlayDoughAnimation();
+        Invoke("RequestIngredientConnection", 1.5f);
+    }
+
+    private void RequestIngredientConnection()
     {
         List<string> selectedIngredients = new List<string>();
 
-        foreach(var ingredient in selectedIngredientDic.Keys)
+        foreach (var ingredient in selectedIngredientDic.Keys)
         {
             selectedIngredients.Add(ingredient);
         }
-
-        foreach(Transform tr in _ballPositions.ingredientPositions)
-        {
-            tr.GetComponent<SpriteRenderer>().sprite = null;
-            tr.gameObject.SetActive(false);
-        }
-
         selectedIngredientDic.Clear();
 
         _connection.RecipeGameResultConnection(selectedIngredients);
@@ -128,5 +136,30 @@ public class RecipeGameManager : MonoBehaviour
         // 레시피 북에 사진 등록하는 메서드
         // ui manager로 옮길 필요
         // recipeBookImage.AddRecipeOnRecipeBook();
+    }
+
+    private void RemoveIngredientInBall()
+    {
+        foreach (Transform tr in _ballPositions.ingredientPositions)
+        {
+            tr.GetComponent<SpriteRenderer>().sprite = null;
+            tr.gameObject.SetActive(false);
+        }
+    }
+
+    public void PlayDoughAnimation()
+    {
+        doughGo.SetActive(true);
+
+        Dough dough = doughGo.GetComponent<Dough>();
+        dough.PlayAnimation();
+    }
+
+    public void StopDoughAnimation()
+    {
+        Dough dough = doughGo.GetComponent<Dough>();
+        dough.StopAnimation();
+
+        doughGo.SetActive(false);
     }
 }

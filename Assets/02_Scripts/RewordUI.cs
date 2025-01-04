@@ -8,12 +8,16 @@ public class RewordUI : MonoBehaviour
 {
     public TMP_Text title;
     public Image rewordItemImage; // fail은 없음
-    public TMP_Text rewordItemName;
+    public TMP_Text rewordItemName; // fail은 설명
     public Button closeButton;
 
     private void Awake()
     {
-        closeButton.onClick.AddListener(() => gameObject.SetActive(false));
+        closeButton.onClick.AddListener(() =>
+        {
+            gameObject.SetActive(false);
+            RecipeGameManager.Instance.StopDoughAnimation();
+        });
         gameObject.SetActive(false);
     }
 }

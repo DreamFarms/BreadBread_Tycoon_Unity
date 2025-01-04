@@ -71,7 +71,10 @@ public class RecipeUIManager : MonoBehaviour
     private void OnEnable()
     {
         // 버튼
-        submitButton.onClick.AddListener(() => RecipeGameManager.Instance.SubmitIngredient());
+        submitButton.onClick.AddListener(() =>
+        {
+            RecipeGameManager.Instance.SubmitIngredient();
+        });
 
 
         // 레시피 북
@@ -194,6 +197,8 @@ public class RecipeUIManager : MonoBehaviour
                 break;
             case 0:
                 rewordFailUIGo.SetActive(true);
+                RewordUI failUI = rewordFailUIGo.GetComponent<RewordUI>();
+                failUI.rewordItemName.text = "찾는 레시피가 없습니다.";
                 break;
             case -1:
                 rewordUIGo.SetActive(true);
@@ -204,5 +209,12 @@ public class RecipeUIManager : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void ActiveFailUI()
+    {
+        rewordFailUIGo.SetActive(true);
+        RewordUI rewordUI = rewordFailUIGo.GetComponent<RewordUI>();
+        rewordUI.rewordItemName.text = "재료를 담아주세요.";
     }
 }
