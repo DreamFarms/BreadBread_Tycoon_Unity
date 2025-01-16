@@ -130,7 +130,10 @@ public class RecipeConnection : MonoBehaviour, IConnection
                     {
                         RecipeGameManager.Instance.findedRecipes.Add(findedRecipeName.foodName);
                     }
+
                 }
+
+                RecipeGameManager.Instance.SetInitScrollUI(); // À§Ä¡ °í¹Î
                 break;
 
             case RecipeGameResultResponse _:

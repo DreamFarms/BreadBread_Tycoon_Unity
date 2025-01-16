@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class RewordUI : MonoBehaviour
 {
+    public GameObject uiGo; // assign
     public TMP_Text title;
     public Image rewordItemImage; // fail은 없음
     public TMP_Text rewordItemName; // fail은 설명
@@ -18,6 +19,10 @@ public class RewordUI : MonoBehaviour
             gameObject.SetActive(false);
             RecipeGameManager.Instance.StopDoughAnimation();
         });
-        gameObject.SetActive(false);
+
+        if(gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

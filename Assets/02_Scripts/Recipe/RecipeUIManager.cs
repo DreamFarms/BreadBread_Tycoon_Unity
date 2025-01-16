@@ -15,19 +15,6 @@ public class RecipeUIManager : MonoBehaviour
         get { return _instance; }
     }
 
-    private void Awake()
-    {
-        if(_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        roading.SetActive(true);
-    }
 
     [Header("Roading")]
     [SerializeField] public GameObject roading; // assign
@@ -68,6 +55,20 @@ public class RecipeUIManager : MonoBehaviour
     [SerializeField] private RewordUI rewordUI; // reword bg img
     [SerializeField] private GameObject rewordFailGroup; // resord bg img fail
 
+    private void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        roading.SetActive(true);
+    }
+
 
     private void OnEnable()
     {
@@ -100,7 +101,6 @@ public class RecipeUIManager : MonoBehaviour
 
         //rewordUIGo.SetActive(false);
     }
-
 
     private void ActiveGameobject(GameObject go)
     {
@@ -199,6 +199,7 @@ public class RecipeUIManager : MonoBehaviour
             case 0:
                 rewordFailGroup.SetActive(true);
                 RewordUI failUI = rewordFailGroup.GetComponent<RewordUI>();
+                failUI.uiGo.SetActive(true);
                 failUI.rewordItemName.text = "찾는 레시피가 없습니다.";
                 break;
             case -1:

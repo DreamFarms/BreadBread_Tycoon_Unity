@@ -26,6 +26,8 @@ public class RecipeGameManager : MonoBehaviour
         get { return _instance; }
     }
 
+    
+
     [SerializeField] private RecipeConnection _connection;
 
     private Dictionary<string, string> _indexInfoDic = new Dictionary<string, string>(); // 인덱스, 빵 영어 : 한국어(분리 필요)
@@ -65,10 +67,18 @@ public class RecipeGameManager : MonoBehaviour
     private void InitSetting()
     {
         _connection.StartRecipeConnection(); // 사용자 재료, 레시피 정보 통신
-        Invoke("SetInitScrollUI", 1.5f); // UI 셋팅.. 레시피 정보 통신이 끝난 후 진행 되어야 함
+        //SetInitScrollUI();
+        //Invoke("SetInitScrollUI", 1.5f); // UI 셋팅.. 레시피 정보 통신이 끝난 후 진행 되어야 함
 
     }
+    public void SetInitScrollUI()
+    {
+        RecipeUIManager.Instance.SetInitScrollUI();
 
+        // 아래 두개는 위치 옮길 필요가 있어보임
+        AudioManager.Instance.PlayBGM(BGM.Recipe);
+        RecipeUIManager.Instance.roading.SetActive(false);
+    }
 
     public Dictionary<string, string> IndexInfoDic
     {
@@ -92,14 +102,7 @@ public class RecipeGameManager : MonoBehaviour
     //    }
     //}
     
-    public void SetInitScrollUI()
-    {
-        RecipeUIManager.Instance.SetInitScrollUI();
 
-        // 아래 두개는 위치 옮길 필요가 있어보임
-        AudioManager.Instance.PlayBGM(BGM.Recipe);
-        RecipeUIManager.Instance.roading.SetActive(false);
-    }
 
     public void PuntIngredientInBall(ItemInfo itemInfo, Sprite sprite)
     {

@@ -30,6 +30,11 @@ public class Category : MonoBehaviour
 
     public void NextPage()
     {
+        if(pages.Count == 0)
+        {
+            return;
+        }
+
         pages[_currentPgae].gameObject.SetActive(false);
 
         _currentPgae++;
