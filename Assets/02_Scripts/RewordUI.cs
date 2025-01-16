@@ -17,6 +17,7 @@ public class RewordUI : MonoBehaviour
         closeButton.onClick.AddListener(() =>
         {
             gameObject.SetActive(false);
+
             RecipeGameManager.Instance.StopDoughAnimation();
         });
 

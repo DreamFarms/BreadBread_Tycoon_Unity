@@ -36,6 +36,7 @@ public class RecipeGameManager : MonoBehaviour
     
     [SerializeField] private BallPositions _ballPositions; // assign
     [SerializeField] public Dictionary<string, int> selectedIngredientDic = new Dictionary<string, int>(); // 재료 : n번 위치
+    public Dictionary<string, ItemInfo> itemInfoDic = new Dictionary<string, ItemInfo>(); // string, iteminfo... ball배치시 iteminfo가 필요한데 그게 없어 string만 있기 때문에 생성한 변수.. 이게 최선인가에 대한 고민
 
     public Dictionary<string, string> breadNameInfoDic = new Dictionary<string, string>(); // 빵 이름 영어 : 한국어
     public List<string> findedRecipes = new List<string>(); // 찾은 레시피

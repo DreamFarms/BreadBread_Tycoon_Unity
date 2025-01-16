@@ -148,6 +148,8 @@ public class RecipeUIManager : MonoBehaviour
                     recipeGameManager.PuntIngredientInBall(itemInfo, sprite);
 
                 });
+
+                recipeGameManager.itemInfoDic[sprite.name] = go.GetComponent<ItemInfo>();
             }
 
 

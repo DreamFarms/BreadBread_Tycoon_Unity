@@ -24,6 +24,30 @@ public class BallPositions : MonoBehaviour
     {
         recipeGameManage = RecipeGameManager.Instance;
     }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.CompareTag("BallPosition"))
+            {
+                SpriteRenderer renderer = hit.collider.gameObject.GetComponent<SpriteRenderer>();
+                if (renderer.sprite != null)
+                {
+                    string breadName = renderer.sprite.name;
+                    ItemInfo itemInfo = recipeGameManage.itemInfoDic[breadName];
+                    Sprite sprite = itemInfo.rewordItemImage.sprite;
+                    PutIngredient(itemInfo, sprite);
+                    renderer.sprite = null;
+                }
+            }
+
+        }
+    }
+
     public void PutIngredient(ItemInfo itemInfo, Sprite sprite)
     {
         // 이미 선택된 재료라면 list에서 삭제

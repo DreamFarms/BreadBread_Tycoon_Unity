@@ -8,6 +8,7 @@ TagManager:
   - MilkBottle
   - Table
   - Counter
+  - BallPosition
   layers:
   - Default
   - TransparentFX
