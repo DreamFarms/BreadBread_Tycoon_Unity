@@ -13,6 +13,9 @@ public class ExcelReader3 : MonoBehaviour
     public static string ingredientPath = @"Ingredients\";
     [SerializeField] InventoryConnection inventoryConnection;
 
+    public Dictionary<string, string> enKoMapping = new Dictionary<string, string>();
+    public Dictionary<string, string> ingerdientMapping = new Dictionary<string, string>();
+
     private void Awake()
     {
         InfoManager instance = InfoManager.Instance;
@@ -21,6 +24,8 @@ public class ExcelReader3 : MonoBehaviour
         ReadKJY_MenuInfoCSV();
         ReadKJY_IngredientInfoCSV();
         inventoryConnection.StartInventoryConnection();
+        //instance.SetEnKoInfoDicTest(enKoMapping);
+        //instance.SetIngredientInfoDicTest(ingerdientMapping);
     }
 
     private void ReadKJY_IngredientInfoCSV()
@@ -119,8 +124,9 @@ public class ExcelReader3 : MonoBehaviour
                 IndexEnum index = new IndexEnum();
                 index.enName = splitData[0].Trim();
                 index.koName = splitData[1].Trim();
-                GameManager.Instance.indexInfoDic[index.enName] = index.koName;
-                //InfoManager.Instance.SetEnKoInfoDic(index.enName, index.koName);
+
+                //enKoMapping[index.enName] = index.koName;
+                InfoManager.Instance.SetEnKoInfoDic(index.enName, index.koName);
             }
 
         }
@@ -157,8 +163,8 @@ public class ExcelReader3 : MonoBehaviour
                 ingredient.enName = splitData[1];
                 ingredient.koName = splitData[2];
 
-                GameManager.Instance.ingredientInfoDic[ingredient.enName] = ingredient.koName;
-                //InfoManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
+                //ingerdientMapping[ingredient.enName] = ingredient.koName;
+                InfoManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
             }
 
         }

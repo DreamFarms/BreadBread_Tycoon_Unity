@@ -23,7 +23,7 @@ public class ItemSlotUI : MonoBehaviour
     public bool isPlate = false;
 
     private void Start()
-    {
+    { 
         plateBtnObj.SetActive(false);
         returnBtnObj.SetActive(false);
     }
@@ -31,24 +31,22 @@ public class ItemSlotUI : MonoBehaviour
     private void OnEnable()
     {
         plateButton.onClick.RemoveAllListeners(); 
-        returnButton.onClick.RemoveAllListeners(); 
+        returnButton.onClick.RemoveAllListeners();
 
-        plateButton.onClick.AddListener(() => StoreGameManager.Instance.PlateSelectedMenu(FindEnKoMappingDIc()));
-        returnButton.onClick.AddListener(() => StoreGameManager.Instance.ReturnSelectedMenu());
-        returnButton.onClick.AddListener(() => ChangeButton());
+        plateButton.onClick.AddListener(() => StoreGameManager.Instance.PlateSelectedMenu(FindEnKoMappingDIc(true)));
+        returnButton.onClick.AddListener(() => StoreGameManager.Instance.ReturnSelectedMenu(FindEnKoMappingDIc(false)));
+        //returnButton.onClick.AddListener(() => ChangeButton());
     }
 
-    private string FindEnKoMappingDIc()
+    private string FindEnKoMappingDIc(bool value)
     {
-        if (InventoryManager.Instance.CheckIsPlateItem())
+        if (StoreGameManager.Instance.CheckIsPlateFull() == true && value == true)
         {
             noticePlate.SetActive(true);
             return null;
         }
 
-        var dictionary = GameManager.Instance.indexInfoDic;
-            // InfoManager.Instance.enKoMappingDic; GameManager로 수정했습니다. -변지환-
-
+        var dictionary = InfoManager.Instance.enKoMappingDic;
         foreach (var pair in dictionary)
         {
             if (pair.Value == name.text) // 값 비교

@@ -12,7 +12,15 @@ public class Plate : MonoBehaviour
 {
     // 선택된 접시 정보 저장
     [SerializeField] private GameObject _selectedPlate;
-    
+    public bool isPlate {get; private set; }
+    public string menuName { get; private set; }
+
+    private void Start()
+    {
+        isPlate = false;
+        menuName = string.Empty;
+    }
+
     private void Update()
     {
         if(Input.GetMouseButtonDown(0))
@@ -52,12 +60,13 @@ public class Plate : MonoBehaviour
     }
 
     // 선택된 접시에 메뉴를 진열하는 메서드
-    public void PlateSelectedMenu(string menuName)
+    public void PlateSelectedMenu(string menuName, GameObject plate)
     {
+        print("inPlateHere");
         Sprite sprite = Resources.Load<Sprite>("Breads/" + menuName);
         // 이슈 : _selectedPlate에서 null이 발생. 분명 Plate 게임오브젝트가 할당 된 상태
         // 해결이 안되서 find로 찾기 시작. 하지만 성능 문제가 있으므로 곧 해결 해야됨
-        GameObject childGo = GameObject.Find("Food").gameObject;
+        GameObject childGo = plate.transform.GetChild(0).gameObject;
         SpriteRenderer spriteRenderer = childGo.GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
@@ -68,13 +77,17 @@ public class Plate : MonoBehaviour
         // 음식 올라가는 부분 레이어를 3으로 설정
         spriteRenderer.sortingOrder = 3;
         spriteRenderer.sprite = sprite;
+        isPlate = true;
+        this.menuName = menuName;
+        print("inPlateHere");
     }
 
-    public void ReturnSelectMenu()
+    public void ReturnSelectMenu(GameObject plate)
     {
-        GameObject childGo = GameObject.Find("Food").gameObject;
+        GameObject childGo = plate.transform.GetChild(0).gameObject;
         SpriteRenderer spriteRenderer = childGo.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = null;
+        isPlate = false;
     }
 
     
