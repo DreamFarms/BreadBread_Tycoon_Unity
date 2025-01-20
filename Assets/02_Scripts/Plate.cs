@@ -75,7 +75,7 @@ public class Plate : MonoBehaviour
             _selectedPlate.AddComponent<SpriteRenderer>();
         }
         // 음식 올라가는 부분 레이어를 3으로 설정
-        spriteRenderer.sortingOrder = 3;
+        spriteRenderer.sortingOrder = 5;
         spriteRenderer.sprite = sprite;
         isPlate = true;
         this.menuName = menuName;

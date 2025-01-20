@@ -16,16 +16,13 @@ public class ExcelReader3 : MonoBehaviour
     public Dictionary<string, string> enKoMapping = new Dictionary<string, string>();
     public Dictionary<string, string> ingerdientMapping = new Dictionary<string, string>();
 
-    private void Awake()
+    private void Start()
     {
-        InfoManager instance = InfoManager.Instance;
         ReadIndexInfoCSV();
         ReadIngredientInfoCSV();
         ReadKJY_MenuInfoCSV();
         ReadKJY_IngredientInfoCSV();
         inventoryConnection.StartInventoryConnection();
-        //instance.SetEnKoInfoDicTest(enKoMapping);
-        //instance.SetIngredientInfoDicTest(ingerdientMapping);
     }
 
     private void ReadKJY_IngredientInfoCSV()

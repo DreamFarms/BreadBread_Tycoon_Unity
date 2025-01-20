@@ -28,7 +28,7 @@ public class InventoryResponseMessage
 
 public class InventoryConnection : MonoBehaviour
 {
-    [SerializeField] private string inventoryPoint = "inventory/load?nickname=";
+    private string inventoryPoint = "inventory/load?nickname=";
 
     public void StartInventoryConnection()
     {
