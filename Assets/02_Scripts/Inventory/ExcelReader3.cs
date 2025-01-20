@@ -24,8 +24,8 @@ public class ExcelReader3 : MonoBehaviour
         ReadKJY_MenuInfoCSV();
         ReadKJY_IngredientInfoCSV();
         inventoryConnection.StartInventoryConnection();
-        instance.SetEnKoInfoDicTest(enKoMapping);
-        instance.SetIngredientInfoDicTest(ingerdientMapping);
+        //instance.SetEnKoInfoDicTest(enKoMapping);
+        //instance.SetIngredientInfoDicTest(ingerdientMapping);
     }
 
     private void ReadKJY_IngredientInfoCSV()
@@ -125,8 +125,8 @@ public class ExcelReader3 : MonoBehaviour
                 index.enName = splitData[0].Trim();
                 index.koName = splitData[1].Trim();
 
-                enKoMapping[index.enName] = index.koName;
-                //InfoManager.Instance.SetEnKoInfoDic(index.enName, index.koName);
+                //enKoMapping[index.enName] = index.koName;
+                InfoManager.Instance.SetEnKoInfoDic(index.enName, index.koName);
             }
 
         }
@@ -163,8 +163,8 @@ public class ExcelReader3 : MonoBehaviour
                 ingredient.enName = splitData[1];
                 ingredient.koName = splitData[2];
 
-                ingerdientMapping[ingredient.enName] = ingredient.koName;
-                //InfoManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
+                //ingerdientMapping[ingredient.enName] = ingredient.koName;
+                InfoManager.Instance.SetIngredientInfoDic(ingredient.enName, ingredient.koName);
             }
 
         }

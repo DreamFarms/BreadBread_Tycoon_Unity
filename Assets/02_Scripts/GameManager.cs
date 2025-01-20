@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [Header("ExcelReader")]
     public Dictionary<string, ExcelReader2.Menu> menuInfoDic = new Dictionary<string, ExcelReader2.Menu>();
 
+
     private void Awake()
     {
         if (_instance == null)

@@ -8997,6 +8997,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5879197369707214341, guid: 94b374cbc2927374fa2b22902c7432fc, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5879197369707214341, guid: 94b374cbc2927374fa2b22902c7432fc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5879197369707214341, guid: 94b374cbc2927374fa2b22902c7432fc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6494120992160193660, guid: 94b374cbc2927374fa2b22902c7432fc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -11898,6 +11910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71706620bae7f714eac49a294b5811cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  platelist: []
 --- !u!1 &2055350004
 GameObject:
   m_ObjectHideFlags: 0

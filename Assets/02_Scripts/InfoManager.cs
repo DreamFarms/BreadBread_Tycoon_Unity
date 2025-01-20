@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using UnityEngine.SceneManagement;
 
 public class InfoManager : MonoBehaviour
@@ -14,25 +15,41 @@ public class InfoManager : MonoBehaviour
     public static InfoManager Instance
     { get { return _instance; } }
 
+    public string googleToken { get; private set; }
+    public string jwt { get; private set; }
+
+    private string path;
+
+    private class SaveData
+    {
+        public string accessToken;
+        public string refreshToken;
+    }
+
     private void Awake()
     {
         _instance = this;
-        //if (_instance == null)
-        //{
-        //    _instance = this;
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+#if UNITY_ANDROID && !UNITY_EDITOR
+        path = Path.Combine(Application.persistentDataPath, "database.json");
+#elif UNITY_EDITOR
+        path = Path.Combine(Application.dataPath, "database.json");
+#endif
+        JsonLoad();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("dsdsd");
             foreach (var pair in enKoMappingDic)
             {
                 Debug.Log("in_foreach");
@@ -40,6 +57,32 @@ public class InfoManager : MonoBehaviour
             }
             print(enKoMappingDic.Count);
         }
+    }
+
+    public void JsonLoad()
+    {
+        SaveData saveData;
+
+        if (File.Exists(path))
+        {
+            string loadJson = File.ReadAllText(path);
+            saveData = JsonUtility.FromJson<SaveData>(loadJson);
+
+            if (saveData != null)
+            {
+                googleToken = saveData.accessToken;
+            }
+        }
+    }
+
+    public void JsonSave()
+    {
+        SaveData save = new SaveData();
+        save.accessToken = googleToken;
+        save.refreshToken = null;
+
+        string json = JsonUtility.ToJson(save, true);
+        File.WriteAllText(path, json);
     }
 
     public void SetIngredientInfoDic(string enName, string koName)
@@ -52,7 +95,6 @@ public class InfoManager : MonoBehaviour
 
     public void SetEnKoInfoDic(string enName, string koName)
     {
-        print(enName);
         enKoMappingDic[enName] = koName;
     }
 
@@ -94,4 +136,14 @@ public class InfoManager : MonoBehaviour
     //        }
     //    }
     //}
+
+    public void SetGoogleToken(string token)
+    {
+        googleToken = token;
+    }
+
+    public void SetJWT(string token)
+    {
+        jwt = token;
+    }
 }
