@@ -8,6 +8,13 @@ public class GoogleTest : MonoBehaviour
 {
     [SerializeField] GoogleLoginConnection connection;
 
+    private void Start()
+    {
+        if (InfoManager.Instance.JsonLoad())
+        {
+            SceneManager_BJH.Instance.ChangeScene("01_Scenes/Map");
+        }
+    }
 
     public void LoginInGPGS()
     {
@@ -55,7 +62,6 @@ public class GoogleTest : MonoBehaviour
     {
         if (InfoManager.Instance.googleToken != null)
         {
-            SceneManager_BJH.Instance.ChangeScene("Map");
             Debug.Log("inHere");
         }
         else

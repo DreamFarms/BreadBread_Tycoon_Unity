@@ -20,14 +20,16 @@ public class GoogleLoginResponse
 [Serializable]
 public class GoogleResponseMessage
 {
-    public string jwt;
-    public string message;
     public string status;
+    public string message;
+    public string accessToken;
+    public string refreshToken;
 }
 
 public class GoogleLoginConnection : MonoBehaviour
 {
     [SerializeField] private string googlePoint = "";
+    private string login = "google-login/login";
 
     public void StartGoogleLoginConnection()
     {
@@ -37,7 +39,7 @@ public class GoogleLoginConnection : MonoBehaviour
 
         string json = JsonUtility.ToJson(request);
 
-        string url = googlePoint;
+        string url = googlePoint + login;
         HttpRequester requester = new HttpRequester(RequestType.POST, url, json);
         requester.onComplete = OnComplete<GoogleLoginResponse>;
         requester.onFailed = OnFailed;
@@ -58,10 +60,11 @@ public class GoogleLoginConnection : MonoBehaviour
                 GoogleLoginResponse response = typeClass as GoogleLoginResponse;
                 if (response != null)
                 {
-                    InfoManager.Instance.SetGoogleToken(response.message.jwt);
+                    InfoManager.Instance.SetToken(response.message.accessToken, response.message.refreshToken);
                     Debug.Log("메세지" + response.message.message);
                     Debug.Log("스테이터스" + response.message.status);
-                    Debug.Log("성공" + response.message.jwt);
+                    Debug.Log("성공" + response.message.accessToken);
+                    Debug.Log("성공" + response.message.refreshToken);
                 }
                 Debug.Log("구글 토큰 통신 끝");
                 break;

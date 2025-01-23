@@ -16,7 +16,8 @@ public class InfoManager : MonoBehaviour
     { get { return _instance; } }
 
     public string googleToken { get; private set; }
-    public string jwt { get; private set; }
+    public string accessToken { get; private set; }
+    public string refreshToken { get; private set; }
 
     private string path;
 
@@ -59,7 +60,7 @@ public class InfoManager : MonoBehaviour
         }
     }
 
-    public void JsonLoad()
+    public bool JsonLoad()
     {
         SaveData saveData;
 
@@ -70,16 +71,19 @@ public class InfoManager : MonoBehaviour
 
             if (saveData != null)
             {
-                googleToken = saveData.accessToken;
+                accessToken = saveData.accessToken;
+                refreshToken = saveData.refreshToken;
+                return true;
             }
         }
+        return false;
     }
 
     public void JsonSave()
     {
         SaveData save = new SaveData();
         save.accessToken = googleToken;
-        save.refreshToken = null;
+        save.refreshToken = refreshToken;
 
         string json = JsonUtility.ToJson(save, true);
         File.WriteAllText(path, json);
@@ -142,8 +146,11 @@ public class InfoManager : MonoBehaviour
         googleToken = token;
     }
 
-    public void SetJWT(string token)
+    public void SetToken(string accessToken, string refeshToken)
     {
-        jwt = token;
+        this.accessToken = accessToken;
+        this.refreshToken = refeshToken;
+        JsonSave();
+        SceneManager_BJH.Instance.ChangeScene("01_Scenes/Map");
     }
 }
