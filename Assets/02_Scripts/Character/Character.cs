@@ -41,17 +41,20 @@ public enum Ingredient
 
 public abstract class Character : MonoBehaviour
 {
+    public string Name;
     private Stack pickedBreadStack = new Stack();
-    private List<Bread> preferBreads = new List<Bread>();
-    private List<Ingredient> preferIngredients = new List<Ingredient>();
+    public List<Bread> preferBreads = new List<Bread>();
+    public List<Ingredient> preferIngredients = new List<Ingredient>();
 
     // 선호하는 빵/재료인지 확인하는 메서드
     public void CheckPrefer(string breadName)
     {
         foreach(var bread in preferBreads)
         {
-            if(breadName.Equals(bread))
+            print("선호하는 빵 " + preferBreads.ToString());
+            if(breadName.Equals(bread.ToString()))
             {
+                print("빵 구매 완료");
                 PickBread(breadName);
                 return;
             }
@@ -68,5 +71,5 @@ public abstract class Character : MonoBehaviour
 
     // 캐릭터 특성 설정하는 메서드
     // 선호하는 빵, 선호하는 재료를 설정
-    public abstract void SetCharacterPrefer();
+    public abstract void SetCharacterPrefer(string name);
 }
