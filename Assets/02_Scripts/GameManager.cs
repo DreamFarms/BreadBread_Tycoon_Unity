@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, string> indexInfoDic = new Dictionary<string, string>(); // index : 인덱스
     public Dictionary<string, string> ingredientInfoDic = new Dictionary<string, string>(); // four : 밀가루
 
+    [Header("Quest")]
+    public QuestManager2 questManager;
+
+
     private void Awake()
     {
         if (_instance == null)
