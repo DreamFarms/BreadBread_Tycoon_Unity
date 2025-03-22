@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum NPCTrait
+{
+
+}
+
 public class NPC : MonoBehaviour
 {
     string Name { get; set; }
     string Race { get; set; }
+
+    NPCTrait Trait { get; set; } // Æ¯¼º
+
     string[] PreferredIngredient { get; set; }
     string[] PreferredBread { get; set; }
 

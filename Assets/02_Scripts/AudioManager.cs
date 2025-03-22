@@ -11,7 +11,8 @@ public enum BGM
     BakeBread,
     Store,
     Milk,
-    Recipe
+    Recipe,
+    Intro
 }
 
 
