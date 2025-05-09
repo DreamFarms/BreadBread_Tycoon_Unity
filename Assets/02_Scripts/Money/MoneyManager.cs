@@ -39,6 +39,7 @@ public class MoneyManager : MonoBehaviour
         //DontDestroyOnLoad(this);
         minMoney = 0;
         maxMoney = 99999999;
+        money = 100;
         money = Mathf.Clamp(money, minMoney, maxMoney);
     }
 
@@ -56,12 +57,16 @@ public class MoneyManager : MonoBehaviour
             else
             {
                 money += value;
+                print("plus");
             }
 
             moneyUI.ChangeMoneyUI(money);
         }
-        // µ·ÀÌ ¾ø´Ù´Â UI
-        moneyUI.NoMoneyUI();
+        else
+        {
+            // µ·ÀÌ ¾ø´Ù´Â UI
+            moneyUI.NoMoneyUI();
+        }
     }
 
     public bool CheckMoney(int value, CalculateState state) // µ· È®ÀÎ

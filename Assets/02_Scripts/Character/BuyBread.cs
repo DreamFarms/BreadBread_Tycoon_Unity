@@ -16,8 +16,14 @@ public class BuyBread : MonoBehaviour
     {
         if (collision.tag == "Table")
         {
-            npc.SetCharacterPrefer(StoreGameManager.Instance.platelist[num].menuName);
+            List<string> menu = StoreGameManager.Instance.GetSelectedMenuInfo(StoreGameManager.Instance.platelist[num].menuName);
+            npc.SetCharacterPrefer(StoreGameManager.Instance.platelist[num].menuName, int.Parse(menu[1]));
             num++;
+        }
+        else if(collision.tag == "Counter")
+        {
+            print("Counter");
+            npc.BuyBreadCounter();
         }
     }
 }

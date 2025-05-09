@@ -14,8 +14,12 @@ public class GoogleTest : MonoBehaviour
         {
             SceneManager_BJH.Instance.ChangeScene("01_Scenes/Map");
         }
+    #if UNITY_EDITOR
+            LoginInUnity();
+    #endif
     }
 
+#if UNITY_ANDROID
     public void LoginInGPGS()
     {
 
@@ -69,5 +73,10 @@ public class GoogleTest : MonoBehaviour
             LoginInGPGS();
             Debug.Log("Login One More");
         }
+    }
+#endif
+    public void LoginInUnity()
+    {
+        InfoManager.Instance.SetToken(InfoManager.Instance.accessTokenTest, InfoManager.Instance.refreshTokenTest);
     }
 }

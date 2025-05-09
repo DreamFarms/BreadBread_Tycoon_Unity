@@ -11,9 +11,9 @@ public class InfoManager : MonoBehaviour
 
     public Dictionary<string, string> enKoMappingDic = new Dictionary<string, string>();
     private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>();
-
-    public static InfoManager Instance
-    { get { return _instance; } }
+    public string accessTokenTest { get; private set; } = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDg4ODA3MzE5MDExNDE0MjE2MzMiLCJpYXQiOjE3NDY3OTM1MTcsImV4cCI6MTc0OTM4NTUxN30.E-FdjINT7HSH82i32Dq7i65Ft2Duziq_ZBkCBkxnwdI";
+    public string refreshTokenTest { get; private set; } = "gBzEqzdnNWR394ncl12fTRW7uwRIfC7CiDMoO8NhaI2yjJOYHxi92z3fYKLF5GrG8+5l3fbHP9lOTfeTuHGCEENw6ee490xDvx/i1bcvmyb7MSJu+/5bgzdyuwEmFM9zuQ0/KgNWlpIM+66528sXW2RQTAgiPwjP3f+0BQBdhB0iCyHNB7j/HQadyLDFABOi9hnPupNjkw/R1QCfbM97LwD67cxtHifRONeBIlwailQ=";
+    public static InfoManager Instance { get { return _instance; } }
 
     public string googleToken { get; private set; }
     public string accessToken { get; private set; }
@@ -151,6 +151,7 @@ public class InfoManager : MonoBehaviour
         this.accessToken = accessToken;
         this.refreshToken = refeshToken;
         JsonSave();
+        Debug.Log("accessToken: " + accessToken);
         SceneManager_BJH.Instance.ChangeScene("01_Scenes/Map");
     }
 }
