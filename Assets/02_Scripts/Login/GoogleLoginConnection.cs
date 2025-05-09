@@ -44,6 +44,9 @@ public class GoogleLoginConnection : MonoBehaviour
         requester.onComplete = OnComplete<GoogleLoginResponse>;
         requester.onFailed = OnFailed;
 
+        print(url);
+        print(request.idToken);
+
         HttpManager.Instance.SendRequest(requester);
     }
 
