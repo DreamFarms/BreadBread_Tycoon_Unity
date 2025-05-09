@@ -167,8 +167,8 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 11
-  AndroidMinSdkVersion: 22
-  AndroidTargetSdkVersion: 0
+  AndroidMinSdkVersion: 36
+  AndroidTargetSdkVersion: 36
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -813,11 +813,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: bea03c6c-e44d-4659-ad6a-9dfa783b404b
+  cloudProjectId: e89b709b-40bf-4f10-ab5f-1133445f83a5
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: BreadBreadTycoon
-  organizationId: juyeon0514two
+  organizationId: wkdghk24
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

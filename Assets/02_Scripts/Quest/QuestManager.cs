@@ -1,119 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class QuestManager : MonoBehaviour
 {
-    // 싱글톤 인스턴스
-    private static QuestManager _instance;
-    public static QuestManager Instance
+    private List<Quest> activeQuests = new List<Quest>();
+
+    private void Start()
     {
-        get
-        {
-            if (_instance == null)
-            {
-                GameObject go = new GameObject("QuestManager");
-                _instance = go.AddComponent<QuestManager>();
-                DontDestroyOnLoad(go);
-            }
-            return _instance;
-        }
+        Reward reward1 = new Reward(200);
+        Quest quest1 = new Quest("빵을 판매하자!", new SellBreadGoal(10), reward1);
+        RegisterQuest(quest1);
+
+        Reward reward2 = new Reward(100);
+        Quest quest2 = new Quest("매출을 달성하자!", new MakeMoneyGoal(1000), reward2);
+        RegisterQuest(quest2);
     }
 
-    // 모든 퀘스트 목록
-    private Dictionary<string, Quest> _quests = new Dictionary<string, Quest>();
-
-    // 활성화된 퀘스트 목록
-    private List<Quest> _activeQuests = new List<Quest>();
-
-    // 완료된 퀘스트 목록
-    private List<Quest> _completedQuests = new List<Quest>();
-
-    // 퀘스트 등록
     public void RegisterQuest(Quest quest)
     {
-        if (!_quests.ContainsKey(quest.QuestId))
-        {
-            _quests.Add(quest.QuestId, quest);
-            Debug.Log($"퀘스트 등록됨: {quest.Title}");
-        }
-        else
-        {
-            Debug.LogWarning($"이미 등록된 퀘스트 ID입니다: {quest.QuestId}");
-        }
+        activeQuests.Add(quest);
     }
 
-    // 퀘스트 시작
-    public void StartQuest(string questId)
+    public void UpdateQuestProgress(string questName, params object[] args) // parmas 여러 값을 한번에 넘길 수 있음
     {
-        if (_quests.TryGetValue(questId, out Quest quest))
-        {
-            quest.StartQuest();
-            if (!_activeQuests.Contains(quest))
-            {
-                _activeQuests.Add(quest);
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"존재하지 않는 퀘스트 ID입니다: {questId}");
-        }
-    }
-
-    // 퀘스트 진행도 업데이트
-    public void UpdateQuestProgress(string questId, object target, int amount)
-    {
-        if (_quests.TryGetValue(questId, out Quest quest))
-        {
-            quest.UpdateProgress(target, amount);
-        }
-    }
-
-    // 특정 타입의 모든 활성 퀘스트 진행도 업데이트
-    public void UpdateQuestProgressByType(QuestType type, object target, int amount)
-    {
-        foreach (var quest in _activeQuests)
-        {
-            if (quest.Type == type)
-            {
-                quest.UpdateProgress(target, amount);
-            }
-        }
-    }
-
-    // 퀘스트 완료 및 보상 지급
-    public void CompleteQuest(string questId)
-    {
-        if (_quests.TryGetValue(questId, out Quest quest))
-        {
-            quest.CompleteQuest();
-            if (_activeQuests.Contains(quest))
-            {
-                _activeQuests.Remove(quest);
-                _completedQuests.Add(quest);
-            }
-        }
-    }
-
-    // 활성화된 모든 퀘스트 가져오기
-    public List<Quest> GetActiveQuests()
-    {
-        return _activeQuests;
-    }
-
-    // 완료된 모든 퀘스트 가져오기
-    public List<Quest> GetCompletedQuests()
-    {
-        return _completedQuests;
-    }
-
-    // 특정 퀘스트 가져오기
-    public Quest GetQuest(string questId)
-    {
-        if (_quests.TryGetValue(questId, out Quest quest))
-        {
-            return quest;
-        }
-        return null;
+        Quest quest = activeQuests.Find(q => q.QuestName == questName); // p는 activeQuests 변수의 각 Quest 개체를 담는 지역변수
+        quest?.Progress(args); // quest가 null이 아니면 Progress(args)를 호출
     }
 }

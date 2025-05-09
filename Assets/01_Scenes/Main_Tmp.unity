@@ -11911,6 +11911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platelist: []
+  tableList: []
 --- !u!1 &2055350004
 GameObject:
   m_ObjectHideFlags: 0
