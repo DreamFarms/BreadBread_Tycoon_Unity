@@ -3,108 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum QuestType
+public class Quest : MonoBehaviour
 {
-    Collection, // 수집 퀘스트
-    Sale, // 판매 퀘스트
-    Interaction // 상호작용 퀘스트
-}
+    public string QuestName {  get; private set; }
+    private IQuestGoal goal;
+    private Reward reward;
 
-public enum QuestStatus
-{
-    NotStarted, // 시작되지 않음
-    InProgress, // 진행 중
-    Completed, // 완료됨
-    Rewarded // 보상을 받음
-}
-
-public abstract class Quest : MonoBehaviour
-{
-    public string QuestId { get; protected set; }       // 퀘스트 고유 ID
-    public string Title { get; protected set; }         // 퀘스트 제목
-    public string Description { get; protected set; }   // 퀘스트 설명
-    public QuestType Type { get; protected set; }       // 퀘스트 타입
-    public QuestStatus Status { get; protected set; }   // 퀘스트 상태
-
-    public int CurrentProgress { get; protected set; }  // 현재 진행도
-    public int RequiredProgress { get; protected set; } // 목표 진행도
-
-    public List<QuestReward> Rewards { get; protected set; } // 퀘스트 보상 목록
-
-    public event Action<Quest> OnQuestStatusChanged;    // 퀘스트 상태 변경 이벤트
-    public event Action<Quest> OnProgressChanged;       // 진행도 변경 이벤트
-
-    // 생성자
-    // 퀘스트 아이디, 이름, 설명, 퀘스트 타입, 목표 진행도
-    protected Quest(string id, string title, string description, QuestType type, int requiredProgress)
+    public Quest(string name, IQuestGoal questGoal, Reward reward)
     {
-        QuestId = id;
-        Title = title;
-        Description = description;
-        Type = type;
-        RequiredProgress = requiredProgress;
-        CurrentProgress = 0;
-        Status = QuestStatus.NotStarted;
-        Rewards = new List<QuestReward>();
+        this.QuestName = name;
+        this.goal = questGoal;
+        this.reward = reward;
     }
 
-    // 퀘스트 시작
-    public virtual void StartQuest()
+    public void Progress(params object[] args)
     {
-        if (Status == QuestStatus.NotStarted)
+        goal.UpdateProgress(args);
+
+        if(goal.IsCompleted())
         {
-            Status = QuestStatus.InProgress;
-            OnQuestStatusChanged?.Invoke(this);
-            Debug.Log($"퀘스트를 시작합니다 : {Title}");
+            Debug.Log($"Quest {QuestName} Completed!");
+            goal.ResetGoal();
+            Debug.Log($"Okay. Next Goal set!");
         }
     }
 
-    // 퀘스트 진행도 업데이트 (추상 메서드로 자식 클래스에서 구현)
-    public abstract void UpdateProgress(object target, int amount);
+    private void GiveReward()
+    {
+        Debug.Log("Reward를 제공합니다.");
+        RewardManager.Instance.ApplyReward(reward);
+    }
 
     
-    // 퀘스트 진행 상태 확인
-    protected void CheckCompletion()
+    public bool GetGoalProgress(out int current, out int target)
     {
-        if (CurrentProgress >= RequiredProgress && Status == QuestStatus.InProgress)
+        if (goal is IProgressQuestGoal progressGoal)
         {
-            Status = QuestStatus.Completed;
-            OnQuestStatusChanged?.Invoke(this);
-            Debug.Log($"퀘스트를 완료했습니다 : {Title}");
+            current = progressGoal.CurrentProgress;
+            target = progressGoal.TargetProgress;
+            return true;
         }
-    }
 
-    // 퀘스트 완료 및 보상 지급
-    public virtual void CompleteQuest()
-    {
-        if (Status == QuestStatus.Completed)
-        {
-            Status = QuestStatus.Rewarded;
-
-            // 보상 지급
-            foreach (var reward in Rewards)
-            {
-                reward.GiveReward();
-            }
-
-            OnQuestStatusChanged?.Invoke(this);
-            Debug.Log($"퀘스트 보상 지급 완료: {Title}");
-        }
-        else
-        {
-            Debug.Log($"아직 퀘스트를 완료할 수 없습니다: {Title}, 현재 상태: {Status}");
-        }
-    }
-
-    // 퀘스트 진행도 문자열 반환 (UI 표시용)
-    public virtual string GetProgressText()
-    {
-        return $"{CurrentProgress}/{RequiredProgress}";
-    }
-
-    // 보상 추가
-    public void AddReward(QuestReward reward)
-    {
-        Rewards.Add(reward);
+        current = 0;
+        target = 0;
+        return false;
     }
 }

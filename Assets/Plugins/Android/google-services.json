@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "190141151154",
+    "firebase_url": "https://breadbreadtycoon-47b17-default-rtdb.firebaseio.com",
+    "project_id": "breadbreadtycoon-47b17",
+    "storage_bucket": "breadbreadtycoon-47b17.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190141151154:android:4057f27bd54c093e6cd6ab",
+        "android_client_info": {
+          "package_name": "com.breadbread.breadbreadtycoon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5qKzvF5Unp_nfLKdURfaYgYcK5ML-_zw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

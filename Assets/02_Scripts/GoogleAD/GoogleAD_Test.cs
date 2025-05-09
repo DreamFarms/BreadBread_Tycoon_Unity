@@ -52,7 +52,7 @@ public class GoogleADTest : MonoBehaviour
     {
         if (rewardedAd.CanShowAd())
         {
-            rewardedAd.Show(GetReward);
+            // rewardedAd.Show(GetReward);
         }
         else
         {
