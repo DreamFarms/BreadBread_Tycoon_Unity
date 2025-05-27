@@ -1,44 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    private static TutorialManager _instance;
+    public List<TutorialStep> tutorialSteps;
+    private int currentStepIndex = 0;
+    private int currentSubStepIndex = 0;
 
-    public static TutorialManager Instance
+    private TutorialStep CurrentStep => tutorialSteps[currentStepIndex];
+    private SubStepData CurrentSubStep => CurrentStep.subSteps[currentSubStepIndex];
+
+    private bool waitingForCondition = false;
+
+    private void Start()
     {
-        get { return _instance; }
+        StartCoroutine(PlayCurrentSubStep());
     }
 
-    [SerializeField] private string[] tutorialScripts = new string[10];
-    private int tutorialScriptIndex = 0;
-    [SerializeField] private TMP_Text tutorialScriptText;
-
-    private void Awake()
+    IEnumerator PlayCurrentSubStep()
     {
-        if(_instance == null)
+        var step = CurrentSubStep;
+
+        step.onStart?.Invoke();
+
+        if (step.type == SubStepData.SubStepType.Dialogue) // 대화형 스텝이면
         {
-            SetInstance();
+            // 예: 대사 출력 후 2초 대기
+            ShowDialogue(step.description);
+            yield return new WaitForSeconds(2f); // 나중엔 텍스트 다 읽은 뒤 넘어가게 만들 수도 있음
+            step.onComplete?.Invoke();
+            GoToNextSubStep();
         }
-        else
+        else if (step.type == SubStepData.SubStepType.WaitForCondition)
         {
-            Destroy(gameObject);
+            ShowUI(step.description); // 예: "매장을 클릭하세요"
+            waitingForCondition = true;
         }
     }
 
-    private void SetInstance()
+    public void OnConditionMet(string condition)
     {
-        _instance = this;
+        if (!waitingForCondition) return;
+
+        var step = CurrentSubStep;
+
+        if (step.type == SubStepData.SubStepType.WaitForCondition &&
+            step.conditionEventName == condition)
+        {
+            step.onComplete?.Invoke();
+            waitingForCondition = false;
+            GoToNextSubStep();
+        }
     }
 
-    public void NextScript()
+    void GoToNextSubStep()
     {
-        tutorialScriptIndex++;
-        string script = tutorialScripts[tutorialScriptIndex];
+        currentSubStepIndex++;
+        if (currentSubStepIndex >= CurrentStep.subSteps.Count)
+        {
+            currentStepIndex++;
+            currentSubStepIndex = 0;
 
-        tutorialScriptText.text = script;
+            if (currentStepIndex >= tutorialSteps.Count)
+            {
+                Debug.Log("튜토리얼 완료!");
+                return;
+            }
+        }
+
+        StartCoroutine(PlayCurrentSubStep());
+    }
+
+    void ShowDialogue(string text)
+    {
+        Debug.Log("[대사] " + text);
+    }
+
+    void ShowUI(string guideText)
+    {
+        Debug.Log("[안내 UI] " + guideText);
     }
 }
