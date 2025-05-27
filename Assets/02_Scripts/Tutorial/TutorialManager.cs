@@ -1,84 +1,92 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
     public List<TutorialStep> tutorialSteps;
-    private int currentStepIndex = 0;
-    private int currentSubStepIndex = 0;
+    public TutorialUIController uiController;
 
-    private TutorialStep CurrentStep => tutorialSteps[currentStepIndex];
-    private SubStepData CurrentSubStep => CurrentStep.subSteps[currentSubStepIndex];
-
-    private bool waitingForCondition = false;
+    private int stepIndex;
+    private int subIndex;
+    private bool waiting = false;
 
     private void Start()
     {
-        StartCoroutine(PlayCurrentSubStep());
+        StartTutorial();
     }
 
-    IEnumerator PlayCurrentSubStep()
+    public void StartTutorial()
     {
-        var step = CurrentSubStep;
+        stepIndex = 0;
+        subIndex = 0;
+        ExecuteCurrentSubStep();
+    }
 
-        step.onStart?.Invoke();
+    private void ExecuteCurrentSubStep()
+    {
+        var step = tutorialSteps[stepIndex];
+        var sub = step.subSteps[subIndex];
 
-        if (step.type == SubStepData.SubStepType.Dialogue) // 대화형 스텝이면
+        Debug.Log($"[튜토리얼] {sub.type} - {sub.description}");
+
+        switch (sub.type)
         {
-            // 예: 대사 출력 후 2초 대기
-            ShowDialogue(step.description);
-            yield return new WaitForSeconds(2f); // 나중엔 텍스트 다 읽은 뒤 넘어가게 만들 수도 있음
-            step.onComplete?.Invoke();
-            GoToNextSubStep();
+            case SubStepData.SubStepType.Dialogue:
+                uiController.ShowDialogue(sub.description, ProceedNextStep);
+                break;
+
+            case SubStepData.SubStepType.ShowGuideUI:
+                uiController.ShowGuide(sub.description);
+                break;
+
+            case SubStepData.SubStepType.WaitForCondition:
+                uiController.ShowGuide(sub.description);
+                waiting = true;
+                break;
         }
-        else if (step.type == SubStepData.SubStepType.WaitForCondition)
-        {
-            ShowUI(step.description); // 예: "매장을 클릭하세요"
-            waitingForCondition = true;
-        }
+    }
+
+    IEnumerator WaitThenNext(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        ProceedNextStep();
     }
 
     public void OnConditionMet(string condition)
     {
-        if (!waitingForCondition) return;
+        if (!waiting) return;
 
-        var step = CurrentSubStep;
+        var sub = tutorialSteps[stepIndex].subSteps[subIndex];
 
-        if (step.type == SubStepData.SubStepType.WaitForCondition &&
-            step.conditionEventName == condition)
+        if (sub.type == SubStepData.SubStepType.WaitForCondition &&
+            sub.conditionEventName == condition)
         {
-            step.onComplete?.Invoke();
-            waitingForCondition = false;
-            GoToNextSubStep();
+            waiting = false;
+            ProceedNextStep();
         }
     }
 
-    void GoToNextSubStep()
+    void ProceedNextStep()
     {
-        currentSubStepIndex++;
-        if (currentSubStepIndex >= CurrentStep.subSteps.Count)
-        {
-            currentStepIndex++;
-            currentSubStepIndex = 0;
+        uiController.HideDialogue();
+        uiController.HideGuide();
 
-            if (currentStepIndex >= tutorialSteps.Count)
-            {
-                Debug.Log("튜토리얼 완료!");
-                return;
-            }
+        subIndex++;
+
+        if (subIndex >= tutorialSteps[stepIndex].subSteps.Count)
+        {
+            stepIndex++;
+            subIndex = 0;
         }
 
-        StartCoroutine(PlayCurrentSubStep());
-    }
-
-    void ShowDialogue(string text)
-    {
-        Debug.Log("[대사] " + text);
-    }
-
-    void ShowUI(string guideText)
-    {
-        Debug.Log("[안내 UI] " + guideText);
+        if (stepIndex < tutorialSteps.Count)
+        {
+            ExecuteCurrentSubStep();
+        }
+        else
+        {
+            Debug.Log("튜토리얼 완료!");
+        }
     }
 }

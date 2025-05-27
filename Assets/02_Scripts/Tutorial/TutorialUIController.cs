@@ -1,23 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class TutorialUIController : MonoBehaviour
 {
-    public GameObject targetUI;
+    [Header("Dialogue UI")]
+    public GameObject dialoguePanel;
+    public TMP_Text dialogueText;
+    public Button nextButton;
 
-    public void ShowUI()
+    [Header("Guide UI")]
+    public GameObject guidePanel;
+    public TMP_Text guideText;
+
+    public void ShowDialogue(string text, UnityEngine.Events.UnityAction onNext)
     {
-        targetUI.SetActive(true);
+        dialogueText.text = text;
+        dialoguePanel.SetActive(true);
+
+        nextButton.onClick.RemoveAllListeners();
+        nextButton.onClick.AddListener(onNext);
+        nextButton.gameObject.SetActive(true);
     }
 
-    public void HideUI()
+    public void HideDialogue()
     {
-        targetUI.SetActive(false);
+        dialoguePanel.SetActive(false);
     }
 
-    public void ShowText(string text)
+    public void ShowGuide(string text)
     {
-        Debug.Log("UI 텍스트 표시: " + text); // 필요 시 TMP_Text 등 연결
+        guideText.text = text;
+        guidePanel.SetActive(true);
+    }
+
+    public void HideGuide()
+    {
+        guidePanel.SetActive(false);
     }
 }
