@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Button_Island : Button
 {
-    // Start is called before the first frame update
+    [SerializeField] private string tutorialEventName;
+    [SerializeField] private bool isTutorial = false;
+
     void Start()
     {
         this.onClick.AddListener(CallSceneManagerAndPlzChangeScene);
@@ -13,6 +15,10 @@ public class Button_Island : Button
 
     public void CallSceneManagerAndPlzChangeScene()
     {
+        if(this.isTutorial)
+        {
+            // TutorialManager.Instance.iswai
+        }
         SceneManager_BJH.Instance.ChangeScene(gameObject.name);
     }
 }

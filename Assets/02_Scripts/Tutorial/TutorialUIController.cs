@@ -13,6 +13,12 @@ public class TutorialUIController : MonoBehaviour
     public GameObject guidePanel;
     public TMP_Text guideText;
 
+    public void Awake()
+    {
+        guidePanel.SetActive(false);
+
+    }
+
     public void ShowDialogue(string text, UnityEngine.Events.UnityAction onNext)
     {
         dialogueText.text = text;
