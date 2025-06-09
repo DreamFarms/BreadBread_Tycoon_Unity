@@ -8,12 +8,12 @@ public class RewardUI : MonoBehaviour
 {
     public Image backgroundImage;
     public Image itemImage;
-    public string countText;
+    public TMP_Text countText;
 
     private void Awake()
     {
         backgroundImage = GetComponent<Image>();
         itemImage = transform.GetChild(0).GetComponent<Image>();
-        countText = transform.GetChild(1).GetComponent<TMP_Text>().text;
+        countText = transform.GetChild(1).GetComponent<TMP_Text>();
     }
 }

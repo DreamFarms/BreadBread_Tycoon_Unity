@@ -43,7 +43,12 @@ public class CardGameManager : MonoBehaviour
     private Dictionary<Sprite, int> dicRewards = new Dictionary<Sprite, int>();
     [SerializeField] private Dictionary<string, int> cardRewardDic = new Dictionary<string, int>();
     [SerializeField] private List<Image> rewordImages = new List<Image>(); // 보상 스프라이트를 담는 이미지
-    [SerializeField] private List<TMP_Text> rewordCountText = new List<TMP_Text>(); // 보상 스프라이트 개수
+    [SerializeField] private List<TMP_Text> rewardCountText = new List<TMP_Text>(); // 보상 스프라이트 개수
+
+    [SerializeField] private GameObject rewardPrefab;
+    [SerializeField] private GameObject rewardFailPrefab;
+
+    [SerializeField] private Transform rewardGroupTr;
 
     private void Awake()
     {
@@ -220,16 +225,29 @@ public class CardGameManager : MonoBehaviour
     // 게임이 끝나면 리워드 노출
     private void SettingRewardsAtUI()
     {
+        if(dicRewards.Keys.Count <= 0)
+        {
+            rewardFailPrefab.SetActive(true);
+            return;
+        }
+
+        rewardGroupTr.gameObject.SetActive(true);
         int index = 0;
         foreach(var sprite in dicRewards.Keys)
         {
-            rewordImages[index].sprite = sprite;
-            string s = dicRewards[sprite].ToString() + "개";
-            rewordCountText[index].text = s;
-            rewordImages[index].transform.parent.gameObject.SetActive(true);
+            GameObject rewardGo = Instantiate(rewardPrefab, rewardGroupTr);
+            rewardGo.SetActive(true);
+            RewardUI rewardUi = rewardGo.GetComponent<RewardUI>();
+            rewardUi.itemImage.sprite = sprite;
+            string count = dicRewards[sprite].ToString() + "개";
+            rewardUi.countText.text = count; 
+
+            
+            // rewordImages[index].transform.parent.gameObject.SetActive(true);
             cardRewardDic.Add(sprite.name, dicRewards[sprite]); 
             index++;
         }
+
 
         RewardConnection.Instance.RewardSaveRequest(cardRewardDic);
     }
