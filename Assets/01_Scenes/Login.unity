@@ -5270,7 +5270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bbe8e1f2997ff4d9f45f725433d9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginUrl: api/v1/user/save
+  endPoint: api/v1/user/save
 --- !u!1 &1925086559
 GameObject:
   m_ObjectHideFlags: 0
