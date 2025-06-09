@@ -9,7 +9,13 @@ public class Card : MonoBehaviour
     private SpriteRenderer cardRenderer;
 
     [SerializeField]
-    private Sprite animalSprite; // 앞면
+    private SpriteRenderer ingredientRenderer;
+
+    [SerializeField]
+    private Sprite backgroundSprite; // assign
+
+    [SerializeField]
+    private Sprite frontSprite; // 재료.. board.cs에서 적용
 
     [SerializeField]
     private Sprite backSprite; // 뒷면
@@ -30,9 +36,9 @@ public class Card : MonoBehaviour
         isMatched = true;
     }
 
-    public void SetAnimalSprite(Sprite sprite)
+    public void SetIngredientSprite(Sprite sprite)
     {
-        this.animalSprite = sprite;
+        this.frontSprite = sprite;
     }
 
     public void FlipCard()
@@ -49,11 +55,13 @@ public class Card : MonoBehaviour
 
             if (isFilpped)
             {
-                cardRenderer.sprite = animalSprite;
+                cardRenderer.sprite = backgroundSprite;
+                ingredientRenderer.sprite = frontSprite;
             }
             else
             {
-                cardRenderer.sprite = backSprite;
+                cardRenderer.sprite = null;
+                ingredientRenderer.sprite = backSprite;
             }
 
             transform.DOScale(originalScale, 0.2f).OnComplete(() =>

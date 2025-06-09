@@ -64,7 +64,7 @@ public class Board : MonoBehaviour
                 Card card = go.GetComponent<Card>();
                 int cardId = cardIdList[cardIdx++];
                 card.SetCardId(cardId);
-                card.SetAnimalSprite(cardSprites[cardId]);
+                card.SetIngredientSprite(cardSprites[cardId]);
                 
                 cardList.Add(card);
             }

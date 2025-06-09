@@ -10,7 +10,7 @@ public class MilkConnection : MonoBehaviour
         string url = "https://b0cd-115-136-106-231.ngrok-free.app/api/v1/user/reward/save";
 
         RewardSaveRequest request = new RewardSaveRequest();
-        request.nickname = GameManager.Instance.nickName;
+        // request.nickname = GameManager.Instance.nickName;
         request.rewards = new List<RewardInfo>();
 
         request.rewards.Add(new RewardInfo { name = "Milk", count = MilkGameManager.Instance.currectMilkCount });

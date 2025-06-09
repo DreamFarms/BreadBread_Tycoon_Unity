@@ -10,7 +10,7 @@ using static System.Net.WebRequestMethods;
 [System.Serializable]
 public class RewardSaveRequest
 {
-    public string nickname;
+    // public string nickname;
     public List<RewardInfo> rewards;
 }
 
@@ -45,8 +45,7 @@ public class RewardConnection : MonoBehaviour
         string url = GameManager.Instance.Url + "/api/v1/inventory/save";
 
         RewardSaveRequest request = new RewardSaveRequest();
-        request.nickname = GameManager.Instance.nickName;
-        Debug.Log(request.nickname);
+        // request.nickname = GameManager.Instance.nickName;
         request.rewards = new List<RewardInfo>();
 
         // 리스트 초기화
@@ -71,6 +70,6 @@ public class RewardConnection : MonoBehaviour
 
     private void OnGetFailed(DownloadHandler handler)
     {
-        Debug.Log("실패");
+        Debug.LogError("실패");
     }
 }
