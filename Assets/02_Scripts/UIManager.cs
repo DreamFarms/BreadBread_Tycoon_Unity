@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
             blackBGImage.SetActive(true);
 
             BlackBGImage blackBGImageComponent = blackBGImage.GetComponent<BlackBGImage>();
-            blackBGImageComponent.CloseButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map")); // 게임 나가야 함
+            blackBGImageComponent.CloseButton.onClick.AddListener(() => SceneController.Instance.ChangeScene("Map")); // 게임 나가야 함
             blackBGImageComponent.nextButton.onClick.AddListener(() => GameObject.Find("BakeBreadConnection").GetComponent<BakeBreadConnection>().StartBakeBreadConnection()); // 통신 해야 함
 
             errorImage.GetComponent<ErrorImage>().errorImageButton.onClick.AddListener(() => CloseUI(errorImage));
@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
             selectMenuCountingImg.SetActive(false);
             sideDirectionArrowBtn.SetActive(false);
 
-            mapButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map"));
+            mapButton.onClick.AddListener(() => SceneController.Instance.ChangeScene("Map"));
 
             // 메뉴 설명 기본 문구 초기화
             SetBasicMenuInfoText();

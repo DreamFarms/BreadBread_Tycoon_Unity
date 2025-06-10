@@ -91,7 +91,7 @@ public class BerryPickerManager : MonoBehaviour
 
         fruits = new BerryInfo[transformArr.Length]; // 6 ( 0 ~ 5 )
 
-        checkButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map"));
+        checkButton.onClick.AddListener(() => SceneController.Instance.ChangeScene("Map"));
 
         SetRewordItemDic();
 

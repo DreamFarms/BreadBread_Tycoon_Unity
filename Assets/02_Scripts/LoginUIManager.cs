@@ -29,7 +29,7 @@ public class LoginUIManager : MonoBehaviour
         loginButton.onClick.AddListener(() => LoginManager.Instance.LoginRequest(nickNameinput.text));
         alertImageGo.SetActive(false);
 
-        alertButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Main"));
+        alertButton.onClick.AddListener(() => SceneController.Instance.ChangeScene("Main"));
         alerBackButton.onClick.AddListener(() => onClickAlerBackButton());
     }
 

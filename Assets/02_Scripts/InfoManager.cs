@@ -152,6 +152,6 @@ public class InfoManager : MonoBehaviour
         this.refreshToken = refeshToken;
         JsonSave();
         Debug.Log("accessToken: " + accessToken);
-        SceneManager_BJH.Instance.ChangeScene("01_Scenes/Map");
+        SceneController.Instance.ChangeScene("01_Scenes/Map");
     }
 }
