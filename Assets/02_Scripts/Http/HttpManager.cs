@@ -64,8 +64,8 @@ public class HttpManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("통신 실패");
-            Debug.Log(request.error);
+            Debug.LogError("통신 실패");
+            Debug.LogError("실패 사유 : " + request.error);
         }
     }
 }

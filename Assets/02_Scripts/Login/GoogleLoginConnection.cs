@@ -24,6 +24,26 @@ public class GoogleResponseMessage
     public string message;
     public string accessToken;
     public string refreshToken;
+    public string nickName;
+    public int gold;
+    public int cash;
+    public ResponseInventory inventory;
+    public ResponseUnlockedRecipes unlockedRecipes;
+}
+
+[Serializable]
+public class ResponseUnlockedRecipes
+{
+    public int code;
+    public string name;
+    public int count;
+}
+
+[Serializable]
+public class ResponseInventory
+{
+    public string foodName;
+    public string category;
 }
 
 public class GoogleLoginConnection : MonoBehaviour
@@ -44,8 +64,8 @@ public class GoogleLoginConnection : MonoBehaviour
         requester.onComplete = OnComplete<GoogleLoginResponse>;
         requester.onFailed = OnFailed;
 
-        print(url);
-        print(request.idToken);
+        Debug.Log(url);
+        Debug.Log(request.idToken);
 
         HttpManager.Instance.SendRequest(requester);
     }
@@ -68,6 +88,11 @@ public class GoogleLoginConnection : MonoBehaviour
                     Debug.Log("스테이터스" + response.message.status);
                     Debug.Log("성공" + response.message.accessToken);
                     Debug.Log("성공" + response.message.refreshToken);
+
+                    // Top ui 설정
+                    GoogleResponseMessage message = response.message;
+                    InfoManager.Instance.SetTopUI(message.nickName, message.gold, message.cash);
+                    Debug.Log($"{message.nickName}님의 골드는 {message.gold} 그리고 캐시는 {message.cash} 입니다.");
                 }
                 Debug.Log("구글 토큰 통신 끝");
                 break;

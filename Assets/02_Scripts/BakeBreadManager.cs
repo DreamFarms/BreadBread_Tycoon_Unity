@@ -70,7 +70,7 @@ public class BakeBreadManager : MonoBehaviour
         fan02.SetActive(false);
         rewordGO.SetActive(false);
         rewordCountText.text = "0";
-        rewordCheckButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Map"));
+        rewordCheckButton.onClick.AddListener(() => SceneController.Instance.ChangeScene("Map"));
 
         indexArray = new int[doughImage.Length];
         for (int i = 0; i < indexArray.Length; i++)

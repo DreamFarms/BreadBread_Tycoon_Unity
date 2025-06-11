@@ -19,6 +19,6 @@ public class Button_Island : Button
         {
             // TutorialManager.Instance.iswai
         }
-        SceneManager_BJH.Instance.ChangeScene(gameObject.name);
+        SceneController.Instance.ChangeScene(gameObject.name);
     }
 }

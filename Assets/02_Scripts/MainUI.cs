@@ -19,7 +19,7 @@ public class MainUI : MonoBehaviour
 
     private void Start()
     {
-        endingButton.onClick.AddListener(() => SceneManager_BJH.Instance.ChangeScene("Login"));
+        endingButton.onClick.AddListener(() => SceneController.Instance.ChangeScene("Login"));
         endingUI.SetActive(false);
         topUIGroup.SetActive(true);
         nicknameText.text = GameManager.Instance.nickName;

@@ -12,7 +12,7 @@ public class GoogleTest : MonoBehaviour
     {
         if (InfoManager.Instance.JsonLoad())
         {
-            SceneManager_BJH.Instance.ChangeScene("01_Scenes/Map");
+            SceneController.Instance.ChangeScene("01_Scenes/Map");
         }
     #if UNITY_EDITOR
             LoginInUnity();
