@@ -810,6 +810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7116514839804980625}
   - component: {fileID: 8603060369876819071}
+  - component: {fileID: 6916835350908217046}
   m_Layer: 5
   m_Name: TopUIGoup
   m_TagString: Untagged
@@ -866,6 +867,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6916835350908217046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018264167769928852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9170c0e774bd2443b75544530217ed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nickName: {fileID: 1729093369486027578}
+  gold: {fileID: 5481754374431612191}
+  cash: {fileID: 5650133190019872891}
 --- !u!1 &7167764753384440298
 GameObject:
   m_ObjectHideFlags: 0

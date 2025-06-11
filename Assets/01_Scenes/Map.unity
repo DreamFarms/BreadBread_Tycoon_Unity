@@ -1872,50 +1872,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587386814}
   m_CullTransparentMesh: 1
---- !u!1 &1588865867
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1588865869}
-  - component: {fileID: 1588865868}
-  m_Layer: 0
-  m_Name: UserInfoConnection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1588865868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588865867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0211873a032fc114c8e6039729d24576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1588865869
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588865867}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -769.1011, y: 607.21045, z: -27.758656}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1681626966
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,6 +2922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2676880477837007429}
   - component: {fileID: 3495063538727627691}
+  - component: {fileID: 3495063538727627692}
   m_Layer: 5
   m_Name: TopUIGoup
   m_TagString: Untagged
@@ -3036,6 +2993,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3495063538727627692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2774536252878177088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9170c0e774bd2443b75544530217ed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nickName: {fileID: 5771988906397048046}
+  gold: {fileID: 862398205454232267}
+  cash: {fileID: 7115150155653821060}
 --- !u!114 &3803355559988124370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3838,4 +3810,3 @@ SceneRoots:
   - {fileID: 9111632770799085742}
   - {fileID: 649572680}
   - {fileID: 130358737}
-  - {fileID: 1588865869}

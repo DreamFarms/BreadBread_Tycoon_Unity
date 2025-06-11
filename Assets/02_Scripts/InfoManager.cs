@@ -21,6 +21,14 @@ public class InfoManager : MonoBehaviour
 
     private string path;
 
+    // top ui
+    public string NickName { get; private set; }
+    public int Gold { get; private set; }  
+    public int Cash { get; private set; }
+
+    public event Action<int> OnGoldChanged;
+    public event Action<int> OnCashChanged;
+
     private class SaveData
     {
         public string accessToken;
@@ -153,5 +161,53 @@ public class InfoManager : MonoBehaviour
         JsonSave();
         Debug.Log("accessToken: " + accessToken);
         SceneController.Instance.ChangeScene("01_Scenes/Map");
+    }
+
+
+    public void AddGold(int amount)
+    {
+        this.Gold += amount;
+        amount = Math.Max(0, amount); // 음수 방지
+        OnGoldChanged?.Invoke(Gold);
+    }
+
+    public bool SubtractGold(int amount)
+    {
+        if (Gold >= amount)
+        {
+            Gold -= amount;
+            OnCashChanged?.Invoke(Cash);
+            return true;
+        }
+        Debug.LogError("차감 할 골드가 부족합니다.");
+        return false;
+
+    }
+
+    public void AddCash(int amount)
+    {
+        this.Cash += amount;
+        amount = Math.Max(0, amount); // 음수 방지
+        OnCashChanged?.Invoke(Cash);
+    }
+
+    public bool SubtractCash(int amount)
+    {
+        if (Cash >= amount)
+        {
+            Cash -= amount;
+            OnCashChanged?.Invoke(Cash);
+            return true;
+        }
+        Debug.LogError("차감 할 캐시가 부족합니다.");
+        return false;
+    }
+
+
+    public void SetTopUI(string nickName, int gold, int cash)
+    {
+        this.NickName = nickName;
+        this.Gold = gold;
+        this.Cash = cash;
     }
 }
