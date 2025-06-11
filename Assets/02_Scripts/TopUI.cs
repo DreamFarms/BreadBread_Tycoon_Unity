@@ -46,12 +46,18 @@ public class TopUI : MonoBehaviour
     private void UpdateGold(int amount)
     {
         this.gold.text = amount.ToString();
+        Debug.Log("골드가 추가됐습니다.");
     }
 
     private void UpdateCash(int amount) 
     { 
         this.cash.text = amount.ToString();
+        Debug.Log("캐시가 추가됐습니다.");
     }
 
+    public void OnClickTestButton()
+    {
+        InfoManager.Instance.AddGold(1000);
+    }
 
 }
