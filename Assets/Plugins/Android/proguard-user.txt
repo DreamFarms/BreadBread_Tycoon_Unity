@@ -42,6 +42,9 @@
 
 -keep class com.google.android.gms.nearby.** { *; }
 
+-keep class com.google.games.bridge.HelperFragment { *; }
+
+
 -keep class com.google.unity.** {
    *;
 }
