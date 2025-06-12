@@ -8,14 +8,18 @@ public class GoogleTest : MonoBehaviour
 {
     [SerializeField] GoogleLoginConnection connection;
 
-    private void Start()
+    private void Awake()
     {
-        if (InfoManager.Instance.JsonLoad())
-        {
-            SceneController.Instance.ChangeScene("01_Scenes/Map");
-        }
-    #if UNITY_EDITOR
-            LoginInUnity();
+        //if (InfoManager.Instance.JsonLoad())
+        //{
+        //    connection.StartGoogleLoginConnection();
+        //}
+#if UNITY_ANDROID
+        LoginInGPGS();
+#endif
+
+#if UNITY_EDITOR
+        LoginInUnity();
     #endif
     }
 

@@ -24,6 +24,7 @@ public class GoogleResponseMessage
     public string message;
     public string accessToken;
     public string refreshToken;
+    public long userNo;
     public string nickName;
     public int gold;
     public int cash;
@@ -49,13 +50,14 @@ public class ResponseInventory
 public class GoogleLoginConnection : MonoBehaviour
 {
     [SerializeField] private string googlePoint = "";
-    private string login = "google-login/login";
+    private string login = "/google-login/login";
 
     public void StartGoogleLoginConnection()
     {
         GoogleLoginRequest request = new GoogleLoginRequest();
 
         request.idToken = InfoManager.Instance.googleToken;
+        Debug.Log("서버로 요청 할 토큰 : " + request.idToken);
 
         string json = JsonUtility.ToJson(request);
 
@@ -84,6 +86,8 @@ public class GoogleLoginConnection : MonoBehaviour
                 if (response != null)
                 {
                     InfoManager.Instance.SetToken(response.message.accessToken, response.message.refreshToken);
+                    InfoManager.Instance.SetUserNo(response.message.userNo);
+                    Debug.Log($"유저의 번호는 {response.message.userNo} 입니다.");
                     Debug.Log("메세지" + response.message.message);
                     Debug.Log("스테이터스" + response.message.status);
                     Debug.Log("성공" + response.message.accessToken);
@@ -95,6 +99,7 @@ public class GoogleLoginConnection : MonoBehaviour
                     Debug.Log($"{message.nickName}님의 골드는 {message.gold} 그리고 캐시는 {message.cash} 입니다.");
                 }
                 Debug.Log("구글 토큰 통신 끝");
+                SceneController.Instance.LoadSceneWithLoading(SceneName.Map);
                 break;
         }
     }

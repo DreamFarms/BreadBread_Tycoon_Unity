@@ -15,9 +15,13 @@ public class InfoManager : MonoBehaviour
     public string refreshTokenTest { get; private set; } = "gBzEqzdnNWR394ncl12fTRW7uwRIfC7CiDMoO8NhaI2yjJOYHxi92z3fYKLF5GrG8+5l3fbHP9lOTfeTuHGCEENw6ee490xDvx/i1bcvmyb7MSJu+/5bgzdyuwEmFM9zuQ0/KgNWlpIM+66528sXW2RQTAgiPwjP3f+0BQBdhB0iCyHNB7j/HQadyLDFABOi9hnPupNjkw/R1QCfbM97LwD67cxtHifRONeBIlwailQ=";
     public static InfoManager Instance { get { return _instance; } }
 
+    // User 정보
     public string googleToken { get; private set; }
     public string accessToken { get; private set; }
     public string refreshToken { get; private set; }
+
+    
+    public long UserNo { get; private set; }
 
     private string path;
 
@@ -37,7 +41,6 @@ public class InfoManager : MonoBehaviour
 
     private void Awake()
     {
-        _instance = this;
         if (_instance == null)
         {
             _instance = this;
@@ -80,7 +83,10 @@ public class InfoManager : MonoBehaviour
             if (saveData != null)
             {
                 accessToken = saveData.accessToken;
+                Debug.Log($"자동 로그인 : {accessToken}");
                 refreshToken = saveData.refreshToken;
+                Debug.Log($"자동 로그인 : {refreshToken}");
+
                 return true;
             }
         }
@@ -163,6 +169,11 @@ public class InfoManager : MonoBehaviour
         SceneController.Instance.ChangeScene("01_Scenes/Map");
     }
 
+    public void SetUserNo(long userNo)
+    {
+        this.UserNo = userNo;
+    }
+
 
     public void AddGold(int amount)
     {
@@ -209,5 +220,7 @@ public class InfoManager : MonoBehaviour
         this.NickName = nickName;
         this.Gold = gold;
         this.Cash = cash;
+
+        
     }
 }
