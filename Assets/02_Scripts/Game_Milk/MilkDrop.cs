@@ -7,8 +7,13 @@ public class MilkDrop : MonoBehaviour
 {
     [Header("Drop")]
     [SerializeField] private float dropSpeed;
-    [SerializeField] private float initPositionY;
+    private float initPositionY;
     [SerializeField] private float targetPositionY;
+
+    private void Awake()
+    {
+        initPositionY = transform.position.y;
+    }
 
     public void DropMilk()
     {
@@ -17,7 +22,7 @@ public class MilkDrop : MonoBehaviour
 
     private IEnumerator CoDropMilk()
     {
-        Vector3 currentTransform = transform.position;
+        Vector2 currentTransform = transform.position;
 
         while(transform.position.y >= targetPositionY)
         {
@@ -25,12 +30,12 @@ public class MilkDrop : MonoBehaviour
             currentTransform.y -= dropSpeed * Time.deltaTime;
 
             // 위치 업데이트
-            currentTransform = currentTransform;
             transform.position = currentTransform;
            yield return null;
         }
 
-        transform.position = new Vector3(0, initPositionY, 0);
+        Vector2 initVector = new Vector3(transform.position.x, initPositionY);
+        transform.position = initVector;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

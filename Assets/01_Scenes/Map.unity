@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e95b1bd1efa7c4180be53606986cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: https://a8e6-115-136-106-227.ngrok-free.app
+  url: https://ccf6-115-136-106-227.ngrok-free.app
 --- !u!4 &461905254
 Transform:
   m_ObjectHideFlags: 0
@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da793dff3bfab8489a6fa77658e916f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _url: https://a8e6-115-136-106-227.ngrok-free.app
+  _url: https://ccf6-115-136-106-227.ngrok-free.app
   nickName: guest
   coin: 0
   cash: 0

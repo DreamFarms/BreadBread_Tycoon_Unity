@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -33,6 +34,10 @@ public class MilkGameManager : MonoBehaviour
     [SerializeField] private MilkDrop milkDrop; // milk_drop에 milk drop.cs assign
     [SerializeField] private MilkFill milkFill; // 실행전 : milk_bottle 직접 assign, 실행후 : milk_drop의 trigger enter에서 코드로 assign
 
+    [Header("Spawn")]
+    [SerializeField] private GameObject milkGlassPrefab;
+    [SerializeField] private Transform targetSpawnPoint;
+
     public MilkFill MilkFill
     {
         set { milkFill = value; }
@@ -44,11 +49,11 @@ public class MilkGameManager : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveDistance; // -6.5f
 
-    [SerializeField] private SpawnGameObject spawnGameObject; // assign
-
     [Header("reward")]
     [SerializeField] public int currectMilkCount;
     [SerializeField] private MilkConnection milkConnection; // assign
+
+
 
 
     private void Awake()
@@ -64,22 +69,24 @@ public class MilkGameManager : MonoBehaviour
     private void Start()
     {
         PlayMusic();
+        StartGame();
     }
 
     void Update()
     {
         if(isStart)
         {
-            PlayGame();
+            PlayingGame();
         }
 
-        if(currentPlayTime >= targetPlayTime)
+        if(currentPlayTime >= targetPlayTime && isStart)
         {
             FinishGame();
         }
     }
-    public void ChangeGameState()
+    public void StartGame()
     {
+        MilkUIManager.Instance.InitUI();
         StartCoroutine(CoChangeGameState());   
     }
 
@@ -91,7 +98,7 @@ public class MilkGameManager : MonoBehaviour
         isTouchEnabled = true; // 이것을 여기서 호출하는 것이 맞는지에 대한 고민...
     }
 
-    private void PlayGame()
+    private void PlayingGame()
     {
         
         Timer();
@@ -178,9 +185,17 @@ public class MilkGameManager : MonoBehaviour
             yield return null;
         }
         isTouchEnabled = true;
-        spawnGameObject.SpawnMilkGlass();
+        SpawnMilkGlass();
 
     }
+
+    public void SpawnMilkGlass()
+    {
+        Vector2 spawnPosition = targetSpawnPoint.position;
+        GameObject go = Instantiate(milkGlassPrefab, moveGroup.transform);
+        go.transform.position = spawnPosition;
+    }
+
 
     public void FillMilkBottle()
     {

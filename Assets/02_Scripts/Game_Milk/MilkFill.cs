@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class MilkFill : MonoBehaviour
 {
-    [SerializeField] private GameObject[] risingImages;
+    [SerializeField] private SpriteRenderer milkBottle; // target assign
+    [SerializeField] private Sprite[] milkBottleSprits; // 0 : 멀쩡한 병   1 : 깨진 병
+
+    [SerializeField] private SpriteRenderer milkFillSprite; // target assign
+    [SerializeField] private GameObject[] milkFillGameobjects; // sprits
     
     private int currnetIndex;
 
+    // ??
     public bool GetResult()
     {
-        if (currnetIndex == risingImages.Length - 2)
+        if (currnetIndex == milkFillGameobjects.Length - 2)
         {
             return true;
         }
@@ -20,19 +25,28 @@ public class MilkFill : MonoBehaviour
 
     private void OnEnable()
     {
-        foreach(GameObject go in risingImages)
+        InitMilkeBottle();
+    }
+
+    private void InitMilkeBottle()
+    {
+        milkBottle.sprite = milkBottleSprits[0];
+
+
+        foreach(GameObject go in milkFillGameobjects)
         {
             go.SetActive(false);
         }
 
         int target = MakeRandomNumber();
-        risingImages[target].SetActive(true);
+        milkFillGameobjects[target].SetActive(true);
         currnetIndex = target;
+        
     }
 
     private int MakeRandomNumber()
     {
-        int max = risingImages.Length-1;
+        int max = milkFillGameobjects.Length-1;
         int random = UnityEngine.Random.Range(0, max);
         return random;
     }
@@ -42,14 +56,15 @@ public class MilkFill : MonoBehaviour
         ++currnetIndex;
 
         // 실패
-        if(currnetIndex >= risingImages.Length - 1)
+        if (currnetIndex >= milkFillGameobjects.Length - 1)
         {
-            risingImages[risingImages.Length - 1].SetActive(true);
+            milkBottle.sprite = milkBottleSprits[1]; // bottle
+            milkFillGameobjects[milkFillGameobjects.Length - 1].SetActive(true); // milk
         }
         // 성공
         else
         {
-            risingImages[currnetIndex].SetActive(true);
+            milkFillGameobjects[currnetIndex].SetActive(true);
         }
     }
 }
