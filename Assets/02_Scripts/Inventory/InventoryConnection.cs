@@ -34,7 +34,7 @@ public class InventoryConnection : MonoBehaviour
     {
         InventoryRequest request = new InventoryRequest();
 
-        request.nickname = GameManager.Instance.nickName;
+        request.nickname = InfoManager.Instance.NickName;
 
         string url = GameManager.Instance.Url + inventoryPoint + request.nickname;
 

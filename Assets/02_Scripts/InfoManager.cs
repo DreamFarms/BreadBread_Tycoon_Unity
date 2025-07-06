@@ -11,8 +11,8 @@ public class InfoManager : MonoBehaviour
 
     public Dictionary<string, string> enKoMappingDic = new Dictionary<string, string>();
     private Dictionary<string, string> _ingredientInfoDic = new Dictionary<string, string>();
-    public string accessTokenTest { get; private set; } = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDg4ODA3MzE5MDExNDE0MjE2MzMiLCJpYXQiOjE3NDY3OTM1MTcsImV4cCI6MTc0OTM4NTUxN30.E-FdjINT7HSH82i32Dq7i65Ft2Duziq_ZBkCBkxnwdI";
-    public string refreshTokenTest { get; private set; } = "gBzEqzdnNWR394ncl12fTRW7uwRIfC7CiDMoO8NhaI2yjJOYHxi92z3fYKLF5GrG8+5l3fbHP9lOTfeTuHGCEENw6ee490xDvx/i1bcvmyb7MSJu+/5bgzdyuwEmFM9zuQ0/KgNWlpIM+66528sXW2RQTAgiPwjP3f+0BQBdhB0iCyHNB7j/HQadyLDFABOi9hnPupNjkw/R1QCfbM97LwD67cxtHifRONeBIlwailQ=";
+    public string accessTokenTest { get; private set; } = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4MjUwM2E1ZmQ1NmU5ZjczNGRmYmE1YzUwZDdiZjQ4ZGIyODRhZTkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyNDgyNTI3OTg3MjUtYWlhMnBrMDE3ZGRzcTUzbGI2dmF1dm9qYnVycjUxZmwuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyNDgyNTI3OTg3MjUtbTAwbzQ4a2lyaThvZ2JlNmkxaGk3YjVnbjFtOWFoYW4uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDg4ODA3MzE5MDExNDE0MjE2MzMiLCJpYXQiOjE3NTEwMjU2OTIsImV4cCI6MTc1MTAyOTI5Mn0.tQugk7FzUAeE6Dbf2oGGJGapS3_3jTO-PJ0ZuZr98LE9h4O3P1S75czYzAfKLmeBZ1uqv1nPAf-fzFN_imMJKmXhHBYJtDy0iM9Qa_eFimL-RebCwBYS39SZTr7gT3mR_uB7ojJPXvTl1vNaudOEvLU5xvVmSWV-YjrL1hxUOCwiWfnkWNS_c0hNp4PJks2rqY2_pRfwS_G7LwurpiiPTJ8YdNVazmTc8DUEstssA2ew1vkGmpjFicfzwMxnmo1wFZNjMUhiYKr3andWbfWfeN86Ou2leZu1jQuj37LCUOhvDX-PEwsp2OBaL0_eKtgltqiJDJy6I1hDjYBnfRE-6Q";
+    public string refreshTokenTest { get; private set; } = "gBzEqzdnNWR394ncl12fTRW7uwRIfC7CiDMoO8NhaI2yjJOYHxi92z3fYKLF5GrG8+5l3fbHP9lOTfeTuHGCEENw6ee490xDvx/i1bcvmyb7MSJu+/5bgzdyuwEmFM9zUFVUcIEu5mpduo5mL7G9b7+nlbTln9dPDoqb2m8LpRoOOXuBEyWcdX4DF8bE4O0lLcDOT5CfYN1EtZyBjb2K3jZyWUi08O5VeRYwjjn5RqQ=";
     public static InfoManager Instance { get { return _instance; } }
 
     // User Á¤º¸
@@ -32,6 +32,8 @@ public class InfoManager : MonoBehaviour
 
     public event Action<int> OnGoldChanged;
     public event Action<int> OnCashChanged;
+
+    public string connectionPoint = "";
 
     private class SaveData
     {
@@ -55,7 +57,7 @@ public class InfoManager : MonoBehaviour
 #elif UNITY_EDITOR
         path = Path.Combine(Application.dataPath, "database.json");
 #endif
-        JsonLoad();
+        //JsonLoad();
     }
 
     private void Update()
@@ -162,11 +164,12 @@ public class InfoManager : MonoBehaviour
 
     public void SetToken(string accessToken, string refeshToken)
     {
+        Debug.Log(accessToken + " " + refeshToken);
         this.accessToken = accessToken;
         this.refreshToken = refeshToken;
-        JsonSave();
+        //JsonSave();
+        SceneController.Instance.LoadSceneWithLoading(SceneName.Map);
         Debug.Log("accessToken: " + accessToken);
-        SceneController.Instance.ChangeScene("01_Scenes/Map");
     }
 
     public void SetUserNo(long userNo)
@@ -220,7 +223,10 @@ public class InfoManager : MonoBehaviour
         this.NickName = nickName;
         this.Gold = gold;
         this.Cash = cash;
+    }
 
-        
+    public void SetNickName(string nickName)
+    {
+        this.NickName = nickName;
     }
 }

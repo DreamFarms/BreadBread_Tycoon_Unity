@@ -138,6 +138,7 @@ public class InventoryUIManager : MonoBehaviour
         }
         else
         {
+            print("testIngredient");
             var sortedItems = ingredientUIData.OrderBy(kvp => kvp.Key).ToList();
             for (int i = 0; i < sortedItems.Count; i++)
             {

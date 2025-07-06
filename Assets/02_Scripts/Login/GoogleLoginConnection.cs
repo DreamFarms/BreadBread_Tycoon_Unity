@@ -49,8 +49,8 @@ public class ResponseInventory
 
 public class GoogleLoginConnection : MonoBehaviour
 {
-    [SerializeField] private string googlePoint = "";
     private string login = "/google-login/login";
+    private bool isFirst = false;
 
     public void StartGoogleLoginConnection()
     {
@@ -61,7 +61,7 @@ public class GoogleLoginConnection : MonoBehaviour
 
         string json = JsonUtility.ToJson(request);
 
-        string url = googlePoint + login;
+        string url = InfoManager.Instance.connectionPoint + login;
         HttpRequester requester = new HttpRequester(RequestType.POST, url, json);
         requester.onComplete = OnComplete<GoogleLoginResponse>;
         requester.onFailed = OnFailed;
@@ -97,10 +97,27 @@ public class GoogleLoginConnection : MonoBehaviour
                     GoogleResponseMessage message = response.message;
                     InfoManager.Instance.SetTopUI(message.nickName, message.gold, message.cash);
                     Debug.Log($"{message.nickName}님의 골드는 {message.gold} 그리고 캐시는 {message.cash} 입니다.");
+                    
+
+                    if (message.nickName == "빵빵빵의신규빵집")
+                    {
+                        isFirst = true;
+                        Debug.Log("닉네임 바꾸기" + message.nickName);
+                        Debug.Log("isFirst = " + isFirst);
+                        GoogleTest test = FindAnyObjectByType<GoogleTest>();
+                        test.nickNameLogin.SetActive(true);
+                        Debug.Log("구글 토큰 통신 끝");
+
+                        break;
+                    }
+                    else
+                    {
+                        SceneController.Instance.LoadSceneWithLoading(SceneName.Map);
+                        
+                        Debug.Log("구글 토큰 통신 끝2");
+                    }
                 }
-                Debug.Log("구글 토큰 통신 끝");
-                SceneController.Instance.LoadSceneWithLoading(SceneName.Map);
-                break;
+                 break;
         }
     }
 

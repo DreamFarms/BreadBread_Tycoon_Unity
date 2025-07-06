@@ -85,8 +85,12 @@ public class ItemSlotUI : MonoBehaviour
         price.text = "가격: " + item.price.ToString();
 
         plateButton.interactable = true;
+
+        if (isPlate == false)
+        {
+            plateBtnObj.SetActive(true);
+        }
         returnBtnObj.SetActive(true);
-        plateBtnObj.SetActive(true);
     }
 
     public void UpdateIngredientUI(ItemSlot itemSlot)
@@ -97,6 +101,8 @@ public class ItemSlotUI : MonoBehaviour
         id = item.id;
         name.text = item.name;
         count.text = "수량: " + item.count.ToString();
+        plateBtnObj.SetActive(false);
+        returnBtnObj.SetActive(false);
     }
 
     public void UpdateCount(int num)
