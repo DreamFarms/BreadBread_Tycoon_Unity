@@ -2454,7 +2454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTime: 0.9
-  targetPlayTime: 1
+  targetPlayTime: 10
   milkDrop: {fileID: 785386780}
   milkFill: {fileID: 0}
   milkGlassPrefab: {fileID: 1875422247362271371, guid: 5918e7fb80308434aa1fb6406f2eb2b3, type: 3}
