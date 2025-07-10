@@ -12,7 +12,8 @@ public enum BGM
     Store,
     Milk,
     Recipe,
-    Intro
+    Intro,
+    Tutorial
 }
 
 

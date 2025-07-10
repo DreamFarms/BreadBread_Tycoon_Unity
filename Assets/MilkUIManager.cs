@@ -26,6 +26,14 @@ public class MilkUIManager : MonoBehaviour
     [SerializeField] private GameObject rewardBG;
     [SerializeField] private GameObject rewardItemPrefab;
     [SerializeField] private Sprite rewordSprite;
+    [SerializeField] private Transform rewardItemTr;
+    [SerializeField] private Button reStartBtn;
+    [SerializeField] private Button exitBtn;
+
+    [SerializeField] private GameObject failRewardPrefab;
+    [SerializeField] private Button failReStartBtn;
+    [SerializeField] private Button failExitBtn;
+
 
 
 
@@ -40,9 +48,10 @@ public class MilkUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        tutorial.SetActive(true);
+        // tutorial.SetActive(true);
+        // startButton.GetComponent<Button>().onClick.AddListener(OnClickStartButton);
+        
         rewardBG.SetActive(false);
-        startButton.GetComponent<Button>().onClick.AddListener(OnClickStartButton);
 
         foreach(GameObject go in oxSprites)
         {
@@ -53,12 +62,18 @@ public class MilkUIManager : MonoBehaviour
         {
             go.SetActive(false);
         }
+
+        reStartBtn.onClick.AddListener(() => MilkGameManager.Instance.StartGame());
+        exitBtn.onClick.AddListener(() => SceneController.Instance.ChangeScene(SceneName.Map));
+
+        failReStartBtn.onClick.AddListener(() => MilkGameManager.Instance.StartGame());
+        failExitBtn.onClick.AddListener(() => SceneController.Instance.ChangeScene(SceneName.Map));
     }
 
     private void OnClickStartButton()
     {
         tutorial.SetActive(false);
-        MilkGameManager.Instance.ChangeGameState();
+        MilkGameManager.Instance.StartGame();
     }
 
     public void StartCountDown()
@@ -78,18 +93,22 @@ public class MilkUIManager : MonoBehaviour
 
     public void ActiveRewardUI(int itemCount)
     {
-        // 무한 호출을 방지하기 위해서 UI Manager가 reward 호출
-        if(!rewardBG.activeSelf)
+        if(itemCount <= 0)
         {
-            rewardBG.SetActive(true);
-            Transform contentTr = rewardBG.transform.GetChild(1);
-            GameObject rewardItemGo = Instantiate(rewardItemPrefab, contentTr);
-            ItemInfo itemInfo = rewardItemGo.GetComponent<ItemInfo>();
-            itemInfo.rewordItemImage.sprite = rewordSprite;
-            itemInfo.rewordItemName.text = itemCount + "개";
-
-            MilkGameManager.Instance.RequestConnection();
+            failRewardPrefab.SetActive(true);
         }
+
+        rewardBG.SetActive(true);
+
+        GameObject rewardItemGo = Instantiate(rewardItemPrefab, rewardItemTr);
+        rewardItemGo.SetActive(true);
+
+        RewardUI rewardUI = rewardItemGo.GetComponent<RewardUI>();
+        rewardUI.itemImage.sprite = rewordSprite;
+        rewardUI.countText.text = itemCount + "개";
+
+        // 통신 여기에 있는게 맞나?
+        // MilkGameManager.Instance.RequestConnection();
     }
 
     public void ActiveO()
@@ -111,6 +130,21 @@ public class MilkUIManager : MonoBehaviour
         go.SetActive(false);
     }
 
-    
+    public void SwitchTutorialUI()
+    {
+        tutorial.SetActive(!tutorial.activeSelf);
+    }
+
+    public void InitUI()
+    {
+        tutorial.SetActive(false);
+        rewardBG.SetActive(false);
+        failRewardPrefab.SetActive(false);
+
+        foreach (Transform tr in rewardItemTr)
+        {
+            Destroy(tr.gameObject);
+        }
+    }
 
 }

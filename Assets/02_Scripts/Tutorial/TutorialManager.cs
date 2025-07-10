@@ -23,7 +23,9 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.PlayBGM(BGM.Tutorial);
         InitTutorial();
+
     }
 
     public void InitTutorial()
