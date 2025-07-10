@@ -17,9 +17,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/01_Scenes/Login.unity
     guid: 4f26112a0e29ac547bedb2b1f29eb210
-  - enabled: 1
+  - enabled: 0
     path: Assets/01_Scenes/Main_Tmp.unity
     guid: bb3c4434ed31b54428b56d36b04b3d1f
+  - enabled: 1
+    path: Assets/01_Scenes/Main_BJH.unity
+    guid: 5d5495d24eecd5c41b1579d115fa2470
   - enabled: 1
     path: Assets/01_Scenes/Map.unity
     guid: 2a27bc4b1c828af44a2855038cae1164

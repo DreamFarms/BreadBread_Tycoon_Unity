@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
+            SetInfo();
         }
         else
         {
@@ -67,7 +68,12 @@ public class GameManager : MonoBehaviour
 
 
 
-
+    public void SetInfo()
+    {
+        this.nickName = InfoManager.Instance.NickName;
+        this.coin = InfoManager.Instance.Gold;
+        this.cash = InfoManager.Instance.Cash;
+    }
 
     public string Url
     {

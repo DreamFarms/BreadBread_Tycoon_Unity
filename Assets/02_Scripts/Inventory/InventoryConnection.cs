@@ -28,15 +28,18 @@ public class InventoryResponseMessage
 
 public class InventoryConnection : MonoBehaviour
 {
-    private string inventoryPoint = "inventory/load?nickname=";
+    private string inventoryPoint = "/api/v1/inventory/load?nickname=";
 
     public void StartInventoryConnection()
     {
         InventoryRequest request = new InventoryRequest();
 
-        request.nickname = InfoManager.Instance.NickName;
+        request.nickname = GameManager.Instance.nickName;
 
         string url = GameManager.Instance.Url + inventoryPoint + request.nickname;
+
+        Debug.Log(request.nickname);
+        Debug.Log(GameManager.Instance.Url);
 
         HttpRequester requester = new HttpRequester(RequestType.GET, url);
         requester.onComplete = OnComplete<InventoryResponse>;
@@ -59,6 +62,7 @@ public class InventoryConnection : MonoBehaviour
                 {
                     for (int i = 0; i < response.message.Count; i++)
                     {
+                        Debug.Log(response.message[i].name);
                         ItemManager.Instance.PlusItemCount(response.message[i].code, response.message[i].count);
                     }
                     Debug.Log("인벤토리 통신 끝");

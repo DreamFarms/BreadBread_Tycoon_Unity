@@ -31,7 +31,8 @@ public class InventoryManager : MonoBehaviour
     {
         ItemSlot slot =  new ItemSlot(id, item);
         Dictionary<int, ItemSlot> targetInventory = GetTargetInventory(id);
-
+        Debug.Log(slot.id);
+        Debug.Log(item.name);
         UpdateOrAddInventory(slot, targetInventory);
     }
 

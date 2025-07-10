@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Bread
 {
@@ -50,6 +51,8 @@ public abstract class Character : MonoBehaviour
     public List<Bread> preferBreads = new List<Bread>();
     public List<Ingredient> preferIngredients = new List<Ingredient>();
     [SerializeField] BreadSellConnection connection;
+    [SerializeField] GameObject breadUI;
+    [SerializeField] Image breadImage;
 
     // 선호하는 빵/재료인지 확인하는 메서드
     public void CheckPrefer(string breadName, int money)
@@ -77,12 +80,41 @@ public abstract class Character : MonoBehaviour
     {
         // todo : 확률
         pickedBreadStack.Push(bread);
+        ShowImage();
     }
 
     public void BuyBreadCounter()
     {
         connection.StartBreadSellConnection(pickedBreadStack);
+    }
 
+    public void ShowImage()
+    {
+        StopCoroutine(FadeOutImage());
+        Color c = breadImage.color;
+        breadImage.color = new Color(c.r, c.g, c.b, 1f);
+        breadUI.gameObject.SetActive(true);
+        StartCoroutine(FadeOutImage());
+    }
+
+    private IEnumerator FadeOutImage()
+    {
+        yield return new WaitForSeconds(2f); // 1초 대기
+
+        float duration = 1f;
+        float time = 0f;
+        Color startColor = breadImage.color;
+
+        while (time < duration)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, time / duration);
+            breadImage.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        breadImage.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        breadImage.gameObject.SetActive(false);
     }
 
     // 캐릭터 특성 설정하는 메서드

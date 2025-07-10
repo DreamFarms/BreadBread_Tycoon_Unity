@@ -76,6 +76,11 @@ public class ItemSlotUI : MonoBehaviour
 
     public void UpdateBreadUI(ItemSlot itemSlot)
     {
+        if (itemSlot == null)
+        {
+            return;
+        }
+
         Item item = itemSlot.GetItemSlot(itemSlot);
 
         itemSprite.sprite = LoadSprite(item.iconPath);
@@ -95,12 +100,23 @@ public class ItemSlotUI : MonoBehaviour
 
     public void UpdateIngredientUI(ItemSlot itemSlot)
     {
+        if (itemSlot == null)
+        {
+            return;
+        }
+
         Item item = itemSlot.GetItemSlot(itemSlot);
 
         itemSprite.sprite = LoadSprite(item.iconPath);
         id = item.id;
         name.text = item.name;
         count.text = "¼ö·®: " + item.count.ToString();
+        plateBtnObj.SetActive(false);
+        returnBtnObj.SetActive(false);
+    }
+
+    public void UpdateFalse()
+    {
         plateBtnObj.SetActive(false);
         returnBtnObj.SetActive(false);
     }

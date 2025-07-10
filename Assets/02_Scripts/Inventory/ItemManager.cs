@@ -30,6 +30,7 @@ public class ItemManager : MonoBehaviour
         if (itemDictionary.TryGetValue(id, out Item item))
         {
             item.IncreaseCount(num);
+            print(item.name);
             InventoryManager.Instance.UpdateInventory(id, item);
         }
         else

@@ -16,17 +16,17 @@ public class GoogleTest : MonoBehaviour
         //    connection.StartGoogleLoginConnection();
         //}
 #if UNITY_ANDROID
-        //LoginInGPGS();
+        LoginInGPGS();
 #endif
 
 #if UNITY_EDITOR
-        //LoginInUnity();
+        LoginInUnity();
     #endif
     }
 
     private void Start()
     {
-        LoginInUnity();
+        //LoginInUnity();
     }
 
 #if UNITY_ANDROID
