@@ -62,7 +62,8 @@ public class RecipeGameManager : MonoBehaviour
 
     private void Start()
     {
-        InitSetting();
+        // 통신 연결할 때 활성화 하기.. 
+        // InitSetting();
     }
 
     private void InitSetting()

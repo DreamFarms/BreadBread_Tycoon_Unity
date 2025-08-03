@@ -46,34 +46,48 @@ public class ExcelReader2 : MonoBehaviour
     private void ReadIndexInfoCSV()
     {
         // 파일 경로
-        string path = "Files/EnKoMapping.csv";
+        string path = "CSV_Files/EnKoMapping";
 
-        // stream reader
-        StreamReader reader = new StreamReader(Application.streamingAssetsPath + "/" + path);
+        TextAsset csvFile = Resources.Load<TextAsset>(path);
 
-        bool isFinish = false;
-
-        while (isFinish == false)
+        if (csvFile == null)
         {
-            string data = reader.ReadLine(); // 한 줄 읽기
-            if (data == null)
-            {
-                isFinish = true;
-                break;
-            }
-            var splitData = data.Split(','); // 콤마로 데이터 분할
+            Debug.LogWarning("레시피 게임에서 EnKoMapping.csv를 찾을 수 없습니다.");
+            return;
+        }
 
-            char firstChar = splitData[0][0];
-            if (firstChar >= 'A' && firstChar <= 'Z' || firstChar >= 'a' && firstChar <= 'z')
-            {
-                IndexEnum index = new IndexEnum();
-                index.enName = splitData[0].Trim();
-                index.koName = splitData[1].Trim();
+        string[] lines = csvFile.text.Split('\n');
 
-                GameManager.Instance.indexInfoDic[index.enName] = index.koName;
-            }
+        foreach(string line in lines)
+        {
+            string[] values = line.Split(' '); // Powder,가루류
+
 
         }
+
+        
+
+        //while (isFinish == false)
+        //{
+        //    string data = reader.ReadLine(); // 한 줄 읽기
+        //    if (data == null)
+        //    {
+        //        isFinish = true;
+        //        break;
+        //    }
+        //    var splitData = data.Split(','); // 콤마로 데이터 분할
+
+        //    char firstChar = splitData[0][0];
+        //    if (firstChar >= 'A' && firstChar <= 'Z' || firstChar >= 'a' && firstChar <= 'z')
+        //    {
+        //        IndexEnum index = new IndexEnum();
+        //        index.enName = splitData[0].Trim();
+        //        index.koName = splitData[1].Trim();
+
+        //        GameManager.Instance.indexInfoDic[index.enName] = index.koName;
+        //    }
+
+        //}
     }
 
     // 해당 메서드는 excelreader에서 가져온 코드
@@ -102,11 +116,11 @@ public class ExcelReader2 : MonoBehaviour
             var splitData = data.Split(','); // 콤마로 데이터 분할
 
             Bread menu = new Bread();
-            menu.enName = splitData[0];
-            menu.koName = splitData[1];
-            menu.price = splitData[2];
-            menu.description = splitData[3];
-            menu.type = splitData[4];
+            menu.enName = splitData[0]; // sandwich
+            menu.koName = splitData[1]; // 샌드위치
+            menu.price = splitData[2]; // 500
+            menu.description = splitData[3]; // 이태리 장인이 한땀한땀 만든 샌드위치입니다.
+            menu.type = splitData[4]; // bread
 
             GameManager.Instance.breadInfoDic.Add(menu.enName, menu);
             //dicMenu.Add(menu.enName, menu);
