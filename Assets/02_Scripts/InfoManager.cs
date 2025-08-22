@@ -26,7 +26,7 @@ public class InfoManager : MonoBehaviour
     private string path;
 
     // top ui
-    public string NickName { get; private set; }
+    public string NickName { get; private set; } = "웨지감자";
     public int Gold { get; private set; }  
     public int Cash { get; private set; }
 
@@ -168,7 +168,7 @@ public class InfoManager : MonoBehaviour
         this.accessToken = accessToken;
         this.refreshToken = refeshToken;
         //JsonSave();
-        SceneController.Instance.LoadSceneWithLoading(SceneName.Map);
+        //SceneController.Instance.LoadSceneWithLoading(SceneName.Map);
         Debug.Log("accessToken: " + accessToken);
     }
 

@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeoutSlider: {fileID: 1976647643403913349}
-  timeLimit: 3
+  timeLimit: 30
   timeoutText: {fileID: 1582959053695744406}
   gameoverPanel: {fileID: 5451636854256011853}
   cardSprites:

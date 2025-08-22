@@ -123,6 +123,8 @@ public class RecipeConnection : MonoBehaviour, IConnection
                     {
                         string name = ingredient.ingredientName;
                         int count = ingredient.count;
+                        Debug.Log(name);
+                        Debug.Log(count);
                         RecipeGameManager.Instance.IngredientCountDic.Add(name, count);
                     }
                     

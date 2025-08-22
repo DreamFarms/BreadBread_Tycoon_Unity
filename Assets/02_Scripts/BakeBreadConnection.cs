@@ -78,10 +78,10 @@ public class BakeBreadConnection : MonoBehaviour
 {
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.B))
-        //{
-        //    StartBakeBreadConnection();
-        //}
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            StartBakeBreadConnection();
+        }
 
     }
 
@@ -96,7 +96,7 @@ public class BakeBreadConnection : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(request, true);
 
-        string url = "https://b0cd-115-136-106-231.ngrok-free.app/api/v1/food/check";
+        string url = GameManager.Instance.Url + "/api/v1/food/check";
         HttpRequester requester = new HttpRequester(RequestType.POST, url, jsonData);
         requester.onComplete = OnComplete;
         requester.onFailed = OnFailed;

@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            SetInfo();
         }
         else
         {
@@ -52,6 +51,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         timer = 300;
+        SetInfo();
     }
 
     private void Update()

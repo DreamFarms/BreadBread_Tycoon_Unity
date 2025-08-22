@@ -65,7 +65,7 @@ public class BakeBreadManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlayBGM(BGM.BakeBread);
+        //AudioManager.Instance.PlayBGM(BGM.BakeBread);
 
         fan02.SetActive(false);
         rewordGO.SetActive(false);

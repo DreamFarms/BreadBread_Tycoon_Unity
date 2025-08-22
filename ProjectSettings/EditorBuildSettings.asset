@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01_Scenes/Game_Recipe.unity
     guid: 3a071d2ab735701419f87ffb6f8a53dc
+  - enabled: 1
+    path: Assets/01_Scenes/Game_Cut.unity
+    guid: ad5e2fb1ebe56af49be5674c0b27acbd
   m_configObjects: {}

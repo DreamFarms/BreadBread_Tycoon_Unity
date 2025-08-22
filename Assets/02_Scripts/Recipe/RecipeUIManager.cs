@@ -118,16 +118,15 @@ public class RecipeUIManager : MonoBehaviour
 
             string koName = GameManager.Instance.indexInfoDic[name];
             indexButton.transform.GetChild(0).GetComponent<TMP_Text>().text = koName;
-
             GameObject content = Instantiate(contentPrefab, viewPartTr);
             content.name = name + "Content";
 
             Sprite[] sprites = Resources.LoadAll<Sprite>("Ingredients/" + name);
-
             foreach(Sprite sprite in sprites)
             {
                 GameObject go = Instantiate(ingredientPrefab, content.transform);
                 go.name = sprite.name;
+                Debug.Log(go.name);
                 go.GetComponent<ItemInfo>().rewordItemImage.sprite = sprite;
 
                 string ingredientKoName = RecipeGameManager.Instance.IngredientInfoDic[sprite.name];
