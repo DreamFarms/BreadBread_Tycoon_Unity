@@ -7,7 +7,8 @@ public enum StoreThemeType
     Default,
     Honey,
     Rainbow,
-    Cookie
+    Cookie,
+    Made
 }
 
 [CreateAssetMenu(menuName = "Store/StoreThemeProfile")]
