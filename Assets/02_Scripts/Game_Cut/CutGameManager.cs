@@ -11,6 +11,7 @@ public class CutGameManager : MonoBehaviour
 {
     public static CutGameManager instance;
 
+    private bool gameEnded = false;
     private bool isTouchEnabled;
 
     [Header("Timer")]
@@ -73,6 +74,16 @@ public class CutGameManager : MonoBehaviour
             chracter.sprite = face[0];
             isSmiling = false;
         }
+    }
+
+    private void OnEnable()
+    {
+        if (timer) timer.OnTimerFinished += HandleTimerFinished;
+    }
+
+    private void OnDisable()
+    {
+        if (timer) timer.OnTimerFinished -= HandleTimerFinished;
     }
 
     private void Start()
@@ -383,6 +394,15 @@ public class CutGameManager : MonoBehaviour
     public void RequestConnection()
     {
         cutConnection.RewardSaveRequest(cutRewardDic);
+    }
+
+    private void HandleTimerFinished()
+    {
+        if (gameEnded) return;
+        gameEnded = true;
+
+        isTouchEnabled = false;   // 이후 입력 무시
+        ShowRewardUI();           // 기존 보상 UI 로직 재사용
     }
 
     public void ShowRewardUI()

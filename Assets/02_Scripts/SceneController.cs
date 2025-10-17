@@ -14,7 +14,8 @@ public enum SceneName
     Game_BerryPicker,
     Game_BakeBread,
     Game_Milk,
-    Game_Cut
+    Game_Cut,
+    Collection_Book
 }
 
 public class SceneController : MonoBehaviour

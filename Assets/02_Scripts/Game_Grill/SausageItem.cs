@@ -10,7 +10,9 @@ public class SausageItem : MonoBehaviour
     [Header("Visual")]
     [SerializeField] private Image img;
     [Tooltip("Doneness 순서대로 5장: Raw, Seared, Medium, Done, Burnt")]
-    [SerializeField] private Sprite[] sprites = new Sprite[5];
+
+    [SerializeField] private Sprite[] frontSprites = new Sprite[5]; // A면(앞)
+    [SerializeField] private Sprite[] backSprites = new Sprite[5];  // B면(뒤)
 
     [Header("Timing")]
     [SerializeField] private float stepSec = 5f;   // 5초마다 다음 단계
@@ -21,12 +23,13 @@ public class SausageItem : MonoBehaviour
     private float sideATimer = 0f;
     private float sideBTimer = 0f;
 
-    // 현재 굽는 면(true=A, false=B)
-    private bool sideAActive = true;
+    // 현재 윗면이 A인지? (true=A 위, false=B 위)
+    private bool faceUpIsA = true;
 
     public bool IsOnGrill { get; private set; } = false;
     public GrillSlot CurrentSlot { get; private set; }
     public BowlSpawner OwnerSpawner { get; set; }
+
     RectTransform rectTransform;
 
     private void Reset()
@@ -45,23 +48,25 @@ public class SausageItem : MonoBehaviour
     {
         if (!IsOnGrill) return;
 
-        if (sideAActive)
+        if (faceUpIsA)
         {
-            sideATimer += Time.deltaTime;
-            if (sideATimer >= stepSec && sideA != Doneness.Burnt)
-            {
-                sideATimer = 0f;
-                sideA = (Doneness)Mathf.Min((int)sideA + 1, (int)Doneness.Burnt);
-                UpdateVisual();
-            }
-        }
-        else
-        {
+            // A가 위면 B가 아래 → B만 익힘
             sideBTimer += Time.deltaTime;
             if (sideBTimer >= stepSec && sideB != Doneness.Burnt)
             {
                 sideBTimer = 0f;
                 sideB = (Doneness)Mathf.Min((int)sideB + 1, (int)Doneness.Burnt);
+                UpdateVisual();
+            }
+        }
+        else
+        {
+            // B가 위면 A가 아래 → A만 익힘
+            sideATimer += Time.deltaTime;
+            if (sideATimer >= stepSec && sideA != Doneness.Burnt)
+            {
+                sideATimer = 0f;
+                sideA = (Doneness)Mathf.Min((int)sideA + 1, (int)Doneness.Burnt);
                 UpdateVisual();
             }
         }
@@ -76,14 +81,28 @@ public class SausageItem : MonoBehaviour
     {
         get
         {
-            if (sprites == null || sprites.Length < 5) return null;
-            var maxSide = (Doneness)Mathf.Max((int)sideA, (int)sideB);
-            return sprites[(int)maxSide];
+            if (frontSprites == null || backSprites == null) return null;
+            if (frontSprites.Length < 5 || backSprites.Length < 5) return null;
+
+            if (faceUpIsA)
+            {
+                return frontSprites[(int)sideA];
+            }
+            else
+            {
+                return backSprites[(int)sideB];
+            }
         }
     }
 
     public void AttachToGrill(GrillSlot slot)
     {
+        if (OwnerSpawner != null)
+        {
+            OwnerSpawner.NotifyTaken(this);
+            OwnerSpawner = null; // 이후에는 그릇과 무관
+        }
+
         IsOnGrill = true;
         CurrentSlot = slot;
         sideATimer = 0f;
@@ -110,8 +129,15 @@ public class SausageItem : MonoBehaviour
 
     public void Flip()
     {
-        sideAActive = !sideAActive;
-        if (sideAActive) sideATimer = 0f; else sideBTimer = 0f;
+        // 윗면/아랫면 뒤집기
+        faceUpIsA = !faceUpIsA;
+
+        // 새로 "아래로 간 면"이 굽히기 시작하므로 그 면의 타이머만 0으로
+        if (faceUpIsA)
+            sideBTimer = 0f; // B가 아래가 됨
+        else
+            sideATimer = 0f; // A가 아래가 됨
+
         UpdateVisual();
     }
 
@@ -131,14 +157,17 @@ public class SausageItem : MonoBehaviour
 
     private void UpdateVisual()
     {
-        if (sprites == null || sprites.Length < 5 || img == null) return;
+        if (img == null) return;
 
-        Doneness activeSide = sideAActive ? sideA : sideB;
-        img.sprite = sprites[(int)activeSide];
+        Doneness upSide = faceUpIsA ? sideA : sideB;
+        Sprite[] arr = faceUpIsA ? frontSprites : backSprites;
 
-        // 뒤집기 연출(좌우 반전)
+        if (arr != null && arr.Length >= 5)
+            img.sprite = arr[(int)upSide];
+
+        // 좌우 반전 연출은 선택
         var s = transform.localScale;
-        s.x = sideAActive ? Mathf.Abs(s.x) : -Mathf.Abs(s.x);
+        s.x = faceUpIsA ? Mathf.Abs(s.x) : -Mathf.Abs(s.x);
         transform.localScale = s;
     }
 }

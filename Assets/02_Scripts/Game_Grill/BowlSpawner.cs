@@ -12,17 +12,33 @@ public class BowlSpawner : MonoBehaviour
     [SerializeField] private GameObject sausagePrefab;
 
     private readonly List<SausageItem> current = new();
+    private int takenSinceLastRefill = 0;
 
     private void Start()
     {
         SpawnAll();
     }
 
+    public void NotifyTaken(SausageItem item)
+    {
+        // 현재 리스트에서 제거
+        current.RemoveAll(x => x == null);
+        current.Remove(item);
+
+        takenSinceLastRefill++;
+
+        // 3개 모두 가져가면 한 번에 리필
+        if (takenSinceLastRefill >= spawnPoints.Length)
+        {
+            takenSinceLastRefill = 0;
+            SpawnAll();
+        }
+    }
+
     public void NotifyConsumed(SausageItem item)
     {
+        current.RemoveAll(x => x == null);
         current.Remove(item);
-        // 전부 소비되면 다시 3개 채우기
-        if (current.Count == 0) SpawnAll();
     }
 
     private void SpawnAll()

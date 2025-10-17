@@ -1,6 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +9,8 @@ public class TimerUI : MonoBehaviour
     public float duration;
     
     private Coroutine timerCoroutine;
+
+    public event Action OnTimerFinished;
 
     public void StartTimer(float customDuration)
     {
@@ -42,7 +43,8 @@ public class TimerUI : MonoBehaviour
             timeSlider.value = duration - elapsed;
             yield return null;
         }
-        CutGameManager.instance.ShowRewardUI();
+
+        OnTimerFinished?.Invoke();
         timeSlider.value = 0;
     }
 }
